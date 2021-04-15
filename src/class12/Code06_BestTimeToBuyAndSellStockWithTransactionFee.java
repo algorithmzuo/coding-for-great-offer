@@ -9,14 +9,14 @@ public class Code06_BestTimeToBuyAndSellStockWithTransactionFee {
 		}
 		int N = arr.length;
 		int ans = 0;
-		int buy = -arr[0] - fee;
-		int sell = 0;
+		int bestbuy = -arr[0] - fee;
+		int bestsell = 0;
 		for (int i = 1; i < N; i++) {
-			int curbuy = sell - arr[i] - fee;
-			int cursell = buy + arr[i];
+			int curbuy = bestsell - arr[i] - fee;
+			int cursell = bestbuy + arr[i];
 			ans = Math.max(ans, cursell);
-			buy = Math.max(buy, curbuy);
-			sell = Math.max(sell, cursell);
+			bestbuy = Math.max(bestbuy, curbuy);
+			bestsell = Math.max(bestsell, cursell);
 		}
 		return ans;
 	}
