@@ -1,4 +1,4 @@
-package class01;
+package class02;
 
 public class Code06_MinLengthForSort {
 

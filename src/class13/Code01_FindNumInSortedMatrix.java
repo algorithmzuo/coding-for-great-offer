@@ -1,6 +1,6 @@
-package class01;
+package class13;
 
-public class Code03_FindNumInSortedMatrix {
+public class Code01_FindNumInSortedMatrix {
 
 	public static boolean isContains(int[][] matrix, int K) {
 		int row = 0;

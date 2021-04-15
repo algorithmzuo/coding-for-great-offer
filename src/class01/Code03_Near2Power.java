@@ -1,6 +1,6 @@
 package class01;
 
-public class Code07_Near2Power {
+public class Code03_Near2Power {
 
 	// 已知n是正数
 	// 返回大于且最接近n的，2的某次方的值
