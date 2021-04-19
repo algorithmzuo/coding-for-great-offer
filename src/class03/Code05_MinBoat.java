@@ -1,20 +1,25 @@
 package class03;
 
+import java.util.Arrays;
+
+// 给定一个正数数组arr，代表若干人的体重
+// 再给定一个正数limit，表示所有船共同拥有的载重量
+// 每艘船最多坐两人，且不能超过载重
+// 想让所有的人同时过河，并且用最好的分配方法让船尽量少
+// 返回最少的船数
 public class Code05_MinBoat {
 
-	// 请保证arr有序
 	public static int minBoat(int[] arr, int limit) {
 		if (arr == null || arr.length == 0) {
 			return 0;
 		}
 		int N = arr.length;
-		// Arrays.sort(arr);
-		if(arr[N - 1] > limit) {
+		Arrays.sort(arr);
+		if (arr[N - 1] > limit) {
 			return -1;
 		}
 		int lessR = -1;
-		// 所有的人体重都不超过limit，继续讨论,  <= limit / 2  最右的位置
-		for (int i = N  - 1; i >= 0; i--) {
+		for (int i = N - 1; i >= 0; i--) {
 			if (arr[i] <= (limit / 2)) {
 				lessR = i;
 				break;
@@ -23,34 +28,28 @@ public class Code05_MinBoat {
 		if (lessR == -1) {
 			return N;
 		}
-		//  <= limit / 2
 		int L = lessR;
 		int R = lessR + 1;
-		int noUsed = 0; // 画X的数量统计，画对号的量(加工出来的)
+		int noUsed = 0;
 		while (L >= 0) {
-			int solved = 0; // 此时的[L]，让R画过了几个数
+			int solved = 0;
 			while (R < N && arr[L] + arr[R] <= limit) {
 				R++;
 				solved++;
 			}
-			// R来到又不达标的位置
 			if (solved == 0) {
 				noUsed++;
 				L--;
-			} else { // 此时的[L]，让R画过了solved（>0）个数
+			} else {
 				L = Math.max(-1, L - solved);
 			}
 		}
-		int all = lessR + 1;// 左半区总个数  <= limit /2 的区域
-		int used = all - noUsed; // 画对号的量
-		int moreUnsolved = (N - all) - used; // > limit/2 区中，没搞定的数量
+		int all = lessR + 1;
+		int used = all - noUsed;
+		int moreUnsolved = (N - all) - used;
 		return used + ((noUsed + 1) >> 1) + moreUnsolved;
 	}
 
-	public static void main(String[] args) {
-		int[] arr = { 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 5 };
-		int weight = 6;
-		System.out.println(minBoat(arr, weight));
-	}
+	// 练习 : 自己补出对数器，这包括一个暴力方法，和生成随机数据发生器的，以及main函数做验证
 
 }
