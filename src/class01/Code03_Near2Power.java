@@ -3,7 +3,7 @@ package class01;
 public class Code03_Near2Power {
 
 	// 已知n是正数
-	// 返回大于且最接近n的，2的某次方的值
+	// 返回大于等于，且最接近n的，2的某次方的值
 	public static final int tableSizeFor(int n) {
 		n--;
 		n |= n >>> 1;
