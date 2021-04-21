@@ -2,7 +2,9 @@ package class01;
 
 public class Code04_MinSwapStep {
 
-	// 一个数组中只有两种字符'G'和'B'，想让所有的G都放在左侧，所有的B都放在右侧
+	// 一个数组中只有两种字符'G'和'B'，
+	// 可以让所有的G都放在左侧，所有的B都放在右侧
+    // 或者可以让所有的G都放在右侧，所有的B都放在左侧
 	// 但是只能在相邻字符之间进行交换操作，请问请问至少需要交换几次，
 	public static int minSteps1(String s) {
 		if (s == null || s.equals("")) {
@@ -26,6 +28,7 @@ public class Code04_MinSwapStep {
 		return Math.min(step1, step2);
 	}
 
+	// 可以让G在左，或者在右
 	public static int minSteps2(String s) {
 		if (s == null || s.equals("")) {
 			return 0;
@@ -36,9 +39,9 @@ public class Code04_MinSwapStep {
 		int gi = 0;
 		int bi = 0;
 		for (int i = 0; i < str.length; i++) {
-			if (str[i] == 'G') {
+			if (str[i] == 'G') { // 当前的G，去左边   方案1
 				step1 += i - (gi++);
-			} else {
+			} else {// 当前的B，去左边   方案2
 				step2 += i - (bi++);
 			}
 		}

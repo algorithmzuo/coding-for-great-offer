@@ -9,10 +9,15 @@ public class Code07_TargetSum {
 		return process1(arr, 0, s);
 	}
 
+	// 可以自由使用arr[index....]所有的数字！
+	// 搞出rest这个数，方法数是多少？返回
+	// index == 7 rest = 13
+	// map "7_13" 256
 	public static int process1(int[] arr, int index, int rest) {
-		if (index == arr.length) {
+		if (index == arr.length) { // 没数了！
 			return rest == 0 ? 1 : 0;
 		}
+		// 还有数！arr[index] arr[index+1 ... ]
 		return process1(arr, index + 1, rest - arr[index]) + process1(arr, index + 1, rest + arr[index]);
 	}
 
@@ -24,6 +29,7 @@ public class Code07_TargetSum {
 		if (dp.containsKey(index) && dp.get(index).containsKey(rest)) {
 			return dp.get(index).get(rest);
 		}
+		// 否则，没命中！
 		int ans = 0;
 		if (index == arr.length) {
 			ans = rest == 0 ? 1 : 0;
@@ -68,12 +74,12 @@ public class Code07_TargetSum {
 	// 其实就是求有多少个子集的累加和是9 -> (7 + 11) / 2
 	// 优化点五 :
 	// 二维动态规划的空间压缩技巧
-	public static int findTargetSumWays3(int[] arr, int s) {
+	public static int findTargetSumWays3(int[] arr, int target) {
 		int sum = 0;
 		for (int n : arr) {
 			sum += n;
 		}
-		return sum < s || ((s & 1) ^ (sum & 1)) != 0 ? 0 : subset(arr, (s + sum) >> 1);
+		return sum < target || ((target & 1) ^ (sum & 1)) != 0 ? 0 : subset(arr, (target + sum) >> 1);
 	}
 
 	public static int subset(int[] nums, int s) {
