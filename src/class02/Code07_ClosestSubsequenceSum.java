@@ -25,13 +25,13 @@ public class Code07_ClosestSubsequenceSum {
 		long g = goal;
 		long ans = Math.abs(g);
 		Arrays.sort(l, 0, le);
-		Arrays.sort(r, 0, re);
-		for (int i = 0, j = re - 1; i < le; i++) {
-			long p = g - l[i];
-			while (j > 1 && minABS(p - r[j - 2], p - r[j - 1]) <= minABS(p - r[j - 1], p - r[j])) {
-				j--;
+		Arrays.sort(r, 0, re--);
+		for (int i = 0; i < le; i++) {
+			long rest = g - l[i];
+			while (re > 0 && Math.abs(rest - r[re - 1]) <= Math.abs(rest - r[re])) {
+				re--;
 			}
-			ans = Math.min(ans, minABS(p - r[j - 1], p - r[j]));
+			ans = Math.min(ans, Math.abs(rest - r[re]));
 		}
 		return (int) ans;
 	}
@@ -44,10 +44,6 @@ public class Code07_ClosestSubsequenceSum {
 			fill = process(nums, index + 1, end, sum + nums[index], fill, arr);
 		}
 		return fill;
-	}
-
-	public static long minABS(long a, long b) {
-		return Math.min(Math.abs(a), Math.abs(b));
 	}
 
 }
