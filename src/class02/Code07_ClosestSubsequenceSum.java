@@ -11,32 +11,29 @@ import java.util.Arrays;
 // 而值很大，用动态规划的话，表会爆
 public class Code07_ClosestSubsequenceSum {
 
-	public static long[] l = new long[1 << 20];
-	public static long[] r = new long[1 << 20];
+	public static int[] l = new int[1 << 20];
+	public static int[] r = new int[1 << 20];
 
 	public static int minAbsDifference(int[] nums, int goal) {
 		if (nums == null || nums.length == 0) {
 			return goal;
 		}
-		int N = nums.length;
-		int M = N >> 1;
-		int le = process(nums, 0, M, 0, 0, l);
-		int re = process(nums, M, N, 0, 0, r);
-		long g = goal;
-		long ans = Math.abs(g);
+		int le = process(nums, 0, nums.length >> 1, 0, 0, l);
+		int re = process(nums, nums.length >> 1, nums.length, 0, 0, r);
 		Arrays.sort(l, 0, le);
 		Arrays.sort(r, 0, re--);
+		int ans = Math.abs(goal);
 		for (int i = 0; i < le; i++) {
-			long rest = g - l[i];
+			int rest = goal - l[i];
 			while (re > 0 && Math.abs(rest - r[re - 1]) <= Math.abs(rest - r[re])) {
 				re--;
 			}
 			ans = Math.min(ans, Math.abs(rest - r[re]));
 		}
-		return (int) ans;
+		return ans;
 	}
 
-	public static int process(int[] nums, int index, int end, long sum, int fill, long[] arr) {
+	public static int process(int[] nums, int index, int end, int sum, int fill, int[] arr) {
 		if (index == end) {
 			arr[fill++] = sum;
 		} else {
