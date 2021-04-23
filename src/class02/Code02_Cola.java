@@ -55,10 +55,15 @@ public class Code02_Cola {
 	}
 
 	// 正式的方法
+	// 要买的可乐数量，m
+	// 100元有a张
+	// 50元有b张
+	// 10元有c张
+	// 可乐单价x
 	public static int putTimes(int m, int a, int b, int c, int x) {
-		// 0 1 2
+		//              0    1   2
 		int[] qian = { 100, 50, 10 };
-		int[] zhang = { c, b, a };
+		int[] zhang = { c,  b,  a };
 		// 总共需要多少次投币
 		int puts = 0;
 		// 之前面值的钱还剩下多少总钱数

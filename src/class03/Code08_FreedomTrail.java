@@ -1,10 +1,10 @@
-package class02;
+package class03;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 // 本题测试链接 : https://leetcode.com/problems/freedom-trail/
-public class Code05_FreedomTrail {
+public class Code08_FreedomTrail {
 
 	public static int findRotateSteps(String r, String k) {
 		char[] ring = r.toCharArray();

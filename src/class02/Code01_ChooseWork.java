@@ -25,8 +25,10 @@ public class Code01_ChooseWork {
 
 	public static int[] getMoneys(Job[] job, int[] ability) {
 		Arrays.sort(job, new JobComparator());
+		// key : 难度   value：报酬
 		TreeMap<Integer, Integer> map = new TreeMap<>();
 		map.put(job[0].hard, job[0].money);
+		// pre : 上一份进入map的工作
 		Job pre = job[0];
 		for (int i = 1; i < job.length; i++) {
 			if (job[i].hard != pre.hard && job[i].money > pre.money) {
@@ -36,6 +38,7 @@ public class Code01_ChooseWork {
 		}
 		int[] ans = new int[ability.length];
 		for (int i = 0; i < ability.length; i++) {
+			// ability[i] 当前人的能力 <= ability[i]  且离它最近的
 			Integer key = map.floorKey(ability[i]);
 			ans[i] = key != null ? map.get(key) : 0;
 		}

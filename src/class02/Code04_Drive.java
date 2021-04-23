@@ -1,100 +1,84 @@
 package class02;
 
+import java.util.Arrays;
+
 public class Code04_Drive {
 
-	/*
-	 * 司机调度 时间限制： 3000MS 内存限制： 589824KB 题目描述：
-	 * 正值下班高峰时期，现有可载客司机数2N人，调度中心将调度相关司机服务A、B两个出行高峰区域。 第 i 个司机前往服务A区域可得收入为
-	 * income[i][0]，前往服务B区域可得收入为 income[i][1]。
-	 * 返回将每位司机调度完成服务后，所有司机总可得的最高收入金额，要求每个区域都有 N 位司机服务。 输入描述 10 20 20 40 # 如上：
-	 * 第一个司机服务 A 区域，收入为 10元 第一个司机服务 B 区域，收入为 20元 第二个司机服务 A 区域，收入为 20元 第二个司机服务 B
-	 * 区域，收入为 40元 输入参数以 '#' 结束输入 输出描述 最高总收入为 10 + 40= 50，每个区域都有一半司机服务
-	 * 参数及相关数据异常请输出：error 样例输入 : 10 30 100 200 150 50 60 20 # 样例输出 440
-	 */
-
-	// 给定一个N*2的正数矩阵matix，N一定是偶数，可以保证。
-	// 一定要让A区域分到N/2个司机，让B区域也分到N/2个司机
-	// 返回最大的总收益
-	// 这是暴力解
-	public static int maxMoney1(int[][] matrix) {
-		int N = matrix.length;
-		int[] arr = new int[N];
-		for (int i = 0; i < N; i++) {
-			arr[i] = i;
+	// 课上的现场版本
+	// income -> N * 2 的矩阵 N是偶数！
+	// 0 [9, 13]
+	// 1 [45,60]
+	public static int maxMoney1(int[][] income) {
+		if (income == null || income.length < 2 || (income.length & 1) != 0) {
+			return 0;
 		}
-		return process1(arr, 0, matrix);
+		int N = income.length; // 司机数量一定是偶数，所以才能平分，A N /2 B N/2
+		int M = N >> 1; // M = N / 2 要去A区域的人
+		return process1(income, 0, M);
 	}
 
-	public static int process1(int[] arr, int index, int[][] matrix) {
-		int money = 0;
-		if (index == arr.length) {
-			for (int i = 0; i < arr.length; i++) {
-				money += i < (arr.length / 2) ? matrix[arr[i]][0] : matrix[arr[i]][1];
-			}
-		} else {
-			for (int i = index; i < arr.length; i++) {
-				swap(arr, index, i);
-				money = Math.max(money, process1(arr, index + 1, matrix));
-				swap(arr, index, i);
-			}
+	// index.....所有的司机，往A和B区域分配！
+	// A区域还有rest个名额!
+	// 返回把index...司机，分配完，并且最终A和B区域同样多的情况下，index...这些司机，整体收入最大是多少！
+	public static int process1(int[][] income, int index, int rest) {
+		if (index == income.length) {
+			return 0;
 		}
-		return money;
+		// 还剩下司机！
+		if (income.length - index == rest) {
+			return income[index][0] + process1(income, index + 1, rest - 1);
+		}
+		if (rest == 0) {
+			return income[index][1] + process1(income, index + 1, rest);
+		}
+		// 当前司机，可以去A，或者去B
+		int p1 = income[index][0] + process1(income, index + 1, rest - 1);
+		int p2 = income[index][1] + process1(income, index + 1, rest);
+		return Math.max(p1, p2);
 	}
 
-	public static void swap(int[] arr, int i, int j) {
-		int tmp = arr[i];
-		arr[i] = arr[j];
-		arr[j] = tmp;
-	}
-
-	// 这是优良尝试解
-	public static int maxMoney2(int[][] matrix) {
-		return process2(matrix, 0, matrix.length / 2);
-	}
-
-	// 从i开始到最后所有的司机，在A区域还有aRest个名额的情况下，返回最优分配的收益
-	public static int process2(int[][] matrix, int i, int aRest) {
-		if (aRest < 0) {
-			return -1;
-		}
-		if (i == matrix.length) {
-			return aRest == 0 ? 0 : -1;
-		}
-		int goToA = -1;
-		int nextA = process2(matrix, i + 1, aRest - 1);
-		if (nextA != -1) {
-			goToA = matrix[i][0] + nextA;
-		}
-		int goToB = -1;
-		int nextB = process2(matrix, i + 1, aRest);
-		if (nextB != -1) {
-			goToB = matrix[i][1] + nextB;
-		}
-		return Math.max(goToA, goToB);
-	}
-
-	// 这是动态规划解
-	public static int maxMoney3(int[][] matrix) {
-		int N = matrix.length;
+	// 严格位置依赖的动态规划版本
+	public static int maxMoney2(int[][] income) {
+		int N = income.length;
 		int M = N >> 1;
 		int[][] dp = new int[N + 1][M + 1];
-		for (int j = 1; j <= M; j++) {
-			dp[N][j] = -1;
-		}
 		for (int i = N - 1; i >= 0; i--) {
 			for (int j = 0; j <= M; j++) {
-				int goToA = -1;
-				if (j - 1 >= 0 && dp[i + 1][j - 1] != -1) {
-					goToA = matrix[i][0] + dp[i + 1][j - 1];
+				if (N - i == j) {
+					dp[i][j] = income[i][0] + dp[i + 1][j - 1];
+				} else if (j == 0) {
+					dp[i][j] = income[i][1] + dp[i + 1][j];
+				} else {
+					int p1 = income[i][0] + dp[i + 1][j - 1];
+					int p2 = income[i][1] + dp[i + 1][j];
+					dp[i][j] = Math.max(p1, p2);
 				}
-				int goToB = -1;
-				if (dp[i + 1][j] != -1) {
-					goToB = matrix[i][1] + dp[i + 1][j];
-				}
-				dp[i][j] = Math.max(goToA, goToB);
 			}
 		}
 		return dp[0][M];
+	}
+
+	// 这题有贪心策略 :
+	// 假设一共有10个司机，思路是先让所有司机去A，得到一个总收益
+	// 然后看看哪5个司机改换门庭(去B)，可以获得最大的额外收益
+	// 这道题有贪心策略，打了我的脸
+	// 但是我课上提到的技巧请大家重视
+	// 根据数据量猜解法可以省去大量的多余分析，节省时间
+	// 这里感谢卢圣文同学
+	public static int maxMoney3(int[][] income) {
+		int N = income.length;
+		int[] arr = new int[N];
+		int sum = 0;
+		for (int i = 0; i < N; i++) {
+			arr[i] = income[i][1] - income[i][0];
+			sum += income[i][0];
+		}
+		Arrays.sort(arr);
+		int M = N >> 1;
+		for (int i = N - 1; i >= M; i--) {
+			sum += arr[i];
+		}
+		return sum;
 	}
 
 	// 返回随机len*2大小的正数矩阵
@@ -109,7 +93,7 @@ public class Code04_Drive {
 	}
 
 	public static void main(String[] args) {
-		int N = 5;
+		int N = 10;
 		int value = 100;
 		int testTime = 500;
 		System.out.println("测试开始");
