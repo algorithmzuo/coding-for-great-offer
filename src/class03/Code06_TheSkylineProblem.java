@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 
 // 本题测试链接 : https://leetcode.com/problems/the-skyline-problem/
-public class Code01_TheSkylineProblem {
+public class Code06_TheSkylineProblem {
 
 	public static class Node {
 		public int x;

@@ -1,7 +1,7 @@
 package class03;
 
 // 本题测试链接 : https://leetcode.com/problems/longest-substring-without-repeating-characters/
-public class Code06_LongestSubstringWithoutRepeatingCharacters {
+public class Code01_LongestSubstringWithoutRepeatingCharacters {
 
 	public static int lengthOfLongestSubstring(String str) {
 		if (str == null || str.equals("")) {
