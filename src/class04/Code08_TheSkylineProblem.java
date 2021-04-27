@@ -1,4 +1,4 @@
-package class03;
+package class04;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 
 // 本题测试链接 : https://leetcode.com/problems/the-skyline-problem/
-public class Code06_TheSkylineProblem {
+public class Code08_TheSkylineProblem {
 
 	public static class Node {
 		public int x;

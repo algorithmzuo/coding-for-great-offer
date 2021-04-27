@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class Code09_DistanceKNodes {
+public class Code08_DistanceKNodes {
 
 	public static class Node {
 		public int value;

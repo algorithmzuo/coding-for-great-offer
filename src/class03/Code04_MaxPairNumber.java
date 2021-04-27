@@ -55,7 +55,7 @@ public class Code04_MaxPairNumber {
 				L++;
 			} else if (L >= R) {
 				R++;
-			} else {
+			} else { // 不止一个数，而且都没用过！
 				int distance = arr[R] - arr[L];
 				if (distance == k) {
 					ans++;

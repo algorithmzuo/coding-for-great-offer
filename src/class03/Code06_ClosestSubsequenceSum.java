@@ -9,7 +9,7 @@ import java.util.Arrays;
 // -10^9 <= goal <= 10^9
 // 通过这个数据量描述可知，需要用到分治，因为数组长度不大
 // 而值很大，用动态规划的话，表会爆
-public class Code07_ClosestSubsequenceSum {
+public class Code06_ClosestSubsequenceSum {
 
 	public static int[] l = new int[1 << 20];
 	public static int[] r = new int[1 << 20];
