@@ -17,4 +17,19 @@ public class Code02_SubArrayMaxSum {
 		return max;
 	}
 
+	public static int maxSubArray2(int[] arr) {
+		if (arr == null || arr.length == 0) {
+			return 0;
+		}
+		// 上一步，dp的值
+		// dp[0]
+		int pre = arr[0];
+		int max = arr[0];
+		for (int i = 1; i < arr.length; i++) {
+			pre = Math.max(arr[i], arr[i] + pre);
+			max =  Math.max(max, pre);
+		}
+		return max;
+	}
+
 }

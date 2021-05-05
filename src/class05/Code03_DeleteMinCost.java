@@ -5,14 +5,14 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
-public class Code02_DeleteMinCost {
+public class Code03_DeleteMinCost {
 
 	// 题目：
 	// 给定两个字符串s1和s2，问s2最少删除多少字符可以成为s1的子串？
 	// 比如 s1 = "abcde"，s2 = "axbc"
 	// 返回 1
 
-	// 解法一，来自群里的解法：
+	// 解法一
 	// 求出str2所有的子序列，然后按照长度排序，长度大的排在前面。
 	// 然后考察哪个子序列字符串和s1的某个子串相等(KMP)，答案就出来了。
 	// 分析：
@@ -49,7 +49,6 @@ public class Code02_DeleteMinCost {
 	}
 
 	// 解法二
-	// 我的方法，看的时间比较短，希望同学们积极反馈
 	// 生成所有s1的子串
 	// 然后考察每个子串和s2的编辑距离(假设编辑距离只有删除动作且删除一个字符的代价为1)
 	// 如果s1的长度较小，s2长度较大，这个方法比较合适

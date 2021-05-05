@@ -36,6 +36,7 @@ public class Code08_TheSkylineProblem {
 			nodes[i * 2 + 1] = new Node(matrix[i][1], false, matrix[i][2]);
 		}
 		Arrays.sort(nodes, new NodeComparator());
+		// key  高度  value 次数
 		TreeMap<Integer, Integer> mapHeightTimes = new TreeMap<>();
 		TreeMap<Integer, Integer> mapXHeight = new TreeMap<>();
 		for (int i = 0; i < nodes.length; i++) {

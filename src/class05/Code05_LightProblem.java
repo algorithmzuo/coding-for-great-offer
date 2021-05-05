@@ -19,7 +19,7 @@ package class05;
  * N-1号灯的开关能影响N-2、N-1和0位置的灯
  * 
  * */
-public class Code04_LightProblem {
+public class Code05_LightProblem {
 
 	// 无环改灯问题的暴力版本
 	public static int noLoopRight(int[] arr) {

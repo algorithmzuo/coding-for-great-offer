@@ -1,6 +1,6 @@
 package class05;
 
-public class Code05_EditCost {
+public class Code02_EditCost {
 
 	public static int minCost1(String s1, String s2, int ic, int dc, int rc) {
 		if (s1 == null || s2 == null) {

@@ -29,8 +29,20 @@ public class Code07_InterleavingString {
 		}
 		for (int i = 1; i <= str1.length; i++) {
 			for (int j = 1; j <= str2.length; j++) {
-				if ((str1[i - 1] == str3[i + j - 1] && dp[i - 1][j])
-						|| (str2[j - 1] == str3[i + j - 1] && dp[i][j - 1])) {
+				if (
+						(str1[i - 1] == str3[i + j - 1] && dp[i - 1][j])
+						
+						
+						
+						
+						|| 
+						
+						
+						
+						(str2[j - 1] == str3[i + j - 1] && dp[i][j - 1])
+						
+						
+						) {
 					dp[i][j] = true;
 				}
 			}
