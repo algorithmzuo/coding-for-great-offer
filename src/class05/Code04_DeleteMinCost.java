@@ -5,7 +5,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
-public class Code03_DeleteMinCost {
+public class Code04_DeleteMinCost {
 
 	// 题目：
 	// 给定两个字符串s1和s2，问s2最少删除多少字符可以成为s1的子串？
