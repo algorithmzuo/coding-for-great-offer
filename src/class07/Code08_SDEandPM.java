@@ -1,5 +1,5 @@
 // 不要拷贝包信息的内容
-package class06;
+package class07;
 
 // 本文件是Code01_SDEandPM问题的牛客题目解答
 // 这是牛客的测试链接：
@@ -14,7 +14,7 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
-public class Code05_SDEandPM {
+public class Code08_SDEandPM {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);

@@ -1,5 +1,5 @@
 //不要拷贝包信息的内容
-package class06;
+package class07;
 
 //本文件是牛客题目解答
 //这是牛客的测试链接：
@@ -10,7 +10,7 @@ package class06;
 
 import java.util.Scanner;
 
-public class Code04_NiuNiuSplitField {
+public class Code07_NiuNiuSplitField {
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);

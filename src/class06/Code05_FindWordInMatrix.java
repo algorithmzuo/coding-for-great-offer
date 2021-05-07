@@ -1,4 +1,4 @@
-package class05;
+package class06;
 
 /*
  * 给定一个char[][] matrix，也就是char类型的二维数组，再给定一个字符串word，
@@ -21,7 +21,7 @@ package class05;
  * 写出两种设定下的code
  * 
  * */
-public class Code04_FindWordInMatrix {
+public class Code05_FindWordInMatrix {
 
 	// 可以走重复的设定
 	public static boolean findWord1(char[][] m, String word) {

@@ -73,7 +73,7 @@ public class Code01_ConstructBinarySearchTreeFromPreorderTraversal {
 		if (L > R) {
 			return null;
 		}
-		int firstBig = nearBig[L] == -1 ? R + 1 : nearBig[L];
+		int firstBig = (nearBig[L] == -1 || nearBig[L] > R) ? R + 1 : nearBig[L];
 		TreeNode head = new TreeNode(pre[L]);
 		head.left = process2(pre, L + 1, firstBig - 1, nearBig);
 		head.right = process2(pre, firstBig, R, nearBig);
@@ -105,7 +105,7 @@ public class Code01_ConstructBinarySearchTreeFromPreorderTraversal {
 		if (L > R) {
 			return null;
 		}
-		int firstBig = nearBig[L] == -1 ? R + 1 : nearBig[L];
+		int firstBig = (nearBig[L] == -1 || nearBig[L] > R) ? R + 1 : nearBig[L];
 		TreeNode head = new TreeNode(pre[L]);
 		head.left = process3(pre, L + 1, firstBig - 1, nearBig);
 		head.right = process3(pre, firstBig, R, nearBig);

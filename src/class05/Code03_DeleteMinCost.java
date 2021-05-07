@@ -39,6 +39,39 @@ public class Code03_DeleteMinCost {
 		process(str2, index + 1, path + str2[index], list);
 	}
 
+	// x字符串只通过删除的方式，变到y字符串
+	// 返回至少要删几个字符
+	// 如果变不成，返回Integer.Max
+	public static int onlyDelete(char[] x, char[] y) {
+		if (x.length < y.length) {
+			return Integer.MAX_VALUE;
+		}
+		int N = x.length;
+		int M = y.length;
+		int[][] dp = new int[N + 1][M + 1];
+		for (int i = 0; i <= N; i++) {
+			for (int j = 0; j <= M; j++) {
+				dp[i][j] = Integer.MAX_VALUE;
+			}
+		}
+		dp[0][0] = 0;
+		// dp[i][j]表示前缀长度
+		for (int i = 1; i <= N; i++) {
+			dp[i][0] = i;
+		}
+		for (int xlen = 1; xlen <= N; xlen++) {
+			for (int ylen = 1; ylen <= Math.min(M, xlen); ylen++) {
+				if (dp[xlen - 1][ylen] != Integer.MAX_VALUE) {
+					dp[xlen][ylen] = dp[xlen - 1][ylen] + 1;
+				}
+				if (x[xlen - 1] == y[ylen - 1] && dp[xlen - 1][ylen - 1] != Integer.MAX_VALUE) {
+					dp[xlen][ylen] = Math.min(dp[xlen][ylen], dp[xlen - 1][ylen - 1]);
+				}
+			}
+		}
+		return dp[N][M];
+	}
+
 	public static class LenComp implements Comparator<String> {
 
 		@Override
@@ -189,6 +222,12 @@ public class Code03_DeleteMinCost {
 	}
 
 	public static void main(String[] args) {
+
+		char[] x = { 'a', 'b', 'c', 'd' };
+		char[] y = { 'a', 'd' };
+
+		System.out.println(onlyDelete(x, y));
+
 		int str1Len = 20;
 		int str2Len = 10;
 		int v = 5;
