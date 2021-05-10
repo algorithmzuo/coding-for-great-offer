@@ -50,9 +50,7 @@ public class Code03_MaximumXorWithAnElementFromArray {
 			for (int move = 30; move >= 0; move--) {
 				int path = (xi >> move) & 1;
 				int best = (path ^ 1);
-				if (cur.nexts[best] == null || cur.nexts[best].min > mi) {
-					best ^= 1;
-				}
+				best ^= (cur.nexts[best] == null || cur.nexts[best].min > mi) ? 1 : 0;
 				ans |= (path ^ best) << move;
 				cur = cur.nexts[best];
 			}
