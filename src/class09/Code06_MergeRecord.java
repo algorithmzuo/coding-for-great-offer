@@ -1,6 +1,6 @@
-package class08;
+package class09;
 
-public class Code07_MergeRecord {
+public class Code06_MergeRecord {
 	
 	/*
 	 * 腾讯原题
