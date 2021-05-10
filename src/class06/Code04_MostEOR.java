@@ -1,15 +1,59 @@
 package class06;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Code04_MostEOR {
 
+	// 暴力方法
+	public static int comparator(int[] arr) {
+		if (arr == null || arr.length == 0) {
+			return 0;
+		}
+		int N = arr.length;
+		int[] eor = new int[N];
+		eor[0] = arr[0];
+		for (int i = 1; i < N; i++) {
+			eor[i] = eor[i - 1] ^ arr[i];
+		}
+		return process(eor, 1, new ArrayList<>());
+	}
+
+	public static int process(int[] eor, int index, ArrayList<Integer> parts) {
+		int ans = 0;
+		if (index == eor.length) {
+			parts.add(eor.length);
+			ans = eorZeroParts(eor, parts);
+			parts.remove(parts.size() - 1);
+		} else {
+			int p1 = process(eor, index + 1, parts);
+			parts.add(index);
+			int p2 = process(eor, index + 1, parts);
+			parts.remove(parts.size() - 1);
+			ans = Math.max(p1, p2);
+		}
+		return ans;
+	}
+
+	public static int eorZeroParts(int[] eor, ArrayList<Integer> parts) {
+		int L = 0;
+		int ans = 0;
+		for (Integer end : parts) {
+			if ((eor[end - 1] ^ (L == 0 ? 0 : eor[L - 1])) == 0) {
+				ans++;
+			}
+			L = end;
+		}
+		return ans;
+	}
+
+	// 时间复杂度O(N)的方法
 	public static int mostEOR(int[] arr) {
 		if (arr == null || arr.length == 0) {
 			return 0;
 		}
 		int N = arr.length;
-		int[] dp = new int[N]; // dp[i] = 0
+		int[] dp = new int[N];
 		HashMap<Integer, Integer> map = new HashMap<>();
 		map.put(0, -1);
 		int sum = 0;
@@ -25,31 +69,6 @@ public class Code04_MostEOR {
 			map.put(sum, i);
 		}
 		return dp[dp.length - 1];
-	}
-
-	// for test
-	public static int comparator(int[] arr) {
-		if (arr == null || arr.length == 0) {
-			return 0;
-		}
-		int[] eors = new int[arr.length];
-		int eor = 0;
-		for (int i = 0; i < arr.length; i++) {
-			eor ^= arr[i];
-			eors[i] = eor;
-		}
-		int[] mosts = new int[arr.length];
-		mosts[0] = arr[0] == 0 ? 1 : 0;
-		for (int i = 1; i < arr.length; i++) {
-			mosts[i] = eors[i] == 0 ? 1 : 0;
-			for (int j = 0; j < i; j++) {
-				if ((eors[i] ^ eors[j]) == 0) {
-					mosts[i] = Math.max(mosts[i], mosts[j] + 1);
-				}
-			}
-			mosts[i] = Math.max(mosts[i], mosts[i - 1]);
-		}
-		return mosts[mosts.length - 1];
 	}
 
 	// for test
@@ -74,9 +93,9 @@ public class Code04_MostEOR {
 
 	// for test
 	public static void main(String[] args) {
-		int testTime = 500000;
-		int maxSize = 300;
-		int maxValue = 100;
+		int testTime = 150000;
+		int maxSize = 12;
+		int maxValue = 3;
 		boolean succeed = true;
 		for (int i = 0; i < testTime; i++) {
 			int[] arr = generateRandomArray(maxSize, maxValue);
