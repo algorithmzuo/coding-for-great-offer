@@ -2,7 +2,7 @@ package class06;
 
 import java.util.HashMap;
 
-public class Code02_MostEOR {
+public class Code04_MostEOR {
 
 	public static int mostEOR(int[] arr) {
 		if (arr == null || arr.length == 0) {

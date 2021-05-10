@@ -1,7 +1,7 @@
 package class06;
 
 // 给定一个正数组成的数组，长度一定大于1，求数组中哪两个数与的结果最大
-public class Code03_MaxAndValue {
+public class Code06_MaxAndValue {
 
 	// O(N^2)的暴力解
 	public static int maxAndValue1(int[] arr) {

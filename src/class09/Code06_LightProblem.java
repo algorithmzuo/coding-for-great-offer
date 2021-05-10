@@ -1,4 +1,4 @@
-package class06;
+package class09;
 
 /*
  * 给定一个数组arr，长度为N，arr中的值不是0就是1
@@ -19,7 +19,7 @@ package class06;
  * N-1号灯的开关能影响N-2、N-1和0位置的灯
  * 
  * */
-public class Code04_LightProblem {
+public class Code06_LightProblem {
 
 	// 无环改灯问题的暴力版本
 	public static int noLoopRight(int[] arr) {

@@ -1,5 +1,5 @@
 //不要拷贝包信息的内容
-package class07;
+package prepare;
 
 //本文件是牛客题目解答
 //这是牛客的测试链接：

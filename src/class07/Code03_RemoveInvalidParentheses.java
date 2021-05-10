@@ -1,10 +1,10 @@
-package class06;
+package class07;
 
 import java.util.ArrayList;
 import java.util.List;
 
 // 测试链接 : https://leetcode.com/problems/remove-invalid-parentheses/
-public class Code06_RemoveInvalidParentheses {
+public class Code03_RemoveInvalidParentheses {
 
 	// 来自leetcode投票第一的答案，实现非常好，我们来赏析一下
 	public static List<String> removeInvalidParentheses(String s) {

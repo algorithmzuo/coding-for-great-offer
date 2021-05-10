@@ -128,16 +128,5 @@ public class Code01_MaxEOR {
 			}
 		}
 		System.out.println(succeed ? "Nice!" : "Fucking fucked!");
-		//
-		// // int[] arr = generateRandomArray(6, maxValue);
-		// int[] arr = { 3, -28, -29, 2};
-		//
-		// for (int i = 0; i < arr.length; i++) {
-		// System.out.println(arr[i] + " ");
-		// }
-		// System.out.println("=========");
-		// System.out.println(maxXorSubarray(arr));
-		// System.out.println((int) (-28 ^ -29));
-
 	}
 }
