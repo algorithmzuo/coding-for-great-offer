@@ -57,7 +57,7 @@ public class Code04_MostEOR {
 		HashMap<Integer, Integer> map = new HashMap<>();
 		map.put(0, -1);
 		int sum = 0;
-		for (int i = 0; i < arr.length; i++) {
+		for (int i = 0; i < N; i++) {
 			sum ^= arr[i];
 			if (map.containsKey(sum)) {
 				int pre = map.get(sum);
@@ -68,7 +68,7 @@ public class Code04_MostEOR {
 			}
 			map.put(sum, i);
 		}
-		return dp[dp.length - 1];
+		return dp[N - 1];
 	}
 
 	// for test
