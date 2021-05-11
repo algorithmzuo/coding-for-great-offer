@@ -95,7 +95,7 @@ public class Code04_MostXorZero {
 	public static void main(String[] args) {
 		int testTime = 150000;
 		int maxSize = 12;
-		int maxValue = 3;
+		int maxValue = 5;
 		boolean succeed = true;
 		for (int i = 0; i < testTime; i++) {
 			int[] arr = generateRandomArray(maxSize, maxValue);
