@@ -3,7 +3,7 @@ package class06;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Code04_MostEOR {
+public class Code04_MostXorZero {
 
 	// 暴力方法
 	public static int comparator(int[] arr) {

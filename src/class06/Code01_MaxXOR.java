@@ -1,6 +1,6 @@
 package class06;
 
-public class Code01_MaxEOR {
+public class Code01_MaxXOR {
 
 	// O(N^2)
 	public static int maxXorSubarray1(int[] arr) {
