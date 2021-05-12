@@ -2,7 +2,7 @@ package class07;
 
 import java.util.HashMap;
 
-public class Code06_SplitStringMaxValue {
+public class Code08_SplitStringMaxValue {
 
 	// 暴力解
 	public static int maxRecord1(String str, int K, String[] parts, int[] record) {

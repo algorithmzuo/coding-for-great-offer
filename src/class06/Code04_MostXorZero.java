@@ -19,6 +19,9 @@ public class Code04_MostXorZero {
 		return process(eor, 1, new ArrayList<>());
 	}
 
+	// index去决定：前一坨部分，结不结束！
+	// 如果结束！就把index放入到parts里去
+	// 如果不结束，就不放
 	public static int process(int[] eor, int index, ArrayList<Integer> parts) {
 		int ans = 0;
 		if (index == eor.length) {
@@ -48,25 +51,29 @@ public class Code04_MostXorZero {
 	}
 
 	// 时间复杂度O(N)的方法
-	public static int mostEOR(int[] arr) {
+	public static int mostXor(int[] arr) {
 		if (arr == null || arr.length == 0) {
 			return 0;
 		}
 		int N = arr.length;
 		int[] dp = new int[N];
+		
+		// key 某一个前缀异或和
+		// value 这个前缀异或和上次出现的位置(最晚！)
 		HashMap<Integer, Integer> map = new HashMap<>();
 		map.put(0, -1);
-		int sum = 0;
+		// 0~i整体的异或和
+		int xor = 0;
 		for (int i = 0; i < N; i++) {
-			sum ^= arr[i];
-			if (map.containsKey(sum)) {
-				int pre = map.get(sum);
+			xor ^= arr[i];
+			if (map.containsKey(xor)) { // 可能性2
+				int pre = map.get(xor);
 				dp[i] = pre == -1 ? 1 : (dp[pre] + 1);
 			}
 			if (i > 0) {
 				dp[i] = Math.max(dp[i - 1], dp[i]);
 			}
-			map.put(sum, i);
+			map.put(xor, i);
 		}
 		return dp[N - 1];
 	}
@@ -99,7 +106,7 @@ public class Code04_MostXorZero {
 		boolean succeed = true;
 		for (int i = 0; i < testTime; i++) {
 			int[] arr = generateRandomArray(maxSize, maxValue);
-			int res = mostEOR(arr);
+			int res = mostXor(arr);
 			int comp = comparator(arr);
 			if (res != comp) {
 				succeed = false;

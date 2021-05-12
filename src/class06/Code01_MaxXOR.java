@@ -24,9 +24,13 @@ public class Code01_MaxXOR {
 		return max;
 	}
 
-	// 前缀树的节点类型，每个节点向下只可能有走向0或1的路
-	// node.nexts[0] == null 0方向没路
-	// node.nexts[0] != null 0方向有路
+	// 前缀树的Node结构
+	// nexts[0] -> 0方向的路
+	// nexts[1] -> 1方向的路
+	// nexts[0] == null 0方向上没路！
+	// nexts[0] != null 0方向有路，可以跳下一个节点
+	// nexts[1] == null 1方向上没路！
+	// nexts[1] != null 1方向有路，可以跳下一个节点
 	public static class Node {
 		public Node[] nexts = new Node[2];
 	}
@@ -36,55 +40,49 @@ public class Code01_MaxXOR {
 		// 头节点
 		public Node head = new Node();
 
-		// 把某个数字newNum加入到这棵前缀树里
-		// num是一个32位的整数，所以加入的过程一共走32步
 		public void add(int newNum) {
 			Node cur = head;
 			for (int move = 31; move >= 0; move--) {
-				// 从高位到低位，取出每一位的状态，如果当前状态是0，
-				// path(int) = 0
-				// ，如果当前状态是1
-				// path(int) = 1
 				int path = ((newNum >> move) & 1);
-				// 无路新建、有路复用
 				cur.nexts[path] = cur.nexts[path] == null ? new Node() : cur.nexts[path];
 				cur = cur.nexts[path];
 			}
 		}
 
 		// 该结构之前收集了一票数字，并且建好了前缀树
-		// sum,和 谁 ^ 最大的结果（把结果返回）
-		public int maxXor(int sum) {
+		// num和 谁 ^ 最大的结果（把结果返回）
+		public int maxXor(int num) {
 			Node cur = head;
-			int res = 0;
+			int ans = 0;
 			for (int move = 31; move >= 0; move--) {
-				int path = (sum >> move) & 1;
-				// 期待的路
+				// 取出num中第move位的状态，path只有两种值0就1，整数
+				int path = (num >> move) & 1;
+				// 期待遇到的东西
 				int best = move == 31 ? path : (path ^ 1);
-				// 实际走的路
+				// 实际遇到的东西
 				best = cur.nexts[best] != null ? best : (best ^ 1);
 				// (path ^ best) 当前位位异或完的结果
-				res |= (path ^ best) << move;
+				ans |= (path ^ best) << move;
 				cur = cur.nexts[best];
 			}
-			return res;
+			return ans;
 		}
 	}
 
+	// O(N)
 	public static int maxXorSubarray2(int[] arr) {
 		if (arr == null || arr.length == 0) {
 			return 0;
 		}
 		int max = Integer.MIN_VALUE;
-		int eor = 0; // 0..i 异或和
-		// 前缀树 -> numTrie
+		// 0~i整体异或和
+		int xor = 0;
 		NumTrie numTrie = new NumTrie();
-		numTrie.add(0); // 一个数也没有的时候，异或和是0
+		numTrie.add(0);
 		for (int i = 0; i < arr.length; i++) {
-			eor ^= arr[i]; // eor -> 0..i异或和
-			// X, 0~0 , 0~1, .., 0~i-1
-			max = Math.max(max, numTrie.maxXor(eor));
-			numTrie.add(eor);
+			xor ^= arr[i]; // 0 ~ i
+			max = Math.max(max, numTrie.maxXor(xor));
+			numTrie.add(xor);
 		}
 		return max;
 	}

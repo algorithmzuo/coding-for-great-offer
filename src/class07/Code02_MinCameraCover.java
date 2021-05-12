@@ -1,7 +1,7 @@
-package class06;
+package class07;
 
 // 本题测试链接 : https://leetcode.com/problems/binary-tree-cameras/
-public class Code07_MinCameraCover {
+public class Code02_MinCameraCover {
 
 	public static class TreeNode {
 		public int value;

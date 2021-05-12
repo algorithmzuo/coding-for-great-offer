@@ -12,7 +12,7 @@ public class Code03_MaximumXorWithAnElementFromArray {
 		int M = queries.length;
 		int[] ans = new int[M];
 		for (int i = 0; i < M; i++) {
-			ans[i] = trie.maxXorWithXiBehindMi(queries[i][0], queries[i][1]);
+			ans[i] = trie.maxXorWithXBehindM(queries[i][0], queries[i][1]);
 		}
 		return ans;
 	}
@@ -41,16 +41,22 @@ public class Code03_MaximumXorWithAnElementFromArray {
 			}
 		}
 
-		public int maxXorWithXiBehindMi(int xi, int mi) {
-			if (head.min > mi) {
+		// 这个结构中，已经收集了一票数字
+		// 请返回哪个数字与X异或的结果最大，返回最大结果
+		// 但是，只有<=m的数字，可以被考虑
+		public int maxXorWithXBehindM(int x, int m) {
+			if (head.min > m) {
 				return -1;
 			}
+			// 一定存在某个数可以和x结合
 			Node cur = head;
 			int ans = 0;
 			for (int move = 30; move >= 0; move--) {
-				int path = (xi >> move) & 1;
+				int path = (x >> move) & 1;
+				// 期待遇到的东西
 				int best = (path ^ 1);
-				best ^= (cur.nexts[best] == null || cur.nexts[best].min > mi) ? 1 : 0;
+				best ^= (cur.nexts[best] == null || cur.nexts[best].min > m) ? 1 : 0;
+				// best变成了实际遇到的
 				ans |= (path ^ best) << move;
 				cur = cur.nexts[best];
 			}

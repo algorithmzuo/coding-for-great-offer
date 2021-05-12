@@ -3,7 +3,7 @@ package class07;
 import java.util.Arrays;
 import java.util.HashSet;
 
-public class Code02_Power2Diffs {
+public class Code04_Power2Diffs {
 
 	/*
 	 * 给定一个有序数组arr，其中值可能为正、负、0。 返回arr中每个数都平方之后不同的结果有多少种？
