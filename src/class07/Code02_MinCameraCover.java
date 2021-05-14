@@ -53,10 +53,12 @@ public class Code02_MinCameraCover {
 						// 3)
 						left.coveredNoCamera + right.coveredHasCamera));
 
+		
+		
+		
 		// x下方的点都被covered，x也被cover，且x上有相机
-		long coveredHasCamera = Math.min(
-
-				left.uncovered, Math.min(left.coveredNoCamera, left.coveredHasCamera))
+		long coveredHasCamera = 
+				Math.min(left.uncovered, Math.min(left.coveredNoCamera, left.coveredHasCamera))
 
 				+ Math.min(right.uncovered, Math.min(right.coveredNoCamera, right.coveredHasCamera))
 
@@ -94,6 +96,8 @@ public class Code02_MinCameraCover {
 		Data left = process2(X.left);
 		Data right = process2(X.right);
 		int cameras = left.cameras + right.cameras;
+		
+		// 左、或右，哪怕有一个没覆盖
 		if (left.status == Status.UNCOVERED || right.status == Status.UNCOVERED) {
 			return new Data(Status.COVERED_HAS_CAMERA, cameras + 1);
 		}

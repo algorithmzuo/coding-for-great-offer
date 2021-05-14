@@ -41,24 +41,26 @@ public class Code01_MaxAndValue {
 	// 答案在第i位上的状态一定是1，
 	// 只把这K个数作为剩余的数，继续考察第i-1位，其他数都淘汰掉
 	public static int maxAndValue2(int[] arr) {
+		// arr[0...M-1]  arr[M....]
 		int M = arr.length;
 		int ans = 0;
 		for (int bit = 30; bit >= 0; bit--) {
+			// arr[0...M-1] arr[M...]
 			int i = 0;
 			int tmp = M;
-			while (i < M) {
+			while (i < M) { // arr[0...M-1]
 				if ((arr[i] & (1 << bit)) == 0) {
 					swap(arr, i, --M);
 				} else {
 					i++;
 				}
 			}
-			if (M == 2) {
+			if (M == 2) { // arr[0,1] 
 				return arr[0] & arr[1];
 			}
 			if (M < 2) {
 				M = tmp;
-			} else {
+			} else { // > 2个数  bit位上有1
 				ans |= (1 << bit);
 			}
 		}

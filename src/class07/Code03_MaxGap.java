@@ -22,7 +22,6 @@ public class Code03_MaxGap {
 		boolean[] hasNum = new boolean[len + 1]; // hasNum[i] i号桶是否进来过数字
 		int[] maxs = new int[len + 1];  // maxs[i] i号桶收集的所有数字的最大值
 		int[] mins = new int[len + 1];  // mins[i] i号桶收集的所有数字的最小值
-		
 		int bid = 0; // 桶号
 		for (int i = 0; i < len; i++) {
 			bid = bucket(nums[i], len, min, max);
@@ -42,6 +41,8 @@ public class Code03_MaxGap {
 		return res;
 	}
 
+	// 如果当前的数是num，整个范围是min~max，分成了len + 1份
+	// 返回num该进第几号桶
 	public static int bucket(long num, long len, long min, long max) {
 		return (int) ((num - min) * len / (max - min));
 	}

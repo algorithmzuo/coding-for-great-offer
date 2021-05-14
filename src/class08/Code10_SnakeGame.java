@@ -1,8 +1,8 @@
-package class07;
+package class08;
 
 import java.util.Arrays;
 
-public class Code06_SnakeGame {
+public class Code10_SnakeGame {
 
 	public static int walk1(int[][] matrix) {
 		if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
@@ -93,7 +93,7 @@ public class Code06_SnakeGame {
 	}
 
 	public static int[][] generateRandomArray(int row, int col, int value) {
-		int[][] arr = new int[(int) (Math.random() * row) + 1][(int) (Math.random() * col) + 1];
+		int[][] arr = new int[row][col];
 		for (int i = 0; i < arr.length; i++) {
 			for (int j = 0; j < arr[0].length; j++) {
 				arr[i][j] = (int) (Math.random() * value) * (Math.random() > 0.5 ? -1 : 1);
@@ -103,9 +103,14 @@ public class Code06_SnakeGame {
 	}
 
 	public static void main(String[] args) {
+		int N = 7;
+		int M = 7;
+		int V = 10;
 		int times = 1000000;
 		for (int i = 0; i < times; i++) {
-			int[][] matrix = generateRandomArray(5, 5, 10);
+			int r = (int) (Math.random() * (N + 1));
+			int c = (int) (Math.random() * (M + 1));
+			int[][] matrix = generateRandomArray(r, c, V);
 			int ans1 = walk1(matrix);
 			int ans2 = walk2(matrix);
 			if (ans1 != ans2) {

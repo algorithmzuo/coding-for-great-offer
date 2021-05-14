@@ -2,7 +2,7 @@ package class07;
 
 import java.util.HashSet;
 
-public class Code07_WorldBreak {
+public class Code05_WorldBreak {
 	/*
 	 * 
 	 * 假设所有字符都是小写字母. 大字符串是str. arr是去重的单词表, 每个单词都不是空字符串且可以使用任意次.
@@ -18,12 +18,13 @@ public class Code07_WorldBreak {
 		return process(str, 0, set);
 	}
 
-	// 所有的贴纸，都已经放在了set中
+	// 所有的可分解字符串，都已经放在了set中
 	// str[i....] 能够被set中的贴纸分解的话，返回分解的方法数
 	public static int process(String str, int i, HashSet<String> set) {
-		if (i == str.length()) {
+		if (i == str.length()) { // 没字符串需要分解了！
 			return 1;
 		}
+		//  i....还有字符串需要分解
 		int ways = 0;
 		// [i ... end] 前缀串 每一个前缀串
 		for (int end = i; end < str.length(); end++) {
