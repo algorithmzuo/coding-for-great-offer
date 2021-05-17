@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.TreeSet;
 
 // 本文件是Code07_TopKTimesRealTime的线上测试
-// 测试链接：https://www.lintcode.com/problem/top-k-frequent-words-ii/description
+// 测试链接：https://www.lintcode.com/problem/top-k-frequent-words-ii/
 // 以上的代码不要粘贴, 把以下的代码粘贴进java环境编辑器
 // 把类名和构造方法名改成TopK, 可以直接通过
 public class Code01_TopK {
