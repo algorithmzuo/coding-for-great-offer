@@ -59,6 +59,45 @@ public class Code05_FindWordInMatrix {
 		return false;
 	}
 
+	// 可以走重复路
+	// 从m[i][j]这个字符出发，能不能找到str[k...]这个后缀串
+	public static boolean canLoop(char[][] m, int i, int j, char[] str, int k) {
+		if (k == str.length) {
+			return true;
+		}
+		if (i == -1 || i == m.length || j == -1 || j == m[0].length || m[i][j] != str[k]) {
+			return false;
+		}
+		// 不越界！m[i][j] == str[k] 对的上的！
+		// str[k+1....]
+		boolean ans = false;
+		if (canLoop(m, i + 1, j, str, k + 1) || canLoop(m, i - 1, j, str, k + 1) || canLoop(m, i, j + 1, str, k + 1)
+				|| canLoop(m, i, j - 1, str, k + 1)) {
+			ans = true;
+		}
+		return ans;
+	}
+
+	// 不能走重复路
+	// 从m[i][j]这个字符出发，能不能找到str[k...]这个后缀串
+	public static boolean noLoop(char[][] m, int i, int j, char[] str, int k) {
+		if (k == str.length) {
+			return true;
+		}
+		if (i == -1 || i == m.length || j == -1 || j == m[0].length || m[i][j] != str[k]) {
+			return false;
+		}
+		// 不越界！也不是回头路！m[i][j] == str[k] 也对的上！
+		m[i][j] = 0;
+		boolean ans = false;
+		if (noLoop(m, i + 1, j, str, k + 1) || noLoop(m, i - 1, j, str, k + 1) || noLoop(m, i, j + 1, str, k + 1)
+				|| noLoop(m, i, j - 1, str, k + 1)) {
+			ans = true;
+		}
+		m[i][j] = str[k];
+		return ans;
+	}
+
 	public static boolean checkPrevious(boolean[][][] dp, int i, int j, int k) {
 		boolean up = i > 0 ? (dp[i - 1][j][k - 1]) : false;
 		boolean down = i < dp.length - 1 ? (dp[i + 1][j][k - 1]) : false;
@@ -87,20 +126,20 @@ public class Code05_FindWordInMatrix {
 	}
 
 	// 从m[i][j]这个字符出发，能不能找到w[k...]这个后缀串
-	public static boolean process(char[][] m, int i, int j, char[] w, int k) {
-		if (k == w.length) {
+	public static boolean process(char[][] m, int i, int j, char[] str, int k) {
+		if (k == str.length) {
 			return true;
 		}
-		if (i == -1 || i == m.length || j == -1 || j == m[0].length || m[i][j] == 0 || m[i][j] != w[k]) {
+		if (i == -1 || i == m.length || j == -1 || j == m[0].length || m[i][j] == 0 || m[i][j] != str[k]) {
 			return false;
 		}
 		m[i][j] = 0;
 		boolean ans = false;
-		if (process(m, i + 1, j, w, k + 1) || process(m, i - 1, j, w, k + 1) || process(m, i, j + 1, w, k + 1)
-				|| process(m, i, j - 1, w, k + 1)) {
+		if (process(m, i + 1, j, str, k + 1) || process(m, i - 1, j, str, k + 1) || process(m, i, j + 1, str, k + 1)
+				|| process(m, i, j - 1, str, k + 1)) {
 			ans = true;
 		}
-		m[i][j] = w[k];
+		m[i][j] = str[k];
 		return ans;
 	}
 

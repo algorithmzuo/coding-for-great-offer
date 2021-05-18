@@ -18,6 +18,67 @@ public class Code06_SnakeGame {
 		return res;
 	}
 
+	public static int zuo(int[][] matrix) {
+		if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+			return 0;
+		}
+		int ans = 0;
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix[0].length; j++) {
+				Info cur = f(matrix, i, j);
+				ans = Math.max(ans, Math.max(cur.no, cur.yes));
+			}
+		}
+		return ans;
+	}
+
+	public static class Info {
+		public int no;
+		public int yes;
+
+		public Info(int n, int y) {
+			no = n;
+			yes = y;
+		}
+	}
+
+	// 蛇从某一个最左列，且最优的空降点降落
+	// 沿途走到(i,j)必须停！
+	// 返回，一次能力也不用，获得的最大成长值
+	// 返回，用了一次能力，获得的最大成长值
+	// 如果蛇从某一个最左列，且最优的空降点降落，不用能力，怎么都到不了(i,j)，那么no = -1
+	// 如果蛇从某一个最左列，且最优的空降点降落，用了一次能力，怎么都到不了(i,j)，那么yes = -1
+	public static Info f(int[][] matrix, int i, int j) {
+		if (j == 0) { // 最左列
+			int no = Math.max(matrix[i][0], -1);
+			int yes = Math.max(-matrix[i][0], -1);
+			return new Info(no, yes);
+		}
+		// j > 0 不在最左列
+		int preNo = -1;
+		int preYes = -1;
+		Info pre = f(matrix, i, j - 1);
+		preNo = Math.max(pre.no, preNo);
+		preYes = Math.max(pre.yes, preYes);
+		if (i > 0) {
+			pre = f(matrix, i - 1, j - 1);
+			preNo = Math.max(pre.no, preNo);
+			preYes = Math.max(pre.yes, preYes);
+		}
+		if (i < matrix.length - 1) {
+			pre = f(matrix, i + 1, j - 1);
+			preNo = Math.max(pre.no, preNo);
+			preYes = Math.max(pre.yes, preYes);
+		}
+		int no = preNo == -1 ? -1 : (Math.max(-1, preNo + matrix[i][j]));
+		// 能力只有一次，是之前用的！
+		int p1 = preYes == -1 ? -1 : (Math.max(-1, preYes + matrix[i][j]));
+		// 能力只有一次，就当前用！
+		int p2 = preNo == -1 ? -1 : (Math.max(-1, preNo - matrix[i][j]));
+		int yes = Math.max(Math.max(p1, p2), -1);
+		return new Info(no, yes);
+	}
+
 	// 从假想的最优左侧到达(i,j)的旅程中
 	// 0) 在没有使用过能力的情况下，返回路径最大和，没有可能到达的话，返回负
 	// 1) 在使用过能力的情况下，返回路径最大和，没有可能到达的话，返回负
@@ -111,7 +172,7 @@ public class Code06_SnakeGame {
 			int r = (int) (Math.random() * (N + 1));
 			int c = (int) (Math.random() * (M + 1));
 			int[][] matrix = generateRandomArray(r, c, V);
-			int ans1 = walk1(matrix);
+			int ans1 = zuo(matrix);
 			int ans2 = walk2(matrix);
 			if (ans1 != ans2) {
 				for (int j = 0; j < matrix.length; j++) {

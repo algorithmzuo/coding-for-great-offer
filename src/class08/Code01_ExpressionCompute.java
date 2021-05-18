@@ -2,17 +2,18 @@ package class08;
 
 import java.util.LinkedList;
 
+// 本题测试链接 : https://leetcode.com/problems/basic-calculator-iii/
 public class Code01_ExpressionCompute {
 
-	public static int getValue(String str) {
-		return value(str.toCharArray(), 0)[0];
+	public static int calculate(String str) {
+		return f(str.toCharArray(), 0)[0];
 	}
 
 	// 请从str[i...]往下算，遇到字符串终止位置或者右括号，就停止
 	// 返回两个值，长度为2的数组
 	// 0) 负责的这一段的结果是多少
 	// 1) 负责的这一段计算到了哪个位置
-	public static int[] value(char[] str, int i) {
+	public static int[] f(char[] str, int i) {
 		LinkedList<String> que = new LinkedList<String>();
 		int cur = 0;
 		int[] bra = null;
@@ -25,7 +26,7 @@ public class Code01_ExpressionCompute {
 				que.addLast(String.valueOf(str[i++]));
 				cur = 0;
 			} else { // 遇到左括号了
-				bra = value(str, i + 1);
+				bra = f(str, i + 1);
 				cur = bra[0];
 				i = bra[1] + 1;
 			}
@@ -65,24 +66,6 @@ public class Code01_ExpressionCompute {
 			}
 		}
 		return res;
-	}
-
-	public static void main(String[] args) {
-		String exp = "48*((70-65)-43)+8*1";
-		System.out.println(getValue(exp));
-
-		exp = "4*(6+78)+53-9/2+45*8";
-		System.out.println(getValue(exp));
-
-		exp = "10-5*3";
-		System.out.println(getValue(exp));
-
-		exp = "-3*4";
-		System.out.println(getValue(exp));
-
-		exp = "3+1*4";
-		System.out.println(getValue(exp));
-
 	}
 
 }
