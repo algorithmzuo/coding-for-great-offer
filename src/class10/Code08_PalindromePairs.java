@@ -1,11 +1,11 @@
-package class09;
+package class10;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 // 测试链接 : https://leetcode.com/problems/palindrome-pairs/
-public class Code02_PalindromePairs {
+public class Code08_PalindromePairs {
 
 	public static List<List<Integer>> palindromePairs(String[] words) {
 		HashMap<String, Integer> wordset = new HashMap<>();

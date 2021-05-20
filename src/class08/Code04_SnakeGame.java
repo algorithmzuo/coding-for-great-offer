@@ -2,7 +2,7 @@ package class08;
 
 import java.util.Arrays;
 
-public class Code06_SnakeGame {
+public class Code04_SnakeGame {
 
 	public static int walk1(int[][] matrix) {
 		if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {

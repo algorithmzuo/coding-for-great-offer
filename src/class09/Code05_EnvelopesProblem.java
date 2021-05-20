@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 // 本题测试链接 : https://leetcode.com/problems/russian-doll-envelopes/
-public class Code06_EnvelopesProblem {
+public class Code05_EnvelopesProblem {
 
 	public static int maxEnvelopes(int[][] matrix) {
 		Envelope[] arr = sort(matrix);

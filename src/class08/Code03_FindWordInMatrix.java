@@ -21,7 +21,7 @@ package class08;
  * 写出两种设定下的code
  * 
  * */
-public class Code05_FindWordInMatrix {
+public class Code03_FindWordInMatrix {
 
 	// 可以走重复的设定
 	public static boolean findWord1(char[][] m, String word) {
