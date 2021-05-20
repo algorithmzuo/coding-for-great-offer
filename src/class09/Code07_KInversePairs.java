@@ -1,7 +1,7 @@
-package class10;
+package class09;
 
 // 测试链接 : https://leetcode.com/problems/k-inverse-pairs-array/
-public class Code10_KInversePairs {
+public class Code07_KInversePairs {
 
 	public static int kInversePairs(int n, int k) {
 		if (n < 1 || k < 0) {
