@@ -37,6 +37,8 @@ public class Code01_CordCoverMaxPoint {
 			while (right < N && arr[right] - arr[left] <= L) {
 				right++;
 			}
+			// 此处可以用以下代码来替换,代表的含义是,窗口的长度不回退
+			// max = Math.max(max, (right++) - (left++));
 			max = Math.max(max, right - (left++));
 		}
 		return max;
