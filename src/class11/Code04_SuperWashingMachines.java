@@ -1,8 +1,9 @@
 package class11;
 
-public class Code04_PackingMachine {
+// 本题测试链接 : https://leetcode.com/problems/super-washing-machines/
+public class Code04_SuperWashingMachines {
 
-	public static int MinOps(int[] arr) {
+	public static int findMinMoves(int[] arr) {
 		if (arr == null || arr.length == 0) {
 			return 0;
 		}
@@ -17,14 +18,9 @@ public class Code04_PackingMachine {
 		int avg = sum / size;
 		int leftSum = 0;
 		int ans = 0;
-		// 每个位置都求各自的
 		for (int i = 0; i < arr.length; i++) {
-			// i号机器，是中间机器，左(0~i-1) i 右(i+1~N-1)
-			// 负 需要输入     正需要输出 
-			int leftRest = leftSum - i * avg; // a-b
-			// 负 需要输入     正需要输出 
-			// c - d
-			int rightRest =  (sum - leftSum - arr[i]) -  (size - i - 1) * avg; 
+			int leftRest = leftSum - i * avg;
+			int rightRest = (sum - leftSum - arr[i]) - (size - i - 1) * avg;
 			if (leftRest < 0 && rightRest < 0) {
 				ans = Math.max(ans, Math.abs(leftRest) + Math.abs(rightRest));
 			} else {

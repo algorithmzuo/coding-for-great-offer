@@ -1,7 +1,7 @@
 package class11;
 
 // 测试链接 : https://leetcode.com/problems/regular-expression-matching/
-public class Code07_RegularExpressionMatch {
+public class Code02_RegularExpressionMatch {
 
 	public static boolean isValid(char[] s, char[] e) {
 		// s中不能有'.' or '*'

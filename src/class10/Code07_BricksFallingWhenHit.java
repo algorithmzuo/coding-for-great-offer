@@ -1,8 +1,23 @@
 package class10;
 
-import java.util.Stack;
-
+// 本题测试链接 : https://leetcode.com/problems/bricks-falling-when-hit/
 public class Code07_BricksFallingWhenHit {
+
+	public static int[] hitBricks(int[][] grid, int[][] hits) {
+		for (int i = 0; i < hits.length; i++) {
+			if (grid[hits[i][0]][hits[i][1]] == 1) {
+				grid[hits[i][0]][hits[i][1]] = 2;
+			}
+		}
+		UnionFind unionFind = new UnionFind(grid);
+		int[] ans = new int[hits.length];
+		for (int i = hits.length - 1; i >= 0; i--) {
+			if (grid[hits[i][0]][hits[i][1]] == 2) {
+				ans[i] = unionFind.finger(hits[i][0], hits[i][1]);
+			}
+		}
+		return ans;
+	}
 
 	public static class UnionFind {
 		private int N;
@@ -12,6 +27,7 @@ public class Code07_BricksFallingWhenHit {
 		private boolean[] cellingSet;
 		private int[] fatherMap;
 		private int[] sizeMap;
+		private int[] stack;
 
 		public UnionFind(int[][] matrix) {
 			initSpace(matrix);
@@ -27,6 +43,7 @@ public class Code07_BricksFallingWhenHit {
 			cellingSet = new boolean[all];
 			fatherMap = new int[all];
 			sizeMap = new int[all];
+			stack = new int[all];
 			for (int row = 0; row < N; row++) {
 				for (int col = 0; col < M; col++) {
 					if (grid[row][col] == 1) {
@@ -54,14 +71,14 @@ public class Code07_BricksFallingWhenHit {
 		}
 
 		private int find(int row, int col) {
-			Stack<Integer> stack = new Stack<>();
+			int stackSize = 0;
 			int index = row * M + col;
 			while (index != fatherMap[index]) {
-				stack.add(index);
+				stack[stackSize++] = index;
 				index = fatherMap[index];
 			}
-			while (!stack.isEmpty()) {
-				fatherMap[stack.pop()] = index;
+			while (stackSize != 0) {
+				fatherMap[stack[--stackSize]] = index;
 			}
 			return index;
 		}
@@ -123,37 +140,6 @@ public class Code07_BricksFallingWhenHit {
 				return now == pre ? 0 : now - pre - 1;
 			}
 		}
-	}
-
-	public static int[] hitBricks(int[][] grid, int[][] hits) {
-		for (int i = 0; i < hits.length; i++) {
-			if (grid[hits[i][0]][hits[i][1]] == 1) {
-				grid[hits[i][0]][hits[i][1]] = 2;
-			}
-		}
-		UnionFind unionFind = new UnionFind(grid);
-		int[] ans = new int[hits.length];
-		for (int i = hits.length - 1; i >= 0; i--) {
-			if (grid[hits[i][0]][hits[i][1]] == 2) {
-				ans[i] = unionFind.finger(hits[i][0], hits[i][1]);
-			}
-		}
-		return ans;
-	}
-
-	public static void main(String[] args) {
-		int[][] grid = { 
-				{1, 0, 1, 1, 0},
-				{1, 1, 0, 1, 0},
-				{1, 0, 0, 1, 1},
-				{1, 1, 0, 1, 0}
-		};
-		int[][] hits = {{1,0},{2,3},{0,3}};
-		int[] ans = hitBricks(grid, hits);
-		for (int i = 0; i < ans.length; i++) {
-			System.out.println(ans[i]);
-		}
-
 	}
 
 }

@@ -2,44 +2,24 @@ package class11;
 
 import java.util.HashMap;
 
+// 本题测试链接 : https://leetcode.com/problems/longest-consecutive-sequence/
 public class Code03_LongestConsecutive {
 
-	public static int longestConsecutive(int[] arr) {
-		if (arr == null || arr.length == 0) {
-			return 0;
-		}
-		int max = 1;
-		// 不区分开头和结尾
-		// (key, value)
-		// key所在的连续区域，这个区域一共有几个数，value
-		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-		for (int i = 0; i < arr.length; i++) { // 从左到右遍历每一个数字
-			if (!map.containsKey(arr[i])) {
-				map.put(arr[i], 1); // arr[i]  ~ arr[i]
- 				if (map.containsKey(arr[i] - 1)) { // 是否有arr[i] - 1的结尾
-					max = Math.max(max, merge(map, arr[i] - 1, arr[i]));
-				}
-				if (map.containsKey(arr[i] + 1)) { // 是否有arr[i] + 1的开头
-					max = Math.max(max, merge(map, arr[i], arr[i] + 1));
-				}
+	public static int longestConsecutive(int[] nums) {
+		HashMap<Integer, Integer> map = new HashMap<>();
+		int len = 0;
+		for (int num : nums) {
+			if (!map.containsKey(num)) {
+				map.put(num, 1);
+				int preLen = map.containsKey(num - 1) ? map.get(num - 1) : 0;
+				int posLen = map.containsKey(num + 1) ? map.get(num + 1) : 0;
+				int all = preLen + posLen + 1;
+				map.put(num - preLen, all);
+				map.put(num + posLen, all);
+				len = Math.max(len, all);
 			}
 		}
-		return max;
-	}
-
-	public static int merge(HashMap<Integer, Integer> map, int preRangeEnd, int curRangeStart) {
-		int preRangeStart = preRangeEnd - map.get(preRangeEnd) + 1;
-		int curRangeEnd = curRangeStart + map.get(curRangeStart) - 1;
-		int len = curRangeEnd - preRangeStart + 1;
-		map.put(preRangeStart, len);
-		map.put(curRangeEnd, len);
 		return len;
-	}
-
-	public static void main(String[] args) {
-		int[] arr = { 100, 4, 200, 1, 3, 2 };
-		System.out.println(longestConsecutive(arr));
-
 	}
 
 }
