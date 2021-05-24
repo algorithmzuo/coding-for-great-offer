@@ -1,4 +1,4 @@
-package class10;
+package class11;
 
 public class Code06_MergeRecord {
 	

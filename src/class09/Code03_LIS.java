@@ -1,7 +1,7 @@
 package class09;
 
 // 本题测试链接 : https://leetcode.com/problems/longest-increasing-subsequence
-public class Code04_LIS {
+public class Code03_LIS {
 
 	public static int lengthOfLIS(int[] arr) {
 		if (arr == null || arr.length == 0) {

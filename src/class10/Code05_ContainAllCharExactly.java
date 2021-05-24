@@ -2,7 +2,7 @@ package class10;
 
 import java.util.Arrays;
 
-public class Code04_ContainAllCharExactly {
+public class Code05_ContainAllCharExactly {
 
 	public static int containExactly1(String s, String a) {
 		if (s == null || a == null || s.length() < a.length()) {

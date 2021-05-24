@@ -1,6 +1,6 @@
 package class10;
 
-public class Code05_ExpressionNumber {
+public class Code06_ExpressionNumber {
 
 	public static boolean isValid(char[] exp) {
 		if ((exp.length & 1) == 0) {

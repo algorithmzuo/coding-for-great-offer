@@ -3,7 +3,7 @@ package class10;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Code03_BSTtoDoubleLinkedList {
+public class Code04_BSTtoDoubleLinkedList {
 
 	public static class Node {
 		public int value;

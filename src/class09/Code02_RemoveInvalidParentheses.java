@@ -31,21 +31,23 @@ public class Code02_RemoveInvalidParentheses {
 	// 0 1 2 3 4 5 6
 	// checkIndex = 6 ，modifyIndex = 4
 	// 也就是说，
-	// checkIndex和modifyIndex，分别表示查的开始 和 调的开始，之前的都不用管了
-	public static void remove(String s, List<String> ans, int checkIndex, int modifyIndex, char[] par) {
-		for (int stack = 0, i = checkIndex; i < s.length(); ++i) {
+	// checkIndex和modifyIndex，分别表示查的开始 和 调的开始，之前的都不用管了  par  (  )
+	public static void remove(String s, List<String> ans, int checkIndex, int deleteIndex, char[] par) {
+		for (int count = 0, i = checkIndex; i < s.length(); i++) {
 			if (s.charAt(i) == par[0]) {
-				stack++;
+				count++;
 			}
 			if (s.charAt(i) == par[1]) {
-				stack--;
+				count--;
 			}
-			// 只要有违规就把前缀调整对，而且没有其他分支
-			if (stack < 0) {
-				for (int j = modifyIndex; j <= i; ++j) {
+			// i check计数<0的第一个位置
+			if (count < 0) {
+				for (int j = deleteIndex; j <= i; ++j) {
 					// 比如
-					if (s.charAt(j) == par[1] && (j == modifyIndex || s.charAt(j - 1) != par[1])) {
-						remove(s.substring(0, j) + s.substring(j + 1, s.length()), ans, i, j, par);
+					if (s.charAt(j) == par[1] && (j == deleteIndex || s.charAt(j - 1) != par[1])) {
+						remove(
+								s.substring(0, j) + s.substring(j + 1, s.length()),
+								ans, i, j, par);
 					}
 				}
 				return;

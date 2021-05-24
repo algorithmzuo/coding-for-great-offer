@@ -2,7 +2,7 @@ package class10;
 
 import java.util.Stack;
 
-public class Code02_BricksFallingWhenHit {
+public class Code07_BricksFallingWhenHit {
 
 	public static class UnionFind {
 		private int N;

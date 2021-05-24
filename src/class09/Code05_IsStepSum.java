@@ -2,7 +2,7 @@ package class09;
 
 import java.util.HashMap;
 
-public class Code06_IsStepSum {
+public class Code05_IsStepSum {
 
 	public static boolean isStepSum(int stepSum) {
 		int L = 0;

@@ -1,4 +1,4 @@
-package class09;
+package class10;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -6,13 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.TreeSet;
 
-// 本文件是Code07_TopKTimesRealTime的线上测试
-// 测试链接：https://www.lintcode.com/problem/top-k-frequent-words-ii/
+// 本题测试链接：https://www.lintcode.com/problem/top-k-frequent-words-ii/
 // 以上的代码不要粘贴, 把以下的代码粘贴进java环境编辑器
 // 把类名和构造方法名改成TopK, 可以直接通过
-public class Code03_TopK {
+public class Code02_TopK {
 
-	public Code03_TopK(int K) {
+	public Code02_TopK(int K) {
 		heap = new Node[K];
 		heapSize = 0;
 		strNodeMap = new HashMap<String, Node>();
