@@ -22,4 +22,22 @@ public class Code03_KInversePairs {
 		return dp[n][k];
 	}
 
+	public static int kInversePairs2(int n, int k) {
+		if (n < 1 || k < 0) {
+			return 0;
+		}
+		int[][] dp = new int[n + 1][k + 1];
+		dp[0][0] = 1;
+		for (int i = 1; i <= n; i++) {
+			dp[i][0] = 1;
+			for (int j = 1; j <= k; j++) {
+				dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+				if (j >= i) {
+					dp[i][j] -= dp[i - 1][j - i];
+				}
+			}
+		}
+		return dp[n][k];
+	}
+
 }

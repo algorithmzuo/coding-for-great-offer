@@ -11,6 +11,14 @@ import java.util.TreeSet;
 // 把类名和构造方法名改成TopK, 可以直接通过
 public class Code02_TopK {
 
+	private Node[] heap;
+	private int heapSize;
+	// 词频表   key  abc   value  (abc,7)
+	private HashMap<String, Node> strNodeMap;
+	private HashMap<Node, Integer> nodeIndexMap;
+	private NodeHeapComp comp;
+	private TreeSet<Node> treeSet;
+	
 	public Code02_TopK(int K) {
 		heap = new Node[K];
 		heapSize = 0;
@@ -48,18 +56,13 @@ public class Code02_TopK {
 
 	}
 
-	private Node[] heap;
-	private int heapSize;
-	private HashMap<String, Node> strNodeMap;
-	private HashMap<Node, Integer> nodeIndexMap;
-	private NodeHeapComp comp;
-	private TreeSet<Node> treeSet;
-
 	public void add(String str) {
 		if (heap.length == 0) {
 			return;
 		}
+		// str   找到对应节点  curNode
 		Node curNode = null;
+		// 对应节点  curNode  在堆上的位置
 		int preIndex = -1;
 		if (!strNodeMap.containsKey(str)) {
 			curNode = new Node(str, 1);

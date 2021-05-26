@@ -49,6 +49,8 @@ public class Code04_BSTtoDoubleLinkedList {
 		if (rInfo.start != null) {
 			rInfo.start.left = X;
 		}
+		// 整体链表的头    lInfo.start != null ? lInfo.start : X
+		// 整体链表的尾    rInfo.end != null ? rInfo.end : X
 		return new Info(lInfo.start != null ? lInfo.start : X, rInfo.end != null ? rInfo.end : X);
 	}
 
