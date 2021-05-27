@@ -3,7 +3,7 @@ package class11;
 import java.util.Stack;
 
 // 本题测试链接 : https://leetcode.com/problems/recover-binary-search-tree/
-public class Code05_RecoverBinarySearchTree {
+public class Code09_RecoverBinarySearchTree {
 
 	// 不要提交这个类
 	public static class TreeNode {

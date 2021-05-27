@@ -1,7 +1,7 @@
 package class10;
 
 // 本题测试链接 : https://leetcode-cn.com/problems/boolean-evaluation-lcci/
-public class Code06_BooleanEvaluation {
+public class Code05_BooleanEvaluation {
 
 	public static int countEval0(String express, int desired) {
 		if (express == null || express.equals("")) {

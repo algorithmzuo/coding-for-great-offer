@@ -1,6 +1,6 @@
 package class11;
 
-public class Code07_MergeRecord {
+public class Code11_MergeRecord {
 	
 	/*
 	 * 腾讯原题
