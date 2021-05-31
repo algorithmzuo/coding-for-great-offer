@@ -1,7 +1,7 @@
-package class11;
+package class12;
 
 // 本题测试链接 : https://leetcode.com/problems/median-of-two-sorted-arrays/
-public class Code05_FindKthMinNumber {
+public class Code03_FindKthMinNumber {
 
 	public double findMedianSortedArrays(int[] nums1, int[] nums2) {
 		int size = nums1.length + nums2.length;

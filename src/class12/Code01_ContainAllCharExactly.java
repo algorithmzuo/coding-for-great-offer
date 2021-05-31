@@ -1,8 +1,8 @@
-package class11;
+package class12;
 
 import java.util.Arrays;
 
-public class Code03_ContainAllCharExactly {
+public class Code01_ContainAllCharExactly {
 
 	public static int containExactly1(String s, String a) {
 		if (s == null || a == null || s.length() < a.length()) {

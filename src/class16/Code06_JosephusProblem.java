@@ -1,7 +1,38 @@
-package class14;
+package class16;
 
+// 本题测试链接 : https://leetcode-cn.com/problems/yuan-quan-zhong-zui-hou-sheng-xia-de-shu-zi-lcof/
 public class Code06_JosephusProblem {
 
+	// 提交直接通过
+	// 给定的编号是0~n-1的情况下，数到m就杀
+	// 返回谁会活？
+	public int lastRemaining1(int n, int m) {
+		return getLive(n, m) - 1;
+	}
+
+	// 课上题目的设定是，给定的编号是1~n的情况下，数到m就杀
+	// 返回谁会活？
+	public static int getLive(int n, int m) {
+		if (n == 1) {
+			return 1;
+		}
+		return (getLive(n - 1, m) + m - 1) % n + 1;
+	}
+
+	// 提交直接通过
+	// 给定的编号是0~n-1的情况下，数到m就杀
+	// 返回谁会活？
+	// 这个版本是迭代版
+	public int lastRemaining2(int n, int m) {
+		int ans = 1;
+		int r = 1;
+		while (r <= n) {
+			ans = (ans + m - 1) % (r++) + 1;
+		}
+		return ans - 1;
+	}
+
+	// 以下的code针对单链表，不要提交
 	public static class Node {
 		public int value;
 		public Node next;
@@ -48,17 +79,6 @@ public class Code06_JosephusProblem {
 		}
 		head.next = head;
 		return head;
-	}
-
-	// 现在一共有i个节点，数到m就杀死节点，最终会活下来的节点，请返回它在有i个节点时候的编号
-	// 旧 
-	// getLive(N, m)
-	public static int getLive(int i, int m) {
-		if (i == 1) {
-			return 1;
-		}
-		// getLive(i - 1, m)   长度为i-1时候，活下来的编号
-		return (getLive(i - 1, m) + m - 1) % i + 1;
 	}
 
 	public static void printCircularList(Node head) {

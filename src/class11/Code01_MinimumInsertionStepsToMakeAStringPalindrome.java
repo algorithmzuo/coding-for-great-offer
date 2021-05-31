@@ -47,6 +47,7 @@ public class Code01_MinimumInsertionStepsToMakeAStringPalindrome {
 				}
 			}
 		}
+		
 		int L = 0;
 		int R = N - 1;
 		char[] ans = new char[N + dp[L][R]];
@@ -97,8 +98,10 @@ public class Code01_MinimumInsertionStepsToMakeAStringPalindrome {
 		return ans;
 	}
 
+	// 当前来到的动态规划中的格子，(L,R)
+	// path ....  [pl....pr] ....
 	public static void process(char[] str, int[][] dp, int L, int R, char[] path, int pl, int pr, List<String> ans) {
-		if (L >= R) {
+		if (L >= R) { // L > R  L==R
 			if (L == R) {
 				path[pl] = str[L];
 			}

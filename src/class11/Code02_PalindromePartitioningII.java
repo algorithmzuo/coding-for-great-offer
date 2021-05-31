@@ -71,6 +71,8 @@ public class Code02_PalindromePartitioningII {
 					dp[i] = 1 + next;
 				}
 			}
+			// dp[i]  (0....5) 回文！  dp[0] == dp[6] + 1
+			//  (0....5)   6
 			for (int i = 0, j = 1; j <= N; j++) {
 				if (checkMap[i][j - 1] && dp[i] == dp[j] + 1) {
 					ans.add(s.substring(i, j));
@@ -112,15 +114,18 @@ public class Code02_PalindromePartitioningII {
 		return ans;
 	}
 
-	public static void process(String s, int i, int j, boolean[][] checkMap, int[] dp, List<String> path,
+	// s[0....i-1]  存到path里去了
+	// s[i..j-1]考察的分出来的第一份
+	public static void process(String s, int i, int j, boolean[][] checkMap, int[] dp, 
+			List<String> path,
 			List<List<String>> ans) {
-		if (j == s.length()) {
+		if (j == s.length()) { // s[i...N-1]
 			if (checkMap[i][j - 1] && dp[i] == dp[j] + 1) {
 				path.add(s.substring(i, j));
 				ans.add(copyStringList(path));
 				path.remove(path.size() - 1);
 			}
-		} else {
+		} else {// s[i...j-1]
 			if (checkMap[i][j - 1] && dp[i] == dp[j] + 1) {
 				path.add(s.substring(i, j));
 				process(s, j, j + 1, checkMap, dp, path, ans);

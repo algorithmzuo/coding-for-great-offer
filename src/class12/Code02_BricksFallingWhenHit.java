@@ -1,7 +1,7 @@
-package class11;
+package class12;
 
 // 本题测试链接 : https://leetcode.com/problems/bricks-falling-when-hit/
-public class Code04_BricksFallingWhenHit {
+public class Code02_BricksFallingWhenHit {
 
 	public static int[] hitBricks(int[][] grid, int[][] hits) {
 		for (int i = 0; i < hits.length; i++) {
