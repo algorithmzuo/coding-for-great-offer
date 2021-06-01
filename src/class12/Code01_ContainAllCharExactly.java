@@ -2,6 +2,7 @@ package class12;
 
 import java.util.Arrays;
 
+// 本题测试链接 : https://leetcode.com/problems/permutation-in-string/
 public class Code01_ContainAllCharExactly {
 
 	public static int containExactly1(String s, String a) {
@@ -51,36 +52,39 @@ public class Code01_ContainAllCharExactly {
 		return true;
 	}
 
-	public static int containExactly3(String s, String a) {
-		if (s == null || a == null || s.length() < a.length()) {
+	public static int containExactly3(String s1, String s2) {
+		if (s1 == null || s2 == null || s1.length() < s2.length()) {
 			return -1;
 		}
-		char[] aim = a.toCharArray();
+		char[] str2 = s2.toCharArray();
+		int M = str2.length;
 		int[] count = new int[256];
-		for (int i = 0; i < aim.length; i++) {
-			count[aim[i]]++;
+		for (int i = 0; i < M; i++) {
+			count[str2[i]]++;
 		}
-		int M = aim.length;
-		char[] str = s.toCharArray();
-		int inValidTimes = 0;
+		int all = M;
+		char[] str1 = s1.toCharArray();
 		int R = 0;
-		for (; R < M; R++) {
-			if (count[str[R]]-- <= 0) {
-				inValidTimes++;
+		// 0~M-1
+		for (; R < M; R++) { // 最早的M个字符，让其窗口初步形成
+			if (count[str1[R]]-- > 0) {
+				all--;
 			}
 		}
-		for (; R < str.length; R++) {
-			if (inValidTimes == 0) {
+		// 窗口初步形成了，并没有判断有效无效，决定下一个位置一上来判断
+		// 接下来的过程，窗口右进一个，左吐一个
+		for (; R < str1.length; R++) {
+			if (all == 0) { // R-1
 				return R - M;
 			}
-			if (count[str[R]]-- <= 0) {
-				inValidTimes++;
+			if (count[str1[R]]-- > 0) {
+				all--;
 			}
-			if (count[str[R - M]]++ < 0) {
-				inValidTimes--;
+			if (count[str1[R - M]]++ >= 0) {
+				all++;
 			}
 		}
-		return inValidTimes == 0 ? R - M : -1;
+		return all == 0 ? R - M : -1;
 	}
 
 	// for test
@@ -95,7 +99,7 @@ public class Code01_ContainAllCharExactly {
 	public static void main(String[] args) {
 		int possibilities = 5;
 		int strMaxSize = 20;
-		int aimMaxSize = 5;
+		int aimMaxSize = 10;
 		int testTimes = 500000;
 		System.out.println("test begin, test time : " + testTimes);
 		for (int i = 0; i < testTimes; i++) {
@@ -106,6 +110,12 @@ public class Code01_ContainAllCharExactly {
 			int ans3 = containExactly3(str, aim);
 			if (ans1 != ans2 || ans2 != ans3) {
 				System.out.println("Oops!");
+				System.out.println(str);
+				System.out.println(aim);
+				System.out.println(ans1);
+				System.out.println(ans2);
+				System.out.println(ans3);
+				break;
 			}
 		}
 		System.out.println("test finish");

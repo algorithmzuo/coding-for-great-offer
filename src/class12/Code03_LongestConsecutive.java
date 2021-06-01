@@ -3,7 +3,7 @@ package class12;
 import java.util.HashMap;
 
 // 本题测试链接 : https://leetcode.com/problems/longest-consecutive-sequence/
-public class Code05_LongestConsecutive {
+public class Code03_LongestConsecutive {
 
 	public static int longestConsecutive(int[] nums) {
 		HashMap<Integer, Integer> map = new HashMap<>();

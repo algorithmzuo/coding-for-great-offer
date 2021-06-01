@@ -36,10 +36,10 @@ public class Code03_FindKthMinNumber {
 		int[] shorts = arr1.length < arr2.length ? arr1 : arr2;
 		int l = longs.length;
 		int s = shorts.length;
-		if (kth <= s) {
+		if (kth <= s) { // 1)
 			return getUpMedian(shorts, 0, kth - 1, longs, 0, kth - 1);
 		}
-		if (kth > l) {
+		if (kth > l) { // 3)
 			if (shorts[kth - l - 1] >= longs[l - 1]) {
 				return shorts[kth - l - 1];
 			}
@@ -48,21 +48,31 @@ public class Code03_FindKthMinNumber {
 			}
 			return getUpMedian(shorts, kth - l, s - 1, longs, kth - s, l - 1);
 		}
+		// 2)  s < k <= l
 		if (longs[kth - s - 1] >= shorts[s - 1]) {
 			return longs[kth - s - 1];
 		}
 		return getUpMedian(shorts, 0, s - 1, longs, kth - s, kth - 1);
 	}
 
+	
+	
+	
+	// A[s1...e1]
+	// B[s2...e2]
+	// 一定等长！
+	// 返回整体的，上中位数！8（4） 10（5） 12（6）
 	public static int getUpMedian(int[] A, int s1, int e1, int[] B, int s2, int e2) {
 		int mid1 = 0;
 		int mid2 = 0;
 		while (s1 < e1) {
+			// mid1 = s1 + (e1 - s1) >> 1
 			mid1 = (s1 + e1) / 2;
 			mid2 = (s2 + e2) / 2;
 			if (A[mid1] == B[mid2]) {
 				return A[mid1];
 			}
+			// 两个中点一定不等！
 			if (((e1 - s1 + 1) & 1) == 1) { // 奇数长度
 				if (A[mid1] > B[mid2]) {
 					if (B[mid2] >= A[mid1 - 1]) {
