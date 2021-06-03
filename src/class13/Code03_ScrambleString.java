@@ -1,7 +1,7 @@
 package class13;
 
 // 本题测试链接 : https://leetcode.com/problems/scramble-string/
-public class Code04_ScrambleString {
+public class Code03_ScrambleString {
 
 	public static boolean sameTypeSameNumber(char[] str1, char[] str2) {
 		if (str1.length != str2.length) {

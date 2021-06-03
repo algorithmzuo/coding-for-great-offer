@@ -1,7 +1,7 @@
 package class13;
 
 // 本题测试链接 : https://leetcode.com/problems/super-washing-machines/
-public class Code01_SuperWashingMachines {
+public class Code02_SuperWashingMachines {
 
 	public static int findMinMoves(int[] arr) {
 		if (arr == null || arr.length == 0) {
