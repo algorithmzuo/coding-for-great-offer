@@ -115,23 +115,26 @@ public class Code01_NCardsABWin {
 	}
 
 	public static void main(String[] args) {
-		System.out.println("N = 10, a = 17, b = 21");
+		int N = 10;
+		int a = 17;
+		int b = 21;
+		System.out.println("N = " + N + ", a = " + a + ", b = " + b);
 		System.out.println(f1());
-		System.out.println(f2(10, 17, 21));
-		System.out.println(f3(10, 17, 21));
-		System.out.println(f4(10, 17, 21));
+		System.out.println(f2(N, a, b));
+		System.out.println(f3(N, a, b));
+		System.out.println(f4(N, a, b));
 
 		int maxN = 15;
 		int maxM = 20;
 		int testTime = 100000;
 		System.out.println("测试开始");
-		System.out.println("比对double类型答案可能会有精度对不准的问题");
-		System.out.println("所以只保留小数点后四位");
-		System.out.println("如果没有错误打印，说明验证通过");
+		System.out.print("比对double类型答案可能会有精度对不准的问题, ");
+		System.out.print("所以答案一律只保留小数点后四位进行比对, ");
+		System.out.println("如果没有错误提示, 说明验证通过");
 		for (int i = 0; i < testTime; i++) {
-			int N = (int) (Math.random() * maxN);
-			int a = (int) (Math.random() * maxM);
-			int b = (int) (Math.random() * maxM);
+			N = (int) (Math.random() * maxN);
+			a = (int) (Math.random() * maxM);
+			b = (int) (Math.random() * maxM);
 			double ans2 = new BigDecimal(f2(N, a, b)).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
 			double ans3 = new BigDecimal(f3(N, a, b)).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
 			double ans4 = new BigDecimal(f4(N, a, b)).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
@@ -145,10 +148,12 @@ public class Code01_NCardsABWin {
 		}
 		System.out.println("测试结束");
 
-		System.out.println("当N = 10000, a = 67834, b = 72315时，除了方法4之外都超时");
+		N = 10000;
+		a = 67834;
+		b = 72315;
+		System.out.println("N = " + N + ", a = " + a + ", b = " + b + "时, 除了方法4外都超时");
 		System.out.print("方法4答案: ");
-		System.out.println(f4(10000, 67834, 72315));
-
+		System.out.println(f4(N, a, b));
 	}
 
 }
