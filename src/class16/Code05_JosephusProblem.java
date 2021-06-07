@@ -1,7 +1,7 @@
 package class16;
 
 // 本题测试链接 : https://leetcode-cn.com/problems/yuan-quan-zhong-zui-hou-sheng-xia-de-shu-zi-lcof/
-public class Code06_JosephusProblem {
+public class Code05_JosephusProblem {
 
 	// 提交直接通过
 	// 给定的编号是0~n-1的情况下，数到m就杀
