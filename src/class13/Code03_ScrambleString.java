@@ -3,6 +3,42 @@ package class13;
 // 本题测试链接 : https://leetcode.com/problems/scramble-string/
 public class Code03_ScrambleString {
 
+	public static boolean isScramble0(String s1, String s2) {
+		if ((s1 == null && s2 != null) || (s1 != null && s2 == null)) {
+			return false;
+		}
+		if (s1 == null && s2 == null) {
+			return true;
+		}
+		if (s1.equals(s2)) {
+			return true;
+		}
+		char[] str1 = s1.toCharArray();
+		char[] str2 = s2.toCharArray();
+		if (!sameTypeSameNumber(str1, str2)) {
+			return false;
+		}
+		return process0(str1, 0, str1.length - 1, str2, 0, str2.length - 1);
+	}
+
+	// str1[L1...R1] str2[L2...R2] 是否互为玄变串
+	// 一定保证这两段是等长的！
+	public static boolean process0(char[] str1, int L1, int R1, char[] str2, int L2, int R2) {
+		if (L1 == R1) {
+			return str1[L1] == str2[L2];
+		}
+		for (int leftEnd = L1; leftEnd < R1; leftEnd++) {
+			boolean p1 = process0(str1, L1, leftEnd, str2, L2, L2 + leftEnd - L1)
+					&& process0(str1, leftEnd + 1, R1, str2, L2 + leftEnd - L1 + 1, R2);
+			boolean p2 = process0(str1, L1, leftEnd, str2, R2 - (leftEnd - L1), R2)
+					&& process0(str1, leftEnd + 1, R1, str2, L2, R2 - (leftEnd - L1) - 1);
+			if (p1 || p2) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public static boolean sameTypeSameNumber(char[] str1, char[] str2) {
 		if (str1.length != str2.length) {
 			return false;

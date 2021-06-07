@@ -19,11 +19,15 @@ public class Code04_BricksFallingWhenHit {
 		return ans;
 	}
 
+	// 并查集
 	public static class UnionFind {
 		private int N;
 		private int M;
+		// 有多少块砖，连到了天花板上
 		private int cellingAll;
+		// 原始矩阵，因为炮弹的影响，1 -> 2
 		private int[][] grid;
+		// cellingSet[i] = true; i 是头节点，所在的集合是天花板集合
 		private boolean[] cellingSet;
 		private int[] fatherMap;
 		private int[] sizeMap;

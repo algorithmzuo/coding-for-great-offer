@@ -1,8 +1,8 @@
-package class14;
+package class16;
 
 import java.util.Arrays;
 
-public class Code06_MinPatches {
+public class Code03_MinPatches {
 
 	// arr请保证有序，且正数
 	public static int minPatches(int[] arr, int aim) {

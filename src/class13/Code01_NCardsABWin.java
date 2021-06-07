@@ -16,6 +16,8 @@ public class Code01_NCardsABWin {
 		return p1(0);
 	}
 
+	// 游戏的规则，如上
+	// 当你来到cur这个累加和的时候，获胜概率是多少返回！
 	public static double p1(int cur) {
 		if (cur >= 17 && cur < 21) {
 			return 1.0;
@@ -45,9 +47,13 @@ public class Code01_NCardsABWin {
 		if (b - a >= N) {
 			return 1.0;
 		}
+		// 所有参数都合法，并且b-a < N
 		return p2(0, N, a, b);
 	}
 
+	// 游戏规则，如上，int N, int a, int b，固定参数！
+	// cur，目前到达了cur的累加和
+	// 返回赢的概率
 	public static double p2(int cur, int N, int a, int b) {
 		if (cur >= a && cur < b) {
 			return 1.0;

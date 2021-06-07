@@ -1,9 +1,9 @@
-package class14;
+package class16;
 
 import java.util.Arrays;
 import java.util.HashSet;
 
-public class Code05_SmallestUnFormedSum {
+public class Code02_SmallestUnFormedSum {
 
 	public static int unformedSum1(int[] arr) {
 		if (arr == null || arr.length == 0) {
