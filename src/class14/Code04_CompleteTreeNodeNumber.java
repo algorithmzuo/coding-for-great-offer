@@ -20,8 +20,8 @@ public class Code04_CompleteTreeNodeNumber {
 		return bs(head, 1, mostLeftLevel(head, 1));
 	}
 
-	// node在第level层，h是总的深度（h永远不变，全局变量
-	// 以node为头的完全二叉树，节点个数是多少
+	// 当前来到node节点，node节点在level层，总层数是h
+	// 返回node为头的子树(必是完全二叉树)，有多少个节点
 	public static int bs(Node node, int Level, int h) {
 		if (Level == h) {
 			return 1;
