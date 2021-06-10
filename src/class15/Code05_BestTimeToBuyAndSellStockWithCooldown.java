@@ -48,6 +48,10 @@ public class Code05_BestTimeToBuyAndSellStockWithCooldown {
 	//
 	// 于是通过分析，能得到以下的转移方程：
 	// buy[i] = Math.max(buy[i - 1], sell[i - 2] - prices[i])
+	
+	
+	
+	
 	// 如果i位置没有发生buy行为，说明有没有i位置都一样，那么buy[i] = buy[i-1]，这显而易见
 	// 如果i位置发生了buy行为, 那么buy[i] = sell[i - 2] - prices[i]，
 	// 因为你想在i位置买的话，你必须保证之前交易行为发生在0...i-2上，
@@ -66,6 +70,8 @@ public class Code05_BestTimeToBuyAndSellStockWithCooldown {
 		int N = prices.length;
 		int[] buy = new int[N];
 		int[] sell = new int[N];
+		// buy[0] 不需要设置  buy[0] = -arr[0]
+		// sell[0] = 0
 		buy[1] = Math.max(-prices[0], -prices[1]);
 		sell[1] = Math.max(0, prices[1] - prices[0]);
 		for (int i = 2; i < N; i++) {
