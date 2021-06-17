@@ -1,6 +1,6 @@
 package class17;
 
-public class Code05_HanoiProblem {
+public class Code06_HanoiProblem {
 
 	public static int step1(int[] arr) {
 		if (arr == null || arr.length == 0) {

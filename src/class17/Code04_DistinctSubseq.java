@@ -1,6 +1,6 @@
 package class17;
 
-public class Code03_DistinctSubseq {
+public class Code04_DistinctSubseq {
 
 	public static int numDistinct1(String S, String T) {
 		char[] s = S.toCharArray();

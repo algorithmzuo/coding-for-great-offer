@@ -70,29 +70,45 @@ public class Code01_IsSum {
 		if (sum == 0) {
 			return true;
 		}
+		// sum != 0
 		if (arr == null || arr.length == 0) {
 			return false;
 		}
+		// arr有数，sum不为0
 		int min = 0;
 		int max = 0;
 		for (int num : arr) {
 			min += num < 0 ? num : 0;
 			max += num > 0 ? num : 0;
 		}
+		// min~max
 		if (sum < min || sum > max) {
 			return false;
 		}
+
+		// min <= sum <= max
 		int N = arr.length;
+		// dp[i][j]
+		// 
+		//  0   1   2   3  4    5   6    7 (实际的对应)
+		// -7  -6  -5  -4  -3   -2  -1   0（想象中）
+		// 
+		// dp[0][-min] -> dp[0][7] -> dp[0][0]
 		boolean[][] dp = new boolean[N][max - min + 1];
+		// dp[0][0] = true
 		dp[0][-min] = true;
+		// dp[0][arr[0]] = true
 		dp[0][arr[0] - min] = true;
 		for (int i = 1; i < N; i++) {
 			for (int j = min; j <= max; j++) {
+				// dp[i][j] = dp[i-1][j]
 				dp[i][j - min] = dp[i - 1][j - min];
+				// dp[i][j] |= dp[i-1][j - arr[i]]
 				int next = j - min - arr[i];
 				dp[i][j - min] |= (next >= 0 && next <= max - min && dp[i - 1][next]);
 			}
 		}
+		// dp[N-1][sum]
 		return dp[N - 1][sum - min];
 	}
 
@@ -115,8 +131,15 @@ public class Code01_IsSum {
 		int mid = N >> 1;
 		HashSet<Integer> leftSum = new HashSet<>();
 		HashSet<Integer> rightSum = new HashSet<>();
+		// 0...mid-1
 		process4(arr, 0, mid, 0, leftSum);
+		// mid..N-1
 		process4(arr, mid, N, 0, rightSum);
+		// 单独查看，只使用左部分，能不能搞出sum
+		// 单独查看，只使用右部分，能不能搞出sum
+		// 左+右，联合能不能搞出sum
+		// 左部分搞出所有累加和的时候，包含左部分一个数也没有，这种情况的，leftsum表里，0
+		// 17  17
 		for (int l : leftSum) {
 			if (rightSum.contains(sum - l)) {
 				return true;
@@ -125,6 +148,9 @@ public class Code01_IsSum {
 		return false;
 	}
 
+	// arr[0...i-1]决定已经做完了！形成的累加和是pre
+	// arr[i...end - 1] end(终止)  所有数字随意选择，
+	// arr[0...end-1]所有可能的累加和存到ans里去
 	public static void process4(int[] arr, int i, int end, int pre, HashSet<Integer> ans) {
 		if (i == end) {
 			ans.add(pre);

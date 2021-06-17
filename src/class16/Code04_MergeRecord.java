@@ -1,6 +1,6 @@
 package class16;
 
-public class Code06_MergeRecord {
+public class Code04_MergeRecord {
 	
 	/*
 	 * 腾讯原题
@@ -88,6 +88,10 @@ public class Code06_MergeRecord {
 		return ans;
 	}
 
+	// originArr[L...R]完成排序！
+	// L...M左  M...R右  merge
+	// L...R  2的power次方
+	
 	public static void process(int[] originArr, int L, int R, int power, int[] record) {
 		if (L == R) {
 			return;
