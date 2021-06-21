@@ -1,7 +1,7 @@
 package class18;
 
-// 本文件为Code04_TopKSumCrossTwoArrays的练习题
-// 测试链接 : https://www.nowcoder.com/practice/7201cacf73e7495aa5f88b223bbbf6d1
+// 牛客的测试链接：
+// https://www.nowcoder.com/practice/7201cacf73e7495aa5f88b223bbbf6d1
 // 不要提交包信息，把import底下的类名改成Main，提交下面的代码可以直接通过
 // 因为测试平台会卡空间，所以把set换成了动态加和减的结构
 

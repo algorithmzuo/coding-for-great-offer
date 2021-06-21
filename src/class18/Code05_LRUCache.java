@@ -2,7 +2,24 @@ package class18;
 
 import java.util.HashMap;
 
-public class Code05_LRU {
+// 本题测试链接 : https://leetcode.com/problems/lru-cache/
+// 提交时把类名和构造方法名改成 : LRUCache
+public class Code05_LRUCache {
+
+	public Code05_LRUCache(int capacity) {
+		cache = new MyCache<>(capacity);
+	}
+
+	private MyCache<Integer, Integer> cache;
+
+	public int get(int key) {
+		Integer ans = cache.get(key);
+		return ans == null ? -1 : ans;
+	}
+
+	public void put(int key, int value) {
+		cache.set(key, value);
+	}
 
 	public static class Node<K, V> {
 		public K key;
@@ -16,44 +33,37 @@ public class Code05_LRU {
 		}
 	}
 
-	// 双向链表
-	// 从head到tail所有节点都是串好的
-	public static class NodeDoubleLinkedList<K , V> {
+	public static class NodeDoubleLinkedList<K, V> {
 		private Node<K, V> head;
 		private Node<K, V> tail;
 
 		public NodeDoubleLinkedList() {
 			head = null;
-		    tail = null;
+			tail = null;
 		}
 
-		// 如果一个新的节点加入，放到尾巴上去
 		public void addNode(Node<K, V> newNode) {
 			if (newNode == null) {
 				return;
 			}
-			// newNode != null
-			if (head == null) { // 双向链表中一个节点也没有
+			if (head == null) {
 				head = newNode;
 				tail = newNode;
-			} else { // 双向链表中之前有节点，tail（非null）
+			} else {
 				tail.next = newNode;
 				newNode.last = tail;
-			    tail = newNode;
+				tail = newNode;
 			}
 		}
 
-		// 潜台词 ： 双向链表上一定有这个node
-		// node分离出，但是node前后环境重新连接
-		// node放到尾巴上去
 		public void moveNodeToTail(Node<K, V> node) {
 			if (this.tail == node) {
 				return;
 			}
-			if (this.head == node) { // 当前node是老头部
+			if (this.head == node) {
 				this.head = node.next;
 				this.head.last = null;
-			} else { // 当前node是中间的一个节点
+			} else {
 				node.last.next = node.next;
 				node.next.last = node.last;
 			}
@@ -63,13 +73,12 @@ public class Code05_LRU {
 			this.tail = node;
 		}
 
-		// 把头节点删掉并返回
 		public Node<K, V> removeHead() {
 			if (this.head == null) {
 				return null;
 			}
 			Node<K, V> res = this.head;
-			if (this.head == this.tail) { // 链表中只有一个节点的时候
+			if (this.head == this.tail) {
 				this.head = null;
 				this.tail = null;
 			} else {
@@ -88,9 +97,6 @@ public class Code05_LRU {
 		private final int capacity;
 
 		public MyCache(int cap) {
-			if (cap < 1) {
-				throw new RuntimeException("should be more than 0.");
-			}
 			keyNodeMap = new HashMap<K, Node<K, V>>();
 			nodeList = new NodeDoubleLinkedList<K, V>();
 			capacity = cap;
@@ -110,13 +116,13 @@ public class Code05_LRU {
 				Node<K, V> node = keyNodeMap.get(key);
 				node.value = value;
 				nodeList.moveNodeToTail(node);
-			} else { // 这是一个新加的记录，有可能出现替换
-				if (keyNodeMap.size() == capacity) {
-					removeMostUnusedCache();
-				}
+			} else {
 				Node<K, V> newNode = new Node<K, V>(key, value);
 				keyNodeMap.put(key, newNode);
 				nodeList.addNode(newNode);
+				if (keyNodeMap.size() == capacity + 1) {
+					removeMostUnusedCache();
+				}
 			}
 		}
 
@@ -124,19 +130,6 @@ public class Code05_LRU {
 			Node<K, V> removeNode = nodeList.removeHead();
 			keyNodeMap.remove(removeNode.key);
 		}
-
-	}
-
-	public static void main(String[] args) {
-		MyCache<String, Integer> testCache = new MyCache<String, Integer>(3);
-		testCache.set("A", 1);
-		testCache.set("B", 2);
-		testCache.set("C", 3);
-		System.out.println(testCache.get("B"));
-		System.out.println(testCache.get("A"));
-		testCache.set("D", 4);
-		System.out.println(testCache.get("D"));
-		System.out.println(testCache.get("C"));
 
 	}
 

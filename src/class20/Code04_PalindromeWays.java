@@ -2,33 +2,43 @@ package class20;
 
 public class Code04_PalindromeWays {
 
-	public static int way1(String str) {
+	public static int ways1(String str) {
+		if (str == null || str.length() == 0) {
+			return 0;
+		}
 		char[] s = str.toCharArray();
-		int len = s.length;
-		int[][] dp = new int[len + 1][len + 1];
-		for (int i = 0; i <= len; i++) {
-			dp[i][i] = 1;
-		}
-		// dp[i][j]，在空串不算回文串的情况下，求str[i..j]有多少不同的回文子序列
-		// index -> dp
-		// str[index-1]
-		// dp 1 str 0
-		// dp 2 str 1
-		for (int subLen = 2; subLen <= len; subLen++) {
-			for (int l = 1; l <= len - subLen + 1; l++) {
-				int r = l + subLen - 1;
-				dp[l][r] += dp[l + 1][r];
-				dp[l][r] += dp[l][r - 1];
-				if (s[l - 1] == s[r - 1])
-					dp[l][r] += 1;
-				else
-					dp[l][r] -= dp[l + 1][r - 1];
-			}
-		}
-		return dp[1][len];
+		char[] path = new char[s.length];
+		return process(str.toCharArray(), 0, path, 0);
 	}
 
-	public static int way2(String str) {
+	public static int process(char[] s, int si, char[] path, int pi) {
+		if (si == s.length) {
+			return isP(path, pi) ? 1 : 0;
+		}
+		int ans = process(s, si + 1, path, pi);
+		path[pi] = s[si];
+		ans += process(s, si + 1, path, pi + 1);
+		return ans;
+	}
+
+	public static boolean isP(char[] path, int pi) {
+		if (pi == 0) {
+			return false;
+		}
+		int L = 0;
+		int R = pi - 1;
+		while (L < R) {
+			if (path[L++] != path[R--]) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static int ways2(String str) {
+		if (str == null || str.length() == 0) {
+			return 0;
+		}
 		char[] s = str.toCharArray();
 		int n = s.length;
 		int[][] dp = new int[n][n];
@@ -49,12 +59,33 @@ public class Code04_PalindromeWays {
 		return dp[0][n - 1];
 	}
 
-	public static void main(String[] args) {
-		System.out.println(way1("ABA"));
-		System.out.println(way1("XXY"));
+	public static String randomString(int len, int types) {
+		char[] str = new char[len];
+		for (int i = 0; i < str.length; i++) {
+			str[i] = (char) ('a' + (int) (Math.random() * types));
+		}
+		return String.valueOf(str);
+	}
 
-		System.out.println(way2("ABA"));
-		System.out.println(way2("XXY"));
+	public static void main(String[] args) {
+		int N = 10;
+		int types = 5;
+		int testTimes = 100000;
+		System.out.println("测试开始");
+		for (int i = 0; i < testTimes; i++) {
+			int len = (int) (Math.random() * N);
+			String str = randomString(len, types);
+			int ans1 = ways1(str);
+			int ans2 = ways2(str);
+			if (ans1 != ans2) {
+				System.out.println(str);
+				System.out.println(ans1);
+				System.out.println(ans2);
+				System.out.println("Oops!");
+				break;
+			}
+		}
+		System.out.println("测试结束");
 	}
 
 }

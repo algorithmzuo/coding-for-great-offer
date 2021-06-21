@@ -63,6 +63,5 @@ public class Code01_HanoiProblem {
 		int[] arr = { 3, 3, 2, 1 };
 		System.out.println(step1(arr));
 		System.out.println(step2(arr));
-
 	}
 }

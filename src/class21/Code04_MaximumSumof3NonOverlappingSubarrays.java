@@ -1,5 +1,6 @@
 package class21;
 
+// 本题测试链接 : https://leetcode.com/problems/maximum-sum-of-3-non-overlapping-subarrays/
 public class Code04_MaximumSumof3NonOverlappingSubarrays {
 
 	public static int[] maxSumOfThreeSubarrays(int[] nums, int k) {
@@ -41,7 +42,7 @@ public class Code04_MaximumSumof3NonOverlappingSubarrays {
 		int b = 0;
 		int c = 0;
 		max = 0;
-		for (int i = k; i < N - 2 * k + 1; i++) { // 中间一块的起始点  (0...k-1)选不了   i == N-1
+		for (int i = k; i < N - 2 * k + 1; i++) { // 中间一块的起始点 (0...k-1)选不了 i == N-1
 			int part1 = range[left[i - 1]];
 			int part2 = range[i];
 			int part3 = range[right[i + k]];
@@ -53,14 +54,6 @@ public class Code04_MaximumSumof3NonOverlappingSubarrays {
 			}
 		}
 		return new int[] { a, b, c };
-	}
-
-	public static void main(String[] args) {
-		int[] nums = { 9, 8, 7, 6, 2, 2, 2, 2 };
-		int k = 2;
-		int[] ans = maxSumOfThreeSubarrays(nums, k);
-		System.out.println(ans[0] + "," + ans[1] + "," + ans[2]);
-
 	}
 
 }

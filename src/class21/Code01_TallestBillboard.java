@@ -2,14 +2,15 @@ package class21;
 
 import java.util.HashMap;
 
+// 本题测试链接 : https://leetcode.com/problems/tallest-billboard/
 public class Code01_TallestBillboard {
 
 	public int tallestBillboard(int[] rods) {
-		// key  集合对的某个差
-		// value  满足差值为key的集合对中，最好的一对，较小集合的累加和
+		// key 集合对的某个差
+		// value 满足差值为key的集合对中，最好的一对，较小集合的累加和
 		// 较大 -> value + key
 		HashMap<Integer, Integer> dp = new HashMap<>(), cur;
-		dp.put(0, 0);// 空集   和  空集    
+		dp.put(0, 0);// 空集 和 空集
 		for (int num : rods) {
 			if (num != 0) {
 				// cur 内部数据完全和dp一样
