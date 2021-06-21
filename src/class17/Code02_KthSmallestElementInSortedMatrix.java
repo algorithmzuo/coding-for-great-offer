@@ -66,6 +66,7 @@ public class Code02_KthSmallestElementInSortedMatrix {
 		int ans = 0;
 		while (left <= right) {
 			int mid = left + ((right - left) >> 1);
+			// <=mid 有几个 <= mid 在矩阵中真实出现的数，谁最接近mid
 			Info info = noMoreNum(matrix, mid);
 			if (info.num < k) {
 				left = mid + 1;

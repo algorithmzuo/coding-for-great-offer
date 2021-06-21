@@ -13,7 +13,10 @@ public class Code03_PalindromePairs {
 			wordset.put(words[i], i);
 		}
 		List<List<Integer>> res = new ArrayList<>();
+		//{ [6,23] 、 [7,13] }
 		for (int i = 0; i < words.length; i++) {
+			// i words[i]
+			// findAll(字符串，在i位置，wordset) 返回所有生成的结果返回
 			res.addAll(findAll(words[i], i, wordset));
 		}
 		return res;

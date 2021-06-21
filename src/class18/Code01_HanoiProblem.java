@@ -1,6 +1,6 @@
-package class17;
+package class18;
 
-public class Code06_HanoiProblem {
+public class Code01_HanoiProblem {
 
 	public static int step1(int[] arr) {
 		if (arr == null || arr.length == 0) {
@@ -60,7 +60,6 @@ public class Code06_HanoiProblem {
 	}
 
 	public static void main(String[] args) {
-
 		int[] arr = { 3, 3, 2, 1 };
 		System.out.println(step1(arr));
 		System.out.println(step2(arr));
