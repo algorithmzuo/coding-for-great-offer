@@ -26,11 +26,8 @@ public class Code01_PreAndInArrayToPosArray {
 		return pos;
 	}
 
-	//  L1...R1  L2...R2  L3...R3
-	public static void process1(
-			int[] pre, int L1, int R1, 
-			int[] in, int L2, int R2, 
-			int[] pos, int L3, int R3) {
+	// L1...R1 L2...R2 L3...R3
+	public static void process1(int[] pre, int L1, int R1, int[] in, int L2, int R2, int[] pos, int L3, int R3) {
 		if (L1 > R1) {
 			return;
 		}
@@ -144,14 +141,14 @@ public class Code01_PreAndInArrayToPosArray {
 	}
 
 	// for test
-	public static Node generateRandomTree(int value, int N) {
+	public static Node generateRandomTree(int value, int maxLevel) {
 		HashSet<Integer> hasValue = new HashSet<Integer>();
-		return createTree(value, 1, N, hasValue);
+		return createTree(value, 1, maxLevel, hasValue);
 	}
 
 	// for test
-	public static Node createTree(int value, int level, int N, HashSet<Integer> hasValue) {
-		if (level > N) {
+	public static Node createTree(int value, int level, int maxLevel, HashSet<Integer> hasValue) {
+		if (level > maxLevel) {
 			return null;
 		}
 		int cur = 0;
@@ -160,8 +157,8 @@ public class Code01_PreAndInArrayToPosArray {
 		} while (hasValue.contains(cur));
 		hasValue.add(cur);
 		Node head = new Node(cur);
-		head.left = createTree(value, level + 1, N, hasValue);
-		head.right = createTree(value, level + 1, N, hasValue);
+		head.left = createTree(value, level + 1, maxLevel, hasValue);
+		head.right = createTree(value, level + 1, maxLevel, hasValue);
 		return head;
 	}
 
@@ -186,11 +183,11 @@ public class Code01_PreAndInArrayToPosArray {
 
 	public static void main(String[] args) {
 		System.out.println("test begin");
-		int N = 5;
+		int maxLevel = 5;
 		int value = 1000;
 		int testTime = 100000;
 		for (int i = 0; i < testTime; i++) {
-			Node head = generateRandomTree(value, N);
+			Node head = generateRandomTree(value, maxLevel);
 			int[] pre = getPreArray(head);
 			int[] in = getInArray(head);
 			int[] pos = getPosArray(head);
