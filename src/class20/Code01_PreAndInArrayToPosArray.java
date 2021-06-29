@@ -1,10 +1,10 @@
-package class19;
+package class20;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class Code02_PreAndInArrayToPosArray {
+public class Code01_PreAndInArrayToPosArray {
 
 	public static class Node {
 		public int value;

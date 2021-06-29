@@ -1,12 +1,12 @@
-package class18;
+package class19;
 
 import java.util.HashMap;
 
 // 本题测试链接 : https://leetcode.com/problems/lru-cache/
 // 提交时把类名和构造方法名改成 : LRUCache
-public class Code05_LRUCache {
+public class Code01_LRUCache {
 
-	public Code05_LRUCache(int capacity) {
+	public Code01_LRUCache(int capacity) {
 		cache = new MyCache<>(capacity);
 	}
 
@@ -42,6 +42,7 @@ public class Code05_LRUCache {
 			tail = null;
 		}
 
+		// 现在来了一个新的node，请挂到尾巴上去
 		public void addNode(Node<K, V> newNode) {
 			if (newNode == null) {
 				return;
@@ -56,35 +57,38 @@ public class Code05_LRUCache {
 			}
 		}
 
+		// node 入参，一定保证！node在双向链表里！
+		// node原始的位置，左右重新连好，然后把node分离出来
+		// 挂到整个链表的尾巴上
 		public void moveNodeToTail(Node<K, V> node) {
-			if (this.tail == node) {
+			if (tail == node) {
 				return;
 			}
-			if (this.head == node) {
-				this.head = node.next;
-				this.head.last = null;
+			if (head == node) {
+				head = node.next;
+				head.last = null;
 			} else {
 				node.last.next = node.next;
 				node.next.last = node.last;
 			}
-			node.last = this.tail;
+			node.last = tail;
 			node.next = null;
-			this.tail.next = node;
-			this.tail = node;
+			tail.next = node;
+			tail = node;
 		}
 
 		public Node<K, V> removeHead() {
-			if (this.head == null) {
+			if (head == null) {
 				return null;
 			}
-			Node<K, V> res = this.head;
-			if (this.head == this.tail) {
-				this.head = null;
-				this.tail = null;
+			Node<K, V> res = head;
+			if (head == tail) {
+				head = null;
+				tail = null;
 			} else {
-				this.head = res.next;
+				head = res.next;
 				res.next = null;
-				this.head.last = null;
+				head.last = null;
 			}
 			return res;
 		}
@@ -111,12 +115,14 @@ public class Code05_LRUCache {
 			return null;
 		}
 
+		// set(Key, Value)
+		// 新增  更新value的操作
 		public void set(K key, V value) {
 			if (keyNodeMap.containsKey(key)) {
 				Node<K, V> node = keyNodeMap.get(key);
 				node.value = value;
 				nodeList.moveNodeToTail(node);
-			} else {
+			} else { // 新增！
 				Node<K, V> newNode = new Node<K, V>(key, value);
 				keyNodeMap.put(key, newNode);
 				nodeList.addNode(newNode);

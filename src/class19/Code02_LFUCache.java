@@ -1,12 +1,12 @@
-package class18;
+package class19;
 
 import java.util.HashMap;
 
 // 本题测试链接 : https://leetcode.com/problems/lfu-cache/
-// 提交时吧类名和构造方法名改为 : LFUCache
-public class Code06_LFUCache {
+// 提交时把类名和构造方法名改为 : LFUCache
+public class Code02_LFUCache {
 
-	public Code06_LFUCache(int K) {
+	public Code02_LFUCache(int K) {
 		capacity = K;
 		size = 0;
 		records = new HashMap<>();

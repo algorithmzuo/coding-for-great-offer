@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
-public class Code03_TarjanAndDisjointSetsForLCA {
+public class Code05_TarjanAndDisjointSetsForLCA {
 
 	public static class Element<V> {
 		public V value;

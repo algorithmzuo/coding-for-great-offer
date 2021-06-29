@@ -2,7 +2,7 @@ package class20;
 
 import java.util.Arrays;
 
-public class Code01_ShuffleProblem {
+public class Code03_ShuffleProblem {
 
 	// 数组的长度为len，调整前的位置是i，返回调整之后的位置
 	// 下标不从0开始，从1开始

@@ -1,6 +1,6 @@
 package class19;
 
-public class Code01_OneNumber {
+public class Code03_OneNumber {
 
 	public static int solution1(int num) {
 		if (num < 1) {
@@ -24,6 +24,8 @@ public class Code01_OneNumber {
 		return res;
 	}
 
+	
+	// 1 ~ num 这个范围上，画了几道1
 	public static int solution2(int num) {
 		if (num < 1) {
 			return 0;
@@ -34,9 +36,10 @@ public class Code01_OneNumber {
 		if (len == 1) {
 			return 1;
 		}
-		// num 13625
+		// num  13625
 		// tmp1 10000
-		// num 7872328738273
+		// 
+		// num  7872328738273
 		// tmp1 1000000000000
 		int tmp1 = powerBaseOf10(len - 1);
 		// num最高位 num / tmp1

@@ -17,7 +17,7 @@ import java.util.LinkedList;
  * 返回在cards[]中任意挑选三张扑克，达标的方法数
  * 
  * */
-public class Code04_CardsProblem {
+public class Code05_CardsProblem {
 
 	public static int ways1(String[] cards) {
 		LinkedList<String> picks = new LinkedList<>();
@@ -75,6 +75,13 @@ public class Code04_CardsProblem {
 		return ways;
 	}
 
+	// 之前的牌面，拿了一些    ABC  BBB  ... 
+	// pre = BBB
+	// ABC  ...
+	// pre  = ABC
+	// ABC BBB CAB
+	// pre = CAB
+	// 牌面一定要依次变大，所有形成的有效牌面，把方法数返回
 	public static int process2(int[] counts, int pre, LinkedList<Integer> path) {
 		if (path.size() == 3) {
 			return getWays2(counts, path);
@@ -91,25 +98,25 @@ public class Code04_CardsProblem {
 	}
 
 	public static int getWays2(int[] counts, LinkedList<Integer> path) {
-		int num1 = path.get(0);
-		int num2 = path.get(1);
-		int num3 = path.get(2);
+		int v1 = path.get(0);
+		int v2 = path.get(1);
+		int v3 = path.get(2);
 		for (int i = 9; i > 0; i /= 3) {
-			int cur1 = num1 / i;
-			int cur2 = num2 / i;
-			int cur3 = num3 / i;
-			num1 %= i;
-			num2 %= i;
-			num3 %= i;
+			int cur1 = v1 / i;
+			int cur2 = v2 / i;
+			int cur3 = v3 / i;
+			v1 %= i;
+			v2 %= i;
+			v3 %= i;
 			if ((cur1 != cur2 && cur1 != cur3 && cur2 != cur3) || (cur1 == cur2 && cur1 == cur3)) {
 				continue;
 			}
 			return 0;
 		}
-		num1 = path.get(0);
-		num2 = path.get(1);
-		num3 = path.get(2);
-		return counts[num1] * counts[num2] * counts[num3];
+		v1 = path.get(0);
+		v2 = path.get(1);
+		v3 = path.get(2);
+		return counts[v1] * counts[v2] * counts[v3];
 	}
 
 	// for test
