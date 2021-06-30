@@ -1,4 +1,4 @@
-package class20;
+package class21;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
-public class Code05_TarjanAndDisjointSetsForLCA {
+public class Code01_TarjanAndDisjointSetsForLCA {
 
 	public static class Element<V> {
 		public V value;

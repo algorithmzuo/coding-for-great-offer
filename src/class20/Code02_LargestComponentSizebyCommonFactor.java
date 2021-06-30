@@ -22,10 +22,13 @@ public class Code02_LargestComponentSizebyCommonFactor {
 
 	public static int largestComponentSize2(int[] arr) {
 		int N = arr.length;
+		// arr中，N个位置，在并查集初始时，每个位置自己是一个集合
 		UnionFind unionFind = new UnionFind(N);
+		//      key 某个因子   value 哪个位置拥有这个因子
 		HashMap<Integer, Integer> fatorsMap = new HashMap<>();
 		for (int i = 0; i < N; i++) {
 			int num = arr[i];
+			// 求出根号N， -> limit
 			int limit = (int) Math.sqrt(num);
 			for (int j = 1; j <= limit; j++) {
 				if (num % j == 0) {
@@ -50,8 +53,10 @@ public class Code02_LargestComponentSizebyCommonFactor {
 		return unionFind.maxSize();
 	}
 
-	public static int gcd(int m, int n) {
-		return n == 0 ? m : gcd(n, m % n);
+	// O(1)
+	// m,n 要是正数，不能有任何一个等于0
+	public static int gcd(int a, int b) {
+		return b == 0 ? a : gcd(b, a % b);
 	}
 
 	public static class UnionFind {

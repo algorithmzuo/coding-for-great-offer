@@ -6,6 +6,35 @@ import java.util.HashSet;
 
 public class Code01_PreAndInArrayToPosArray {
 
+	public static int[] zuo(int[] pre, int[] in) {
+		if (pre == null || in == null || pre.length != in.length) {
+			return null;
+		}
+		int N = pre.length;
+		HashMap<Integer, Integer> inMap = new HashMap<>();
+		for (int i = 0; i < N; i++) {
+			inMap.put(in[i], i);
+		}
+		int[] pos = new int[N];
+		func(pre, 0, N - 1, in, 0, N - 1, pos, 0, N - 1, inMap);
+		return pos;
+	}
+
+	public static void func(int[] pre, int L1, int R1, int[] in, int L2, int R2, int[] pos, int L3, int R3,
+			HashMap<Integer, Integer> inMap) {
+		if (L1 > R1) {
+			return;
+		}
+		if (L1 == R1) {
+			pos[L3] = pre[L1];
+		} else {
+			pos[R3] = pre[L1];
+			int index = inMap.get(pre[L1]);
+			func(pre, L1 + 1, L1 + index - L2, in, L2, index - 1, pos, L3, L3 + index - L2 - 1, inMap);
+			func(pre, L1 + index - L2 + 1, R1, in, index + 1, R2, pos, L3 + index - L2, R3 - 1, inMap);
+		}
+	}
+
 	public static class Node {
 		public int value;
 		public Node left;
@@ -193,7 +222,8 @@ public class Code01_PreAndInArrayToPosArray {
 			int[] pos = getPosArray(head);
 			int[] ans1 = preInToPos1(pre, in);
 			int[] ans2 = preInToPos2(pre, in);
-			if (!isEqual(pos, ans1) || !isEqual(ans1, ans2)) {
+			int[] classAns = zuo(pre, in);
+			if (!isEqual(pos, ans1) || !isEqual(ans1, ans2) || !isEqual(pos, classAns)) {
 				System.out.println("Oops!");
 			}
 		}
