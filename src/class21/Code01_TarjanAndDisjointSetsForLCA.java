@@ -218,7 +218,7 @@ public class Code01_TarjanAndDisjointSetsForLCA {
 	public static void main(String[] args) {
 		int N = 1000;
 		int M = 200;
-		int testTime = 10000;
+		int testTime = 50000;
 		System.out.println("功能测试开始");
 		for (int i = 0; i < testTime; i++) {
 			int size = (int) (Math.random() * N) + 1;
@@ -236,13 +236,13 @@ public class Code01_TarjanAndDisjointSetsForLCA {
 		System.out.println("===============");
 
 		System.out.println("性能测试开始");
-		System.out.println("如果树非常不平衡呈现链状，方法1会特别慢");
+		System.out.println("如果树呈现链状，方法1会特别慢");
 		System.out.println("不过该文件中生成树的方式很难让其变成链状");
 		System.out.println("所以性能差异并不明显");
 		System.out.println("但是在查询条数很多时，可以看到方法2还是比方法1块");
 
-		int size = 1000;
-		int ques = 10000000;
+		int size = 10000;
+		int ques = 1000000;
 		System.out.println("节点个数 : " + size + ", 查询语句条数 : " + ques);
 
 		int[] tree = generateTreeArray(size);
