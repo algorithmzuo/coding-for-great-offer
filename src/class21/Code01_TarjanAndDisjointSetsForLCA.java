@@ -225,8 +225,7 @@ public class Code01_TarjanAndDisjointSetsForLCA {
 			}
 		}
 		System.out.println("功能测试结束");
-
-		System.out.println("===============");
+		System.out.println("==========");
 
 		System.out.println("性能测试开始");
 		System.out.println("如果树呈现链状，方法1会特别慢");
@@ -234,8 +233,8 @@ public class Code01_TarjanAndDisjointSetsForLCA {
 		System.out.println("所以性能差异并不明显");
 		System.out.println("但是在查询条数很多时，可以看到方法2还是比方法1块");
 
-		int size = 10000;
-		int ques = 1000000;
+		int size = 2000;
+		int ques = 10000000;
 		System.out.println("节点个数 : " + size + ", 查询语句条数 : " + ques);
 
 		int[] tree = generateTreeArray(size);
@@ -252,7 +251,6 @@ public class Code01_TarjanAndDisjointSetsForLCA {
 		query2(tree, queries);
 		end = System.currentTimeMillis();
 		System.out.println("方法2运行时间(毫秒) : " + (end - start));
-
 		System.out.println("性能测试结束");
 
 	}
