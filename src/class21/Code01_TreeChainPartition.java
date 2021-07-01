@@ -22,7 +22,7 @@ public class Code01_TreeChainPartition {
 		// son[i] = 0 i这个节点，没有儿子
 		// son[i] != 0 j i这个节点，重儿子是j
 		private int[] son;
-		// siz[i] i这个节点，连同自己在内的所有子树，节点数多少
+		// siz[i] i这个节点为头的子树，有多少个节点
 		private int[] siz;
 		// top[i] = j i这个节点，所在的重链，头是j
 		private int[] top;
@@ -119,9 +119,8 @@ public class Code01_TreeChainPartition {
 			}
 		}
 
-		// 点head，子树上，所有节点，值+value 0~n-1 -> 1~n
-		// 7
-		// 8
+		// head为头的子树上，所有节点值+value
+		// 因为节点经过平移，所以head(原始节点) -> head(平移节点)
 		public void addSubtree(int head, int value) {
 			// 原始点编号 -> 平移编号
 			head++;
