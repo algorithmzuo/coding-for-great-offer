@@ -13,20 +13,20 @@ public class Code02_LCATarjanAndTreeChainPartition {
 	// 返回一个数组ans，大小为M，ans[i]表示第i条查询的答案
 
 	// 暴力方法
-	public static int[] query1(int[] tree, int[][] queries) {
+	public static int[] query1(int[] father, int[][] queries) {
 		int M = queries.length;
 		int[] ans = new int[M];
 		HashSet<Integer> path = new HashSet<>();
 		for (int i = 0; i < M; i++) {
 			int jump = queries[i][0];
-			while (tree[jump] != jump) {
+			while (father[jump] != jump) {
 				path.add(jump);
-				jump = tree[jump];
+				jump = father[jump];
 			}
 			path.add(jump);
 			jump = queries[i][1];
 			while (!path.contains(jump)) {
-				jump = tree[jump];
+				jump = father[jump];
 			}
 			ans[i] = jump;
 			path.clear();
@@ -37,16 +37,16 @@ public class Code02_LCATarjanAndTreeChainPartition {
 	// 离线批量查询最优解 -> Tarjan + 并查集
 	// 如果有M条查询，时间复杂度O(N + M)
 	// 但是必须把M条查询一次给全，不支持在线查询
-	public static int[] query2(int[] tree, int[][] queries) {
-		int N = tree.length;
+	public static int[] query2(int[] father, int[][] queries) {
+		int N = father.length;
 		int M = queries.length;
 		int[] help = new int[N];
 		int h = 0;
 		for (int i = 0; i < N; i++) {
-			if (tree[i] == i) {
+			if (father[i] == i) {
 				h = i;
 			} else {
-				help[tree[i]]++;
+				help[father[i]]++;
 			}
 		}
 		int[][] mt = new int[N][];
@@ -55,7 +55,7 @@ public class Code02_LCATarjanAndTreeChainPartition {
 		}
 		for (int i = 0; i < N; i++) {
 			if (i != h) {
-				mt[tree[i]][--help[tree[i]]] = i;
+				mt[father[i]][--help[father[i]]] = i;
 			}
 		}
 		for (int i = 0; i < M; i++) {
@@ -161,8 +161,8 @@ public class Code02_LCATarjanAndTreeChainPartition {
 	// 在线查询最优解 -> 树链剖分
 	// 空间复杂度O(N), 支持在线查询，单次查询时间复杂度O(logN)
 	// 如果有M次查询，时间复杂度O(N + M * logN)
-	public static int[] query3(int[] tree, int[][] queries) {
-		TreeChain tc = new TreeChain(tree);
+	public static int[] query3(int[] father, int[][] queries) {
+		TreeChain tc = new TreeChain(father);
 		int M = queries.length;
 		int[] ans = new int[M];
 		for (int i = 0; i < M; i++) {
@@ -262,7 +262,7 @@ public class Code02_LCATarjanAndTreeChainPartition {
 	// 为了测试
 	// 随机生成N个节点树，可能是多叉树，并且一定不是森林
 	// 输入参数N要大于0
-	public static int[] generateTreeArray(int N) {
+	public static int[] generateFatherArray(int N) {
 		int[] order = new int[N];
 		for (int i = 0; i < N; i++) {
 			order[i] = i;
@@ -319,11 +319,11 @@ public class Code02_LCATarjanAndTreeChainPartition {
 		for (int i = 0; i < testTime; i++) {
 			int size = (int) (Math.random() * N) + 1;
 			int ques = (int) (Math.random() * M) + 1;
-			int[] tree = generateTreeArray(size);
+			int[] father = generateFatherArray(size);
 			int[][] queries = generateQueries(ques, size);
-			int[] ans1 = query1(tree, queries);
-			int[] ans2 = query2(tree, queries);
-			int[] ans3 = query3(tree, queries);
+			int[] ans1 = query1(father, queries);
+			int[] ans2 = query2(father, queries);
+			int[] ans3 = query3(father, queries);
 			if (!equal(ans1, ans2) || !equal(ans1, ans3)) {
 				System.out.println("出错了！");
 				break;
