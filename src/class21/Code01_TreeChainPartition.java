@@ -5,23 +5,48 @@ import java.util.HashMap;
 public class Code01_TreeChainPartition {
 
 	public static class TreeChain {
+		// 时间戳 0 1 2 3 4
 		private int tim;
+		// 节点个数是n，节点编号是1~n
 		private int n;
+		// 谁是头
 		private int h;
+		// 朴素树结构
 		private int[][] tree;
+		// 权重数组 原始的0节点权重是6 -> val[1] = 6
 		private int[] val;
+		// father数组一个平移，因为标号要+1
 		private int[] fa;
+		// 深度数组！
 		private int[] dep;
+		// son[i] = 0 i这个节点，没有儿子
+		// son[i] != 0 j i这个节点，重儿子是j
 		private int[] son;
+		// siz[i] i这个节点，连同自己在内的所有子树，节点数多少
 		private int[] siz;
+		// top[i] = j i这个节点，所在的重链，头是j
 		private int[] top;
+		// dfn[i] = j i这个节点，在dfs序中是第j个
 		private int[] dfn;
+		// 如果原来的节点a，权重是10
+		// 如果a节点在dfs序中是第5个节点, tnw[5] = 10
 		private int[] tnw;
+		// 线段树，在tnw上，玩连续的区间查询或者更新
 		private SegmentTree seg;
 
 		public TreeChain(int[] father, int[] values) {
+			// 原始的树 tree，弄好了，可以从i这个点，找到下级的直接孩子
+			// 上面的一大堆结构，准备好了空间，values -> val
+			// 找到头部点
 			initTree(father, values);
+			// fa;
+			// dep;
+			// son;
+			// siz;
 			dfs1(h, 0);
+			// top;
+			// dfn;
+			// tnw;
 			dfs2(h, h);
 			seg = new SegmentTree(tnw);
 			seg.build(1, n, 1);
@@ -61,12 +86,14 @@ public class Code01_TreeChainPartition {
 			}
 		}
 
+		// u 当前节点
+		// f u的父节点
 		private void dfs1(int u, int f) {
 			fa[u] = f;
 			dep[u] = dep[f] + 1;
 			siz[u] = 1;
 			int maxSize = -1;
-			for (int v : tree[u]) {
+			for (int v : tree[u]) { // 遍历u节点，所有的直接孩子
 				dfs1(v, u);
 				siz[u] += siz[v];
 				if (siz[v] > maxSize) {
@@ -76,11 +103,13 @@ public class Code01_TreeChainPartition {
 			}
 		}
 
+		// u当前节点
+		// t是u所在重链的头部
 		private void dfs2(int u, int t) {
 			dfn[u] = ++tim;
 			top[u] = t;
 			tnw[tim] = val[u];
-			if (son[u] != 0) {
+			if (son[u] != 0) { // 如果u有儿子 siz[u] > 1
 				dfs2(son[u], t);
 				for (int v : tree[u]) {
 					if (v != son[u]) {
@@ -90,8 +119,13 @@ public class Code01_TreeChainPartition {
 			}
 		}
 
+		// 点head，子树上，所有节点，值+value 0~n-1 -> 1~n
+		// 7
+		// 8
 		public void addSubtree(int head, int value) {
+			// 原始点编号 -> 平移编号
 			head++;
+			// 平移编号 -> dfs编号 dfn[head]
 			seg.add(dfn[head], dfn[head] + siz[head] - 1, value, 1, n, 1);
 		}
 
