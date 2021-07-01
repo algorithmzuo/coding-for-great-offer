@@ -377,13 +377,13 @@ public class Code01_TreeChainPartition {
 
 	// 对数器
 	public static void main(String[] args) {
-		int N = 5000;
-		int V = 5000;
+		int N = 50000;
+		int V = 100000;
 		int[] father = generateFatherArray(N);
 		int[] values = generateValueArray(N, V);
 		TreeChain tc = new TreeChain(father, values);
 		Right right = new Right(father, values);
-		int testTime = 100000;
+		int testTime = 1000000;
 		System.out.println("测试开始");
 		for (int i = 0; i < testTime; i++) {
 			double decision = Math.random();

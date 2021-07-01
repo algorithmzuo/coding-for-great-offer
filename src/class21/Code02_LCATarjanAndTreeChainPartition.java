@@ -315,7 +315,7 @@ public class Code02_LCATarjanAndTreeChainPartition {
 		int N = 1000;
 		int M = 200;
 		int testTime = 50000;
-		System.out.println("功能测试开始");
+		System.out.println("测试开始");
 		for (int i = 0; i < testTime; i++) {
 			int size = (int) (Math.random() * N) + 1;
 			int ques = (int) (Math.random() * M) + 1;
@@ -329,7 +329,7 @@ public class Code02_LCATarjanAndTreeChainPartition {
 				break;
 			}
 		}
-		System.out.println("功能测试结束");
+		System.out.println("测试结束");
 	}
 
 }
