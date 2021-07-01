@@ -2,7 +2,7 @@ package class21;
 
 import java.util.HashSet;
 
-public class Code01_TarjanAndDisjointSetsForLCA {
+public class Code02_LCATarjanAndTreeChainPartition {
 
 	// 给定数组tree大小为N，表示一共有N个节点
 	// tree[i] = j 表示点i的父亲是点j，tree一定是一棵树而不是森林
@@ -34,7 +34,9 @@ public class Code01_TarjanAndDisjointSetsForLCA {
 		return ans;
 	}
 
-	// 最优解
+	// 离线批量查询最优解 -> Tarjan + 并查集
+	// 如果有M条查询，时间复杂度O(N + M)
+	// 但是必须把M条查询一次给全，不支持在线查询
 	public static int[] query2(int[] tree, int[][] queries) {
 		int N = tree.length;
 		int M = queries.length;
@@ -156,6 +158,107 @@ public class Code01_TarjanAndDisjointSetsForLCA {
 
 	}
 
+	// 在线查询最优解 -> 树链剖分
+	// 空间复杂度O(N), 支持在线查询，单次查询时间复杂度O(logN)
+	// 如果有M次查询，时间复杂度O(N + M * logN)
+	public static int[] query3(int[] tree, int[][] queries) {
+		TreeChain tc = new TreeChain(tree);
+		int M = queries.length;
+		int[] ans = new int[M];
+		for (int i = 0; i < M; i++) {
+			if (queries[i][0] == queries[i][1]) {
+				ans[i] = queries[i][0];
+			} else {
+				ans[i] = tc.lca(queries[i][0], queries[i][1]);
+			}
+		}
+		return ans;
+	}
+
+	public static class TreeChain {
+		private int n;
+		private int h;
+		private int[][] tree;
+		private int[] fa;
+		private int[] dep;
+		private int[] son;
+		private int[] siz;
+		private int[] top;
+
+		public TreeChain(int[] father) {
+			initTree(father);
+			dfs1(h, 0);
+			dfs2(h, h);
+		}
+
+		private void initTree(int[] father) {
+			n = father.length + 1;
+			tree = new int[n][];
+			fa = new int[n];
+			dep = new int[n];
+			son = new int[n];
+			siz = new int[n];
+			top = new int[n--];
+			int[] cnum = new int[n];
+			for (int i = 0; i < n; i++) {
+				if (father[i] == i) {
+					h = i + 1;
+				} else {
+					cnum[father[i]]++;
+				}
+			}
+			tree[0] = new int[0];
+			for (int i = 0; i < n; i++) {
+				tree[i + 1] = new int[cnum[i]];
+			}
+			for (int i = 0; i < n; i++) {
+				if (i + 1 != h) {
+					tree[father[i] + 1][--cnum[father[i]]] = i + 1;
+				}
+			}
+		}
+
+		private void dfs1(int u, int f) {
+			fa[u] = f;
+			dep[u] = dep[f] + 1;
+			siz[u] = 1;
+			int maxSize = -1;
+			for (int v : tree[u]) {
+				dfs1(v, u);
+				siz[u] += siz[v];
+				if (siz[v] > maxSize) {
+					maxSize = siz[v];
+					son[u] = v;
+				}
+			}
+		}
+
+		private void dfs2(int u, int t) {
+			top[u] = t;
+			if (son[u] != 0) {
+				dfs2(son[u], t);
+				for (int v : tree[u]) {
+					if (v != son[u]) {
+						dfs2(v, v);
+					}
+				}
+			}
+		}
+
+		public int lca(int a, int b) {
+			a++;
+			b++;
+			while (top[a] != top[b]) {
+				if (dep[top[a]] > dep[top[b]]) {
+					a = fa[top[a]];
+				} else {
+					b = fa[top[b]];
+				}
+			}
+			return (dep[a] < dep[b] ? a : b) - 1;
+		}
+	}
+
 	// 为了测试
 	// 随机生成N个节点树，可能是多叉树，并且一定不是森林
 	// 输入参数N要大于0
@@ -220,39 +323,13 @@ public class Code01_TarjanAndDisjointSetsForLCA {
 			int[][] queries = generateQueries(ques, size);
 			int[] ans1 = query1(tree, queries);
 			int[] ans2 = query2(tree, queries);
-			if (!equal(ans1, ans2)) {
+			int[] ans3 = query3(tree, queries);
+			if (!equal(ans1, ans2) || !equal(ans1, ans3)) {
 				System.out.println("出错了！");
+				break;
 			}
 		}
 		System.out.println("功能测试结束");
-		System.out.println("==========");
-
-		System.out.println("性能测试开始");
-		System.out.println("如果树呈现链状，方法1会特别慢");
-		System.out.println("不过该文件中生成树的方式很难让其变成链状");
-		System.out.println("所以性能差异并不明显");
-		System.out.println("但是在查询条数很多时，可以看到方法2还是比方法1块");
-
-		int size = 2000;
-		int ques = 10000000;
-		System.out.println("节点个数 : " + size + ", 查询语句条数 : " + ques);
-
-		int[] tree = generateTreeArray(size);
-		int[][] queries = generateQueries(ques, size);
-		long start;
-		long end;
-
-		start = System.currentTimeMillis();
-		query1(tree, queries);
-		end = System.currentTimeMillis();
-		System.out.println("方法1运行时间(毫秒) : " + (end - start));
-
-		start = System.currentTimeMillis();
-		query2(tree, queries);
-		end = System.currentTimeMillis();
-		System.out.println("方法2运行时间(毫秒) : " + (end - start));
-		System.out.println("性能测试结束");
-
 	}
 
 }

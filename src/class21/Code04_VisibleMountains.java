@@ -3,7 +3,7 @@ package class21;
 import java.util.HashSet;
 import java.util.Stack;
 
-public class Code03_VisibleMountains {
+public class Code04_VisibleMountains {
 
 	// 栈中放的记录，
 	// value就是指，times是收集的个数
