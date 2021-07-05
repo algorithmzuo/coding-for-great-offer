@@ -1,4 +1,4 @@
-package class23;
+package class24;
 
 // 里程表不能含有4，给定一个数max，返回他是里程表里的第几个
 public class Code03_NotContains4 {

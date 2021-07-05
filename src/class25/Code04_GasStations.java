@@ -1,4 +1,4 @@
-package class24;
+package class25;
 
 public class Code04_GasStations {
 

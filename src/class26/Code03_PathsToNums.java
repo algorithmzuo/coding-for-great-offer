@@ -1,4 +1,4 @@
-package class25;
+package class26;
 
 public class Code03_PathsToNums {
 

@@ -1,4 +1,4 @@
-package class23;
+package class24;
 
 public class Code05_MinWindowLength {
 

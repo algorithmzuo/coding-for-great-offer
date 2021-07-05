@@ -1,4 +1,4 @@
-package class23;
+package class24;
 
 import java.util.ArrayList;
 import java.util.List;

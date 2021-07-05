@@ -1,4 +1,4 @@
-package class22;
+package class23;
 
 import java.util.Arrays;
 import java.util.HashSet;

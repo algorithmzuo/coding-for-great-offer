@@ -2,7 +2,7 @@ package class21;
 
 import java.util.HashMap;
 
-public class Code01_TreeChainPartition {
+public class TreeChainPartition {
 
 	public static class TreeChain {
 		// 时间戳 0 1 2 3 4

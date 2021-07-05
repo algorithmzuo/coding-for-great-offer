@@ -1,4 +1,4 @@
-package class21;
+package class22;
 
 import java.util.HashSet;
 import java.util.Stack;

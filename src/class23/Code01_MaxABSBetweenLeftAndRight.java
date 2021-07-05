@@ -1,4 +1,4 @@
-package class22;
+package class23;
 
 public class Code01_MaxABSBetweenLeftAndRight {
 

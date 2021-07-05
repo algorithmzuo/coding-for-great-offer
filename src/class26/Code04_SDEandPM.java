@@ -1,5 +1,5 @@
 // 不要拷贝包信息的内容
-package class25;
+package class26;
 
 // 本文件是Code01_SDEandPM问题的牛客题目解答
 // 这是牛客的测试链接：

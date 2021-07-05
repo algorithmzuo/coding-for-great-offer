@@ -1,4 +1,4 @@
-package class21;
+package class22;
 
 // 本题测试链接 : https://leetcode.com/problems/trapping-rain-water/
 public class Code06_TrappingRainWater {
