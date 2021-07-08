@@ -1,7 +1,7 @@
 package class22;
 
 // 本题测试链接 : https://leetcode.com/problems/maximum-sum-of-3-non-overlapping-subarrays/
-public class Code03_MaximumSumof3NonOverlappingSubarrays {
+public class Code02_MaximumSumof3NonOverlappingSubarrays {
 
 	public static int[] maxSumOfThreeSubarrays(int[] nums, int k) {
 		int N = nums.length;

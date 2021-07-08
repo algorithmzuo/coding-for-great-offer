@@ -2,7 +2,7 @@ package class22;
 
 import java.util.HashSet;
 
-public class Code02_LCATarjanAndTreeChainPartition {
+public class Code01_LCATarjanAndTreeChainPartition {
 
 	// 给定数组tree大小为N，表示一共有N个节点
 	// tree[i] = j 表示点i的父亲是点j，tree一定是一棵树而不是森林
