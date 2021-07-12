@@ -1,4 +1,4 @@
-package class23;
+package class26;
 
 public class Code05_RemoveDuplicateLettersLessLexi {
 

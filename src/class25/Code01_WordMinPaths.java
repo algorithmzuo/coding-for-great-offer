@@ -17,10 +17,6 @@ public class Code01_WordMinPaths {
 		list.add(start);
 		HashMap<String, ArrayList<String>> nexts = getNexts(list);
 		HashMap<String, Integer> distances = getDistances(start, nexts);
-		
-		
-		
-		
 		LinkedList<String> pathList = new LinkedList<>();
 		List<List<String>> res = new ArrayList<>();
 		getShortestPaths(start, end, nexts, distances, pathList, res);

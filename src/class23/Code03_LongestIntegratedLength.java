@@ -3,7 +3,7 @@ package class23;
 import java.util.Arrays;
 import java.util.HashSet;
 
-public class Code02_LongestIntegratedLength {
+public class Code03_LongestIntegratedLength {
 
 	public static int getLIL1(int[] arr) {
 		if (arr == null || arr.length == 0) {

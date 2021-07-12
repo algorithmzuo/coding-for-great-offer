@@ -1,6 +1,7 @@
 package class23;
 
-public class Code04_MinimumCostToMergeStones {
+// 本题测试链接 : https://leetcode.com/problems/minimum-cost-to-merge-stones/
+public class Code05_MinimumCostToMergeStones {
 
 	public static int mergeStones1(int[] stones, int K) {
 		int n = stones.length;
@@ -15,13 +16,13 @@ public class Code04_MinimumCostToMergeStones {
 	}
 
 	// part >= 1
-	// arr[L..R]  一定要弄出part份，返回最低代价
+	// arr[L..R] 一定要弄出part份，返回最低代价
 	// arr、K、presum（前缀累加和数组，求i..j的累加和，就是O(1)了）
 	public static int process1(int L, int R, int part, int[] arr, int K, int[] presum) {
 		if (L == R) { // arr[L..R]
 			return part == 1 ? 0 : -1;
 		}
-		// L ... R  不只一个数
+		// L ... R 不只一个数
 		if (part == 1) {
 			int next = process1(L, R, K, arr, K, presum);
 			if (next == -1) {
@@ -33,7 +34,7 @@ public class Code04_MinimumCostToMergeStones {
 			int ans = Integer.MAX_VALUE;
 			// L...mid是第1块，剩下的是part-1块
 			for (int mid = L; mid < R; mid += K - 1) {
-				// L..mid(一份)   mid+1...R(part - 1)
+				// L..mid(一份) mid+1...R(part - 1)
 				int next1 = process1(L, mid, 1, arr, K, presum);
 				int next2 = process1(mid + 1, R, part - 1, arr, K, presum);
 				if (next1 != -1 && next2 != -1) {

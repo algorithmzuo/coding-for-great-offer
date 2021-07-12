@@ -3,7 +3,7 @@ package class22;
 import java.util.HashMap;
 
 // 本题测试链接 : https://leetcode.com/problems/tallest-billboard/
-public class Code04_TallestBillboard {
+public class Code05_TallestBillboard {
 
 	public int tallestBillboard(int[] rods) {
 		// key 集合对的某个差

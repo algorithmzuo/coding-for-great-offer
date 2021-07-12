@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
 
-public class Code03_FindKMajority {
+public class Code04_FindKMajority {
 
 	public static void printHalfMajor(int[] arr) {
 		int cand = 0;

@@ -1,6 +1,6 @@
 package class23;
 
-public class Code01_MaxABSBetweenLeftAndRight {
+public class Code02_MaxABSBetweenLeftAndRight {
 
 	public static int maxABS1(int[] arr) {
 		int res = Integer.MIN_VALUE;

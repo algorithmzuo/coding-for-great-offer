@@ -1,7 +1,7 @@
 package class22;
 
 // 本题测试链接 : https://leetcode.com/problems/trapping-rain-water/
-public class Code05_TrappingRainWater {
+public class Code02_TrappingRainWater {
 
 	public static int trap(int[] arr) {
 		if (arr == null || arr.length < 2) {
