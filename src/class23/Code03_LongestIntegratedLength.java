@@ -5,6 +5,36 @@ import java.util.HashSet;
 
 public class Code03_LongestIntegratedLength {
 
+	public static int maxLen(int[] arr) {
+		if (arr == null || arr.length == 0) {
+			return 0;
+		}
+		int N = arr.length;
+		HashSet<Integer> set = new HashSet<>();
+		int ans = 1;
+		for (int L = 0; L < N; L++) {
+			set.clear();
+			int min = arr[L];
+			int max = arr[L];
+			set.add(arr[L]);
+			// L..R
+			for (int R = L + 1; R < N; R++) {
+				// L....R
+				if(set.contains(arr[R])) {
+					break;
+				}
+				set.add(arr[R]);
+				min = Math.min(min, arr[R]);
+				max = Math.max(max, arr[R]);
+				if(max - min == R - L) {
+					ans = Math.max(ans, R - L + 1);
+				}
+			}
+		}
+		return ans;
+
+	}
+
 	public static int getLIL1(int[] arr) {
 		if (arr == null || arr.length == 0) {
 			return 0;
@@ -48,7 +78,7 @@ public class Code03_LongestIntegratedLength {
 			max = Integer.MIN_VALUE;
 			min = Integer.MAX_VALUE;
 			for (int R = L; R < arr.length; R++) { // R 右边界
-				// arr[L..R]这个子数组在验证   l...R L...r+1  l...r+2  
+				// arr[L..R]这个子数组在验证 l...R L...r+1 l...r+2
 				if (set.contains(arr[R])) {
 					// arr[L..R]上开始 出现重复值了，arr[L..R往后]不需要验证了，
 					// 一定不是可整合的

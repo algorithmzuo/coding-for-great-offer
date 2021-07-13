@@ -7,8 +7,8 @@ public class Code01_LCATarjanAndTreeChainPartition {
 	// 给定数组tree大小为N，表示一共有N个节点
 	// tree[i] = j 表示点i的父亲是点j，tree一定是一棵树而不是森林
 	// queries是二维数组，大小为M*2，每一个长度为2的数组都表示一条查询
-	// [4,9], 表示想查询4和9之间的最低公共祖先…
-	// [3,7], 表示想查询3和7之间的最低公共祖先…
+	// [4,9], 表示想查询4和9之间的最低公共祖先
+	// [3,7], 表示想查询3和7之间的最低公共祖先
 	// tree和queries里面的所有值，都一定在0~N-1之间
 	// 返回一个数组ans，大小为M，ans[i]表示第i条查询的答案
 
@@ -89,15 +89,22 @@ public class Code01_LCATarjanAndTreeChainPartition {
 		return ans;
 	}
 
+	// 当前来到head点
+	// mt是整棵树 head下方有哪些点 mt[head] = {a,b,c,d} head的孩子是abcd
+	// mq问题列表 head有哪些问题 mq[head] = {x,y,z} (head，x) (head，y) (head z)
+	// mi得到问题的答案，填在ans的什么地方 {6,12,34}
+	// uf 并查集
 	public static void process(int head, int[][] mt, int[][] mq, int[][] mi, UnionFind uf, int[] ans) {
-		for (int next : mt[head]) {
+		for (int next : mt[head]) { // head有哪些孩子，都遍历去吧！
 			process(next, mt, mq, mi, uf, ans);
 			uf.union(head, next);
 			uf.setTag(head, head);
 		}
+		// 解决head的问题！
 		int[] q = mq[head];
 		int[] i = mi[head];
 		for (int k = 0; k < q.length; k++) {
+			// head和谁有问题 q[k] 答案填哪 i[k]
 			int tag = uf.getTag(q[k]);
 			if (tag != -1) {
 				ans[i[k]] = tag;
@@ -106,10 +113,10 @@ public class Code01_LCATarjanAndTreeChainPartition {
 	}
 
 	public static class UnionFind {
-		private int[] f;
-		private int[] s;
-		private int[] t;
-		private int[] h;
+		private int[] f; // father -> 并查集里面father信息，i -> i的father
+		private int[] s; // size[] -> 集合 --> i size[i]
+		private int[] t; // tag[] -> 集合 ---> tag[i] = ?
+		private int[] h; // 栈？并查集搞扁平化
 
 		public UnionFind(int N) {
 			f = new int[N];
@@ -125,13 +132,19 @@ public class Code01_LCATarjanAndTreeChainPartition {
 
 		private int find(int i) {
 			int j = 0;
+			// i -> j -> k -> s -> a -> a
 			while (i != f[i]) {
 				h[j++] = i;
 				i = f[i];
 			}
+			// i -> a
+			// j -> a
+			// k -> a
+			// s -> a
 			while (j > 0) {
 				h[--j] = i;
 			}
+			// a
 			return i;
 		}
 
@@ -148,10 +161,12 @@ public class Code01_LCATarjanAndTreeChainPartition {
 			}
 		}
 
+		// 集合的某个元素是i，请把整个集合打上统一的标签，tag
 		public void setTag(int i, int tag) {
 			t[find(i)] = tag;
 		}
 
+		// 集合的某个元素是i，请把整个集合的tag信息返回
 		public int getTag(int i) {
 			return t[find(i)];
 		}
@@ -166,6 +181,8 @@ public class Code01_LCATarjanAndTreeChainPartition {
 		int M = queries.length;
 		int[] ans = new int[M];
 		for (int i = 0; i < M; i++) {
+			// x y ?
+			// x x x
 			if (queries[i][0] == queries[i][1]) {
 				ans[i] = queries[i][0];
 			} else {

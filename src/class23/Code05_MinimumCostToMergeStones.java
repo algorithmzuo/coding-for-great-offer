@@ -3,6 +3,33 @@ package class23;
 // 本题测试链接 : https://leetcode.com/problems/minimum-cost-to-merge-stones/
 public class Code05_MinimumCostToMergeStones {
 
+//	// arr[L...R]一定要整出P份，合并的最小代价，返回！
+//	public static int f(int[] arr, int K, int L, int R, int P) {
+//		if(从L到R根本不可能弄出P份) {
+//			return Integer.MAX_VALUE;
+//		}
+//		// 真的有可能的！
+//		if(P == 1) {
+//			return L == R ? 0 : (f(arr, K, L, R, K) + 最后一次大合并的代价);
+//		}
+//		int ans = Integer.MAX_VALUE;
+//		// 真的有可能，P > 1
+//		for(int i = L; i < R;i++) {
+//			// L..i(1份)  i+1...R(P-1份)
+//			int left = f(arr, K, L, i, 1);
+//			if(left == Integer.MAX_VALUE) {
+//				continue;
+//			}
+//			int right = f(arr, K, i+1,R,P-1);
+//			if(right == Integer.MAX_VALUE) {
+//				continue;
+//			}
+//			int all = left + right;
+//			ans = Math.min(ans, all);
+//		}
+//		return ans;
+//	}
+
 	public static int mergeStones1(int[] stones, int K) {
 		int n = stones.length;
 		if ((n - 1) % (K - 1) > 0) {
@@ -18,12 +45,12 @@ public class Code05_MinimumCostToMergeStones {
 	// part >= 1
 	// arr[L..R] 一定要弄出part份，返回最低代价
 	// arr、K、presum（前缀累加和数组，求i..j的累加和，就是O(1)了）
-	public static int process1(int L, int R, int part, int[] arr, int K, int[] presum) {
+	public static int process1(int L, int R, int P, int[] arr, int K, int[] presum) {
 		if (L == R) { // arr[L..R]
-			return part == 1 ? 0 : -1;
+			return P == 1 ? 0 : -1;
 		}
 		// L ... R 不只一个数
-		if (part == 1) {
+		if (P == 1) {
 			int next = process1(L, R, K, arr, K, presum);
 			if (next == -1) {
 				return -1;
@@ -36,7 +63,7 @@ public class Code05_MinimumCostToMergeStones {
 			for (int mid = L; mid < R; mid += K - 1) {
 				// L..mid(一份) mid+1...R(part - 1)
 				int next1 = process1(L, mid, 1, arr, K, presum);
-				int next2 = process1(mid + 1, R, part - 1, arr, K, presum);
+				int next2 = process1(mid + 1, R, P - 1, arr, K, presum);
 				if (next1 != -1 && next2 != -1) {
 					ans = Math.min(ans, next1 + next2);
 				}
@@ -47,7 +74,7 @@ public class Code05_MinimumCostToMergeStones {
 
 	public static int mergeStones2(int[] stones, int K) {
 		int n = stones.length;
-		if ((n - 1) % (K - 1) > 0) {
+		if ((n - 1) % (K - 1) > 0) { // n个数，到底能不能K个相邻的数合并，最终变成1个数！
 			return -1;
 		}
 		int[] presum = new int[n + 1];
@@ -58,36 +85,36 @@ public class Code05_MinimumCostToMergeStones {
 		return process2(0, n - 1, 1, stones, K, presum, dp);
 	}
 
-	public static int process2(int i, int j, int part, int[] arr, int K, int[] presum, int[][][] dp) {
-		if (dp[i][j][part] != 0) {
-			return dp[i][j][part];
+	public static int process2(int L, int R, int P, int[] arr, int K, int[] presum, int[][][] dp) {
+		if (dp[L][R][P] != 0) {
+			return dp[L][R][P];
 		}
-		if (i == j) {
-			return part == 1 ? 0 : -1;
+		if (L == R) {
+			return P == 1 ? 0 : -1;
 		}
-		if (part == 1) {
-			int next = process2(i, j, K, arr, K, presum, dp);
+		if (P == 1) {
+			int next = process2(L, R, K, arr, K, presum, dp);
 			if (next == -1) {
-				dp[i][j][part] = -1;
+				dp[L][R][P] = -1;
 				return -1;
 			} else {
-				dp[i][j][part] = next + presum[j + 1] - presum[i];
-				return next + presum[j + 1] - presum[i];
+				dp[L][R][P] = next + presum[R + 1] - presum[L];
+				return next + presum[R + 1] - presum[L];
 			}
 		} else {
 			int ans = Integer.MAX_VALUE;
 			// i...mid是第1块，剩下的是part-1块
-			for (int mid = i; mid < j; mid += K - 1) {
-				int next1 = process2(i, mid, 1, arr, K, presum, dp);
-				int next2 = process2(mid + 1, j, part - 1, arr, K, presum, dp);
+			for (int mid = L; mid < R; mid += K - 1) {
+				int next1 = process2(L, mid, 1, arr, K, presum, dp);
+				int next2 = process2(mid + 1, R, P - 1, arr, K, presum, dp);
 				if (next1 == -1 || next2 == -1) {
-					dp[i][j][part] = -1;
+					dp[L][R][P] = -1;
 					return -1;
 				} else {
 					ans = Math.min(ans, next1 + next2);
 				}
 			}
-			dp[i][j][part] = ans;
+			dp[L][R][P] = ans;
 			return ans;
 		}
 	}
