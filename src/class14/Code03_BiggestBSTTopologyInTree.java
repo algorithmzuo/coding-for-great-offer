@@ -41,8 +41,8 @@ public class Code03_BiggestBSTTopologyInTree {
 		while (l < h && m[l] != 0) {
 			l = t[l][2];
 		}
-		c = m[l];
-		if (l != 0) {
+		if (m[l] != 0) {
+			c = m[l];
 			while (l != h) {
 				m[l] -= c;
 				l = t[l][0];
@@ -51,8 +51,8 @@ public class Code03_BiggestBSTTopologyInTree {
 		while (r > h && m[r] != 0) {
 			r = t[r][1];
 		}
-		c = m[r];
-		if (r != 0) {
+		if (m[r] != 0) {
+			c = m[r];
 			while (r != h) {
 				m[r] -= c;
 				r = t[r][0];
