@@ -1,7 +1,5 @@
 package class24;
 
-import java.math.BigInteger;
-
 // 里程表不能含有4，给定一个数num，返回他是里程表里的第几个
 public class Code03_NotContains4 {
 
