@@ -45,44 +45,44 @@ public class Code03_NotContains4 {
 		if (num <= 0) {
 			return 0;
 		}
-		long offset = offset(num);
+		int len = decimalLength(num);
+		long offset = offset(len);
 		long first = num / offset;
-		int bits = bits(num);
-		return arr[bits] - 1 + (first - (first < 4 ? 1 : 2)) * arr[bits] + process(num % offset, offset / 10, bits - 1);
+		return arr[len] - 1 + (first - (first < 4 ? 1 : 2)) * arr[len] + process(num % offset, offset / 10, len - 1);
 	}
 
-	public static long process(long num, long offset, int bits) {
-		if (bits == 0) {
+	public static long process(long num, long offset, int len) {
+		if (len == 0) {
 			return 1;
 		}
 		long first = num / offset;
-		return (first < 4 ? first : (first - 1)) * arr[bits] + process(num % offset, offset / 10, bits - 1);
+		return (first < 4 ? first : (first - 1)) * arr[len] + process(num % offset, offset / 10, len - 1);
 	}
 
-	public static int bits(long num) {
-		int bits = 0;
+	public static int decimalLength(long num) {
+		int len = 0;
 		while (num != 0) {
-			bits++;
+			len++;
 			num /= 10;
 		}
-		return bits;
+		return len;
 	}
 
-	public static long offset(long num) {
+	public static long offset(int len) {
 		long offset = 1;
-		while (num / offset > 9) {
-			offset *= 10;
+		for (int i = 1; i < len; i++) {
+			offset *= 10L;
 		}
 		return offset;
 	}
 
 	public static void main(String[] args) {
-		System.out.println("long类型最大长度为 : " + bits(Long.MAX_VALUE));
+		System.out.println("long类型最大长度为 : " + decimalLength(Long.MAX_VALUE));
 		System.out.print("pubic static long[] arr = { 0L, ");
-		long ans = 1L;
+		long value = 1L;
 		for (int i = 0; i <= 19; i++) {
-			System.out.print(ans + "L, ");
-			ans *= 9L;
+			System.out.print(value + "L, ");
+			value *= 9L;
 		}
 		System.out.println("}");
 
