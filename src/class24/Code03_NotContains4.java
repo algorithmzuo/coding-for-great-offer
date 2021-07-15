@@ -50,7 +50,7 @@ public class Code03_NotContains4 {
 		// 35621
 		// 10000
 		long offset = offset(len);
-		
+
 		// 第一位数字
 		long first = num / offset;
 		return arr[len] - 1 + (first - (first < 4 ? 1 : 2)) * arr[len] + process(num % offset, offset / 10, len - 1);
@@ -59,10 +59,10 @@ public class Code03_NotContains4 {
 	// num之前，有开头！
 	// 在算0的情况下，num是第几个数字
 	// num 76217
-	//     10000
-	//     6217
-	//     1000
-	// len 
+	// 10000
+	// 6217
+	// 1000
+	// len
 	public static long process(long num, long offset, int len) {
 		if (len == 0) {
 			return 1;
@@ -98,39 +98,46 @@ public class Code03_NotContains4 {
 		return offset;
 	}
 
-	public static void main(String[] args) {
-		System.out.println("long类型最大长度为 : " + decimalLength(Long.MAX_VALUE));
-		System.out.print("pubic static long[] arr = { 0L, ");
-		long value = 1L;
-		for (int i = 0; i <= 19; i++) {
-			System.out.print(value + "L, ");
-			value *= 9L;
+	// 讲完之后想到了课上同学的留言
+	// 突然意识到，这道题的本质是一个9进制的数转成10进制的数
+	// 不过好在课上的解法有实际意义，就是这种求解的方式，很多题目都这么弄
+	// 还有课上的时间复杂度和"9进制的数转成10进制的数"的做法，时间复杂度都是O(lg N)
+	public static long notContains4Nums3(long num) {
+		if (num <= 0) {
+			return 0;
 		}
-		System.out.println("}");
+		long ans = 0;
+		for (long base = 1, cur = 0; num != 0; num /= 10, base *= 9) {
+			cur = num % 10;
+			ans += (cur < 4 ? cur : cur - 1) * base;
+		}
+		return ans;
+	}
 
-		long max = 8888L;
+	public static void main(String[] args) {
+		long max = 88888888L;
 		System.out.println("功能测试开始，验证 0 ~ " + max + " 以内所有的结果");
 		for (long i = 0; i <= max; i++) {
 			// 测试的时候，输入的数字i里不能含有4，这是题目的规定！
-			if (isNot4(i) && notContains4Nums1(i) != notContains4Nums2(i)) {
+			if (isNot4(i) && notContains4Nums2(i) != notContains4Nums3(i)) {
 				System.out.println("Oops!");
 			}
 		}
 		System.out.println("如果没有打印Oops说明验证通过");
 
-		long num = 1192360215L;
+		long num = 8173528638135L;
 		long start;
 		long end;
 		System.out.println("性能测试开始，计算 num = " + num + " 的答案");
 		start = System.currentTimeMillis();
-		long ans1 = notContains4Nums1(num);
-		end = System.currentTimeMillis();
-		System.out.println("方法一答案 : " + ans1 + ", 运行时间 : " + (end - start) + " ms");
-
-		start = System.currentTimeMillis();
 		long ans2 = notContains4Nums2(num);
 		end = System.currentTimeMillis();
 		System.out.println("方法二答案 : " + ans2 + ", 运行时间 : " + (end - start) + " ms");
+
+		start = System.currentTimeMillis();
+		long ans3 = notContains4Nums3(num);
+		end = System.currentTimeMillis();
+		System.out.println("方法三答案 : " + ans3 + ", 运行时间 : " + (end - start) + " ms");
 	}
 
 }
