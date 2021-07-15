@@ -77,6 +77,15 @@ public class Code03_NotContains4 {
 	}
 
 	public static void main(String[] args) {
+		System.out.println("long类型最大长度为 : " + bits(Long.MAX_VALUE));
+		System.out.print("pubic static long[] arr = { 0L, ");
+		long ans = 1L;
+		for (int i = 0; i <= 19; i++) {
+			System.out.print(ans + "L, ");
+			ans *= 9L;
+		}
+		System.out.println("}");
+
 		long max = 8888L;
 		System.out.println("功能测试开始，验证 0 ~ " + max + " 以内所有的结果");
 		for (long i = 0; i <= max; i++) {
@@ -87,10 +96,10 @@ public class Code03_NotContains4 {
 		}
 		System.out.println("如果没有打印Oops说明验证通过");
 
-		long num = 392360215L;
+		long num = 1192360215L;
 		long start;
 		long end;
-		System.out.println("性能测试开始，计算num = " + num + " 的答案");
+		System.out.println("性能测试开始，计算 num = " + num + " 的答案");
 		start = System.currentTimeMillis();
 		long ans1 = notContains4Nums1(num);
 		end = System.currentTimeMillis();
