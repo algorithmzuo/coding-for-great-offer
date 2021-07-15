@@ -1,5 +1,7 @@
 package class24;
 
+import java.math.BigInteger;
+
 // 里程表不能含有4，给定一个数num，返回他是里程表里的第几个
 public class Code03_NotContains4 {
 
@@ -45,12 +47,24 @@ public class Code03_NotContains4 {
 		if (num <= 0) {
 			return 0;
 		}
+		// num的十进制位数，len
 		int len = decimalLength(num);
+		// 35621
+		// 10000
 		long offset = offset(len);
+		
+		// 第一位数字
 		long first = num / offset;
 		return arr[len] - 1 + (first - (first < 4 ? 1 : 2)) * arr[len] + process(num % offset, offset / 10, len - 1);
 	}
 
+	// num之前，有开头！
+	// 在算0的情况下，num是第几个数字
+	// num 76217
+	//     10000
+	//     6217
+	//     1000
+	// len 
 	public static long process(long num, long offset, int len) {
 		if (len == 0) {
 			return 1;
@@ -59,6 +73,9 @@ public class Code03_NotContains4 {
 		return (first < 4 ? first : (first - 1)) * arr[len] + process(num % offset, offset / 10, len - 1);
 	}
 
+	// num的十进制位数
+	// num = 7653210
+	// 7
 	public static int decimalLength(long num) {
 		int len = 0;
 		while (num != 0) {
@@ -68,6 +85,13 @@ public class Code03_NotContains4 {
 		return len;
 	}
 
+	// len = 6
+	// 100000
+	// len = 4
+	// 1000
+	// 3452168
+	// 1000000
+	// 3
 	public static long offset(int len) {
 		long offset = 1;
 		for (int i = 1; i < len; i++) {

@@ -11,6 +11,7 @@ public class Code04_Painting {
 	// 返回至少多少种颜色可以完成任务
 
 	public static int minColors(int N, int M) {
+		// 颜色数量是i
 		for (int i = 2; i < N * M; i++) {
 			int[][] matrix = new int[N][M];
 			// 下面这一句可知，需要的最少颜色数i，一定是N*M的某个因子

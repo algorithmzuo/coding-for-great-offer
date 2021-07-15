@@ -1,6 +1,7 @@
-package class26;
+package class24;
 
-public class Code05_RemoveDuplicateLettersLessLexi {
+// 本题测试链接 : https://leetcode.com/problems/remove-duplicate-letters/
+public class Code06_RemoveDuplicateLettersLessLexi {
 
 	// 在str中，每种字符都要保留一个，让最后的结果，字典序最小 ，并返回
 	public static String removeDuplicateLetters1(String str) {
@@ -18,6 +19,9 @@ public class Code05_RemoveDuplicateLettersLessLexi {
 				break;
 			}
 		}
+		// 0...break(之前) minACSIndex
+		// str[minACSIndex] 剩下的字符串str[minACSIndex+1...] -> 去掉str[minACSIndex]字符 -> s'
+		// s'...
 		return String.valueOf(str.charAt(minACSIndex)) + removeDuplicateLetters1(
 				str.substring(minACSIndex + 1).replaceAll(String.valueOf(str.charAt(minACSIndex)), ""));
 	}

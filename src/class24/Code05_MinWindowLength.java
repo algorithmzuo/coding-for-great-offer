@@ -12,27 +12,28 @@ public class Code05_MinWindowLength {
 		for (int i = 0; i != str2.length; i++) {
 			map[str2[i]]++;
 		}
-		int left = 0;
-		int right = 0;
 		int all = str2.length;
+		
+		// [L,R-1]  R
+		// [L,R)  -> [0,0)
+		int L = 0;
+		int R = 0;
 		int minLen = Integer.MAX_VALUE;
-		// [left, right)  [left, right-1]    [0,0)
-		// R右扩   L ==0  R
-		while (right != str1.length) {
-			map[str1[right]]--;
-			if (map[str1[right]] >= 0) {
+		while (R != str1.length) {
+			map[str1[R]]--;
+			if (map[str1[R]] >= 0) {
 				all--;
 			}
 			if (all == 0) { // 还完了
-				while (map[str1[left]] < 0) {
-					map[str1[left++]]++;
+				while (map[str1[L]] < 0) {
+					map[str1[L++]]++;
 				}
 				// [L..R]
-				minLen = Math.min(minLen, right - left + 1);
+				minLen = Math.min(minLen, R - L + 1);
 				all++;
-				map[str1[left++]]++;
+				map[str1[L++]]++;
 			}
-			right++;
+			R++;
 		}
 		return minLen == Integer.MAX_VALUE ? 0 : minLen;
 	}

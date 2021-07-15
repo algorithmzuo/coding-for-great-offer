@@ -9,9 +9,9 @@ public class Code02_KthMinPair {
 		public int x;
 		public int y;
 
-		Pair(int x, int y) {
-			this.x = x;
-			this.y = y;
+		Pair(int a, int b) {
+			x = a;
+			y = b;
 		}
 	}
 
@@ -75,6 +75,7 @@ public class Code02_KthMinPair {
 		// 在无序数组中，找到第K小的数，返回值
 		// 第K小，以1作为开始
 		int fristNum = getMinKth(arr, (k - 1) / N);
+		// 第1维数字
 		int lessFristNumSize = 0;
 		int fristNumSize = 0;
 		for (int i = 0; i < N; i++) {
