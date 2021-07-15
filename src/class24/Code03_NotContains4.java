@@ -102,6 +102,7 @@ public class Code03_NotContains4 {
 	// 突然意识到，这道题的本质是一个9进制的数转成10进制的数
 	// 不过好在课上的解法有实际意义，就是这种求解的方式，很多题目都这么弄
 	// 还有课上的时间复杂度和"9进制的数转成10进制的数"的做法，时间复杂度都是O(lg N)
+	// 不过"9进制的数转成10进制的数"毫无疑问是最优解
 	public static long notContains4Nums3(long num) {
 		if (num <= 0) {
 			return 0;
