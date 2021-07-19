@@ -5,7 +5,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Code01_WordSearch {
+// 本题测试链接 : https://leetcode.com/problems/word-search-ii/
+public class Code01_WordSearchII {
 
 	public static class TrieNode {
 		public TrieNode[] nexts;
@@ -73,18 +74,14 @@ public class Code01_WordSearch {
 	// cur还没有登上，有待检查能不能登上去的前缀树的节点
 	// 如果找到words中的某个str，就记录在 res里
 	// 返回值，从row,col 出发，一共找到了多少个str
-	public static int process(
-			char[][] board, 
-			int row, int col,
-			LinkedList<Character> path,
-			TrieNode cur, 
+	public static int process(char[][] board, int row, int col, LinkedList<Character> path, TrieNode cur,
 			List<String> res) {
 		char cha = board[row][col];
 		if (cha == 0) { // 这个row col位置是之前走过的位置
 			return 0;
 		}
-		// (row,col) 不是回头路   cha 有效
-		
+		// (row,col) 不是回头路 cha 有效
+
 		int index = cha - 'a';
 		// 如果没路，或者这条路上最终的字符串之前加入过结果里
 		if (cur.nexts[index] == null || cur.nexts[index].pass == 0) {
@@ -95,7 +92,7 @@ public class Code01_WordSearch {
 		path.addLast(cha);// 当前位置的字符加到路径里去
 		int fix = 0; // 从row和col位置出发，后续一共搞定了多少答案
 		// 当我来到row col位置，如果决定不往后走了。是不是已经搞定了某个字符串了
-		if (cur.end > 0) { 
+		if (cur.end > 0) {
 			res.add(generatePath(path));
 			cur.end--;
 			fix++;

@@ -1,7 +1,6 @@
 // 不要拷贝包信息的内容
 package class26;
 
-// 本文件是Code01_SDEandPM问题的牛客题目解答
 // 这是牛客的测试链接：
 // https://www.nowcoder.com/questionTerminal/f7efb182b285403a84c10ee4e6f6075a
 // 把如下的全部代码拷贝进编辑器（java）
@@ -14,7 +13,7 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
-public class Code04_SDEandPM {
+public class Code03_SDEandPM {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);

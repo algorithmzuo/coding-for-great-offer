@@ -1,6 +1,6 @@
 package class26;
 
-public class Code03_PathsToNums {
+public class Code04_PathsToNums {
 
 	public static void pathsToNums(int[] paths) {
 		if (paths == null || paths.length == 0) {
@@ -81,6 +81,5 @@ public class Code03_PathsToNums {
 		printArray(paths);
 		pathsToNums(paths);
 		printArray(paths);
-
 	}
 }
