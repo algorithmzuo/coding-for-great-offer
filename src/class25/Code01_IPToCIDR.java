@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 // 本题测试链接 : https://leetcode.com/problems/ip-to-cidr/
-public class Code05_IPToCIDR {
+public class Code01_IPToCIDR {
 
 	public static List<String> ipToCIDR(String ip, int n) {
 		int cur = status(ip);
