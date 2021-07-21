@@ -54,9 +54,12 @@ public class Code04_GasStation {
 				break;
 			}
 			// 当前来到的start不在连通区域中，就扩充连通区域
+			// start(5) ->  联通区的头部(7) -> 2
+			// start(-2) -> 联通区的头部(7) -> 9
 			if (dis[start] < need) { // 当前start无法接到连通区的头部
 				need -= dis[start];
 			} else { // 当前start可以接到连通区的头部，开始扩充连通区域的尾巴
+				// start(7) -> 联通区的头部(5)
 				rest += dis[start] - need;
 				need = 0;
 				while (rest >= 0 && end != start) {
