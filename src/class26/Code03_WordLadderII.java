@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Queue;
 
 // 本题测试链接 : https://leetcode.com/problems/word-ladder-ii/
-public class Code05_WordLadderII {
+public class Code03_WordLadderII {
 
 	public static List<List<String>> findLadders(String start, String end, List<String> list) {
 		list.add(start);
