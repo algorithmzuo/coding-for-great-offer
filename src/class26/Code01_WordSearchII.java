@@ -11,12 +11,12 @@ public class Code01_WordSearchII {
 	public static class TrieNode {
 		public TrieNode[] nexts;
 		public int pass;
-		public int end;
+		public boolean end;
 
 		public TrieNode() {
 			nexts = new TrieNode[26];
 			pass = 0;
-			end = 0;
+			end = false;
 		}
 
 	}
@@ -34,7 +34,7 @@ public class Code01_WordSearchII {
 			node = node.nexts[index];
 			node.pass++;
 		}
-		node.end++;
+		node.end = true;
 	}
 
 	public static String generatePath(LinkedList<Character> path) {
@@ -74,7 +74,9 @@ public class Code01_WordSearchII {
 	// cur还没有登上，有待检查能不能登上去的前缀树的节点
 	// 如果找到words中的某个str，就记录在 res里
 	// 返回值，从row,col 出发，一共找到了多少个str
-	public static int process(char[][] board, int row, int col, LinkedList<Character> path, TrieNode cur,
+	public static int process(
+			char[][] board, int row, int col, 
+			LinkedList<Character> path, TrieNode cur,
 			List<String> res) {
 		char cha = board[row][col];
 		if (cha == 0) { // 这个row col位置是之前走过的位置
@@ -92,9 +94,9 @@ public class Code01_WordSearchII {
 		path.addLast(cha);// 当前位置的字符加到路径里去
 		int fix = 0; // 从row和col位置出发，后续一共搞定了多少答案
 		// 当我来到row col位置，如果决定不往后走了。是不是已经搞定了某个字符串了
-		if (cur.end > 0) {
+		if (cur.end) {
 			res.add(generatePath(path));
-			cur.end--;
+			cur.end = false;
 			fix++;
 		}
 		// 往上、下、左、右，四个方向尝试

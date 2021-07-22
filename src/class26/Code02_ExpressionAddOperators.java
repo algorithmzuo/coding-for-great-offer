@@ -15,7 +15,6 @@ public class Code02_ExpressionAddOperators {
 		char[] path = new char[num.length() * 2 - 1];
 		// num -> char[]
 		char[] digits = num.toCharArray();
-
 		long n = 0;
 		for (int i = 0; i < digits.length; i++) { // 尝试0~i前缀作为第一部分
 			n = n * 10 + digits[i] - '0';
@@ -35,8 +34,8 @@ public class Code02_ExpressionAddOperators {
 	// int pos 字符类型数组num, 使用到了哪
 	// left -> 前面固定的部分 cur -> 前一块
 	// 默认 left + cur ...
-	public static void dfs(List<String> res, char[] path, int len, long left, // 已经结算的部分
-			long cur, // 待定的部分(上一块的值)
+	public static void dfs(List<String> res, char[] path, int len, 
+			long left, long cur, 
 			char[] num, int index, int aim) {
 		if (index == num.length) {
 			if (left + cur == aim) {
@@ -47,6 +46,8 @@ public class Code02_ExpressionAddOperators {
 		long n = 0;
 		int j = len + 1;
 		for (int i = index; i < num.length; i++) { // pos ~ i
+			// 试每一个可能的前缀，作为第一个数字！
+			// num[index...i] 作为第一个数字！
 			n = n * 10 + num[i] - '0';
 			path[j++] = num[i];
 			path[len] = '+';
