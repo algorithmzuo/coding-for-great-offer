@@ -13,7 +13,7 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
-public class Code04_SDEandPM {
+public class Code05_SDEandPM {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
