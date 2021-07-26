@@ -44,23 +44,20 @@ public class Code02_MinPeople {
 		if (arr == null || arr.length == 0) {
 			return 0;
 		}
-		if (arr.length == 1) {
-			return 1 + arr[0];
-		}
 		Arrays.sort(arr);
 		int pre = arr[0];
 		int count = 1;
 		int ans = 0;
 		for (int i = 1; i < arr.length; i++) {
 			if (pre != arr[i]) {
-				ans += (count + pre) / (pre + 1);
+				ans += ((count + pre) / (pre + 1)) * (pre + 1);
 				pre = arr[i];
 				count = 1;
 			} else {
 				count++;
 			}
 		}
-		return ans + (count + pre) / (pre + 1);
+		return ans + ((count + pre) / (pre + 1)) * (pre + 1);
 	}
 
 }
