@@ -17,13 +17,17 @@ public class Code01_PickBands {
 		int[] map1 = init(1 << (nums << 1));
 		int[] map2 = null;
 		if ((nums & 1) == 0) {
+			// nums = 8 , 4
 			f(programs, size, 0, 0, 0, nums >> 1, map1);
 			map2 = map1;
 		} else {
+			// nums == 7 4 -> map1 3 -> map2
 			f(programs, size, 0, 0, 0, nums >> 1, map1);
 			map2 = init(1 << (nums << 1));
 			f(programs, size, 0, 0, 0, nums - (nums >> 1), map2);
 		}
+		// 16 mask : 0..00 1111.1111(16个)
+		// 12 mask : 0..00 1111.1111(12个)
 		int mask = (1 << (nums << 1)) - 1;
 		int ans = Integer.MAX_VALUE;
 		for (int i = 0; i < map1.length; i++) {
@@ -34,6 +38,11 @@ public class Code01_PickBands {
 		return ans == Integer.MAX_VALUE ? -1 : ans;
 	}
 
+	// [
+	// [9, 1, 100]
+	// [2, 9 , 50]
+	// ...
+	// ]
 	public static int clean(int[][] programs) {
 		int x = 0;
 		int y = 0;
@@ -47,6 +56,7 @@ public class Code01_PickBands {
 		x = programs[0][0];
 		y = programs[0][1];
 		int n = programs.length;
+		// (0, 1, ? )
 		for (int i = 1; i < n; i++) {
 			if (programs[i][0] == x && programs[i][1] == y) {
 				programs[i] = null;
@@ -61,6 +71,7 @@ public class Code01_PickBands {
 				programs[size++] = programs[i];
 			}
 		}
+		// programs[0...size-1]
 		return size;
 	}
 
@@ -85,6 +96,50 @@ public class Code01_PickBands {
 			}
 		}
 	}
+
+//	// 如果nums，2 * nums 只乐队
+//	// (1 << (nums << 1)) - 1
+//	// programs 洗数据 size
+//	// nums = 8   16只乐队
+//	
+//	// process(programs, size, (1 << (nums << 1)) - 1, 0, 4, 0, 0)
+//	
+//	public static int minCost = Integer.MAX_VALUE;
+//	
+//	public static int[] map = new int[1 << 16]; // map初始化全变成系统最大
+//	
+//	
+//
+//	public static void process(int[][] programs, int size, int index, int rest, int pick, int cost) {
+//		if (rest == 0) {
+//			
+//			map[pick] = Math.min(map[pick], cost);
+//			
+//		} else { // 还有项目可挑
+//			if (index != size) {
+//				// 不考虑当前的项目！programs[index];
+//				process(programs, size, index + 1, rest, pick, cost);
+//				// 考虑当前的项目！programs[index];
+//				int x = programs[index][0];
+//				int y = programs[index][1];
+//				int cur = (1 << x) | (1 << y);
+//				if ((pick & cur) == 0) { // 终于可以考虑了！
+//					process(programs, size, index + 1, rest - 1, pick | cur, cost + programs[index][2]);
+//				}
+//			}
+//		}
+//	}
+//	
+//	
+//	public static void zuo(int[] arr, int index, int rest) {
+//		if(rest == 0) {
+//			停止
+//		}
+//		if(index != arr.length) {
+//			zuo(arr, index + 1, rest);
+//			zuo(arr, index + 1, rest - 1);
+//		}
+//	}
 
 	// 为了测试
 	public static int right(int[][] programs, int nums) {

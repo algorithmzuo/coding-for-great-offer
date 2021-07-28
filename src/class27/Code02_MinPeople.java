@@ -18,15 +18,13 @@ public class Code02_MinPeople {
 //	输入: prices = [3, 1, 2, 8, 5, 9]
 //	输出: 11
 //
-//
 //	题目二：
-//	企鹅厂每年都会发文化衫，文化衫有很多种颜色，厂庆的时候，企鹅们都需要穿文化衫来拍照。一次采访中，记者随机遇到的企鹅，企鹅会告诉记者还有多少企鹅跟他穿一个颜色的文化衫。我们将这些回答放在 answers 数组里，返回鹅厂中企鹅的最少数量。
-//	输入: answers = [1]
-//	一个人回答，还有 1 个人跟他穿一样颜色的文化衫，所以最少是 2个人，
-//	输出 2
-//	输入: answers = [1, 1, 2]
-//	输出: 5
-//
+//	企鹅厂每年都会发文化衫，文化衫有很多种，厂庆的时候，企鹅们都需要穿文化衫来拍照
+//  一次采访中，记者随机遇到的企鹅，企鹅会告诉记者还有多少企鹅跟他穿一种文化衫
+//  我们将这些回答放在 answers 数组里，返回鹅厂中企鹅的最少数量。
+//	输入: answers = [1]    输出：2
+//	输入: answers = [1, 1, 2]    输出：5
+//  Leetcode题目：https://leetcode.com/problems/rabbits-in-forest/
 //
 //	题目三：
 //	WXG 的秘书有一堆的文件袋，现在秘书需要把文件袋嵌套收纳起来。请你帮他计算下，最大嵌套数量。
@@ -40,24 +38,24 @@ public class Code02_MinPeople {
 	// 题目一，股票系列专题，大厂刷题班15节
 	// 题目三，最长递增子序列专题，大厂刷题班第9节
 	// 我们来讲一下题目二
-	public static int minPeople(int[] arr) {
+	public static int numRabbits(int[] arr) {
 		if (arr == null || arr.length == 0) {
 			return 0;
 		}
 		Arrays.sort(arr);
-		int pre = arr[0];
-		int count = 1;
+		int x = arr[0];
+		int c = 1;
 		int ans = 0;
 		for (int i = 1; i < arr.length; i++) {
-			if (pre != arr[i]) {
-				ans += ((count + pre) / (pre + 1)) * (pre + 1);
-				pre = arr[i];
-				count = 1;
+			if (x != arr[i]) {
+				ans += ((c + x) / (x + 1)) * (x + 1);
+				x = arr[i];
+				c = 1;
 			} else {
-				count++;
+				c++;
 			}
 		}
-		return ans + ((count + pre) / (pre + 1)) * (pre + 1);
+		return ans + ((c + x) / (x + 1)) * (x + 1);
 	}
 
 }
