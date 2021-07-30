@@ -1,7 +1,5 @@
 package class28;
 
-import java.util.Stack;
-
 public class Problem_0020_ValidParentheses {
 
 	public static boolean isValid(String s) {
@@ -9,22 +7,24 @@ public class Problem_0020_ValidParentheses {
 			return true;
 		}
 		char[] str = s.toCharArray();
-		Stack<Character> stack = new Stack<>();
-		for (int i = 0; i < str.length; i++) {
+		int N = str.length;
+		char[] stack = new char[N];
+		int size = 0;
+		for (int i = 0; i < N; i++) {
 			char cha = str[i];
 			if (cha == '(' || cha == '[' || cha == '{') {
-				stack.add(cha == '(' ? ')' : (cha == '[' ? ']' : '}'));
+				stack[size++] = cha == '(' ? ')' : (cha == '[' ? ']' : '}');
 			} else {
-				if (stack.isEmpty()) {
+				if (size == 0) {
 					return false;
 				}
-				char last = stack.pop();
+				char last = stack[--size];
 				if (cha != last) {
 					return false;
 				}
 			}
 		}
-		return stack.isEmpty();
+		return size == 0;
 	}
 
 }

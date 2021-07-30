@@ -21,6 +21,7 @@ public class Problem_0008_StringToInteger {
 		int res = 0;
 		int cur = 0;
 		for (int i = (str[0] == '-' || str[0] == '+') ? 1 : 0; i < str.length; i++) {
+			// 3  cur = -3   '5'  cur = -5    '0' cur = 0
 			cur = '0' - str[i];
 			if ((res < minq) || (res == minq && cur < minr)) {
 				return posi ? Integer.MAX_VALUE : Integer.MIN_VALUE;
@@ -69,5 +70,11 @@ public class Problem_0008_StringToInteger {
 		}
 		return true;
 	}
+	
+	public static void main(String[] args) {
+		System.out.println(Integer.MAX_VALUE);
+	}
+	
+	
 
 }

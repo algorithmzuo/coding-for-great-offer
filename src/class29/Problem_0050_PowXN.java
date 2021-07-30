@@ -1,4 +1,4 @@
-package class28;
+package class29;
 
 public class Problem_0050_PowXN {
 

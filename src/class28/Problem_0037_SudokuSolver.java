@@ -24,18 +24,23 @@ public class Problem_0037_SudokuSolver {
 		}
 	}
 
+	//  当前来到(i,j)这个位置，如果已经有数字，跳到下一个位置上
+	//                      如果没有数字，尝试1~9，不能和row、col、bucket冲突
 	public static boolean process(char[][] board, int i, int j, boolean[][] row, boolean[][] col, boolean[][] bucket) {
 		if (i == 9) {
 			return true;
 		}
+		// 当离开(i，j)，应该去哪？(nexti, nextj)
 		int nexti = j != 8 ? i : i + 1;
 		int nextj = j != 8 ? j + 1 : 0;
 		if (board[i][j] != '.') {
 			return process(board, nexti, nextj, row, col, bucket);
 		} else {
+			// 可以尝试1~9
 			int bid = 3 * (i / 3) + (j / 3);
-			for (int num = 1; num <= 9; num++) {
+			for (int num = 1; num <= 9; num++) { // 尝试每一个数字1~9
 				if ((!row[i][num]) && (!col[j][num]) && (!bucket[bid][num])) {
+					// 可以尝试num
 					row[i][num] = true;
 					col[j][num] = true;
 					bucket[bid][num] = true;

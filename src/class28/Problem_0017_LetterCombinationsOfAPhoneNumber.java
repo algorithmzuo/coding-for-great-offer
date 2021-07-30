@@ -28,9 +28,6 @@ public class Problem_0017_LetterCombinationsOfAPhoneNumber {
 		return ans;
 	}
 
-	// str = ['2','3']  3   3
-	// str[....index-1]，按出的结果是什么都在path里
-	// str[index...]  按完之后，有哪些组合，放入到ans里
 	public static void process(char[] str, int index, char[] path, List<String> ans) {
 		if (index == str.length) {
 			ans.add(String.valueOf(path));

@@ -3,6 +3,8 @@ package class28;
 public class Problem_0013_RomanToInteger {
 
 	public static int romanToInt(String s) {
+		// C     M     X   C     I   X
+		// 100  1000  10   100   1   10
 		int nums[] = new int[s.length()];
 		for (int i = 0; i < s.length(); i++) {
 			switch (s.charAt(i)) {
