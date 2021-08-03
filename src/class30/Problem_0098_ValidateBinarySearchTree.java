@@ -1,4 +1,4 @@
-package class29;
+package class30;
 
 public class Problem_0098_ValidateBinarySearchTree {
 

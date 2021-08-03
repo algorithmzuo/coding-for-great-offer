@@ -10,6 +10,7 @@ public class Problem_0069_SqrtX {
 		if (x < 3) {
 			return 1;
 		}
+		// x >= 3
 		long ans = 1;
 		long L = 1;
 		long R = x;
