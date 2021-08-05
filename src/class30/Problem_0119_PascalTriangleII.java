@@ -7,13 +7,9 @@ public class Problem_0119_PascalTriangleII {
 
 	public List<Integer> getRow(int rowIndex) {
 		List<Integer> ans = new ArrayList<>();
-		int a = 1;
-		int b = 0;
 		for (int i = 0; i <= rowIndex; i++) {
-			for (int j = 1; j < i; j++) {
-				b = ans.get(j);
-				ans.set(j, a + ans.get(j));
-				a = b;
+			for (int j = i - 1; j > 0; j--) {
+				ans.set(j, ans.get(j - 1) + ans.get(j));
 			}
 			ans.add(1);
 		}
