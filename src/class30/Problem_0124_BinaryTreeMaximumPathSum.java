@@ -26,6 +26,7 @@ public class Problem_0124_BinaryTreeMaximumPathSum {
 		return process(root).maxPathSum;
 	}
 
+	// 任何一棵树，必须汇报上来的信息
 	public static class Info {
 		public int maxPathSum;
 		public int maxPathSumFromHead;
@@ -42,30 +43,30 @@ public class Problem_0124_BinaryTreeMaximumPathSum {
 		}
 		Info leftInfo = process(x.left);
 		Info rightInfo = process(x.right);
-		int p1 = Integer.MIN_VALUE;
+		// x 1)只有x 2）x往左扎 3）x往右扎
+		int maxPathSumFromHead = x.val;
 		if (leftInfo != null) {
-			p1 = leftInfo.maxPathSum;
+			maxPathSumFromHead = Math.max(maxPathSumFromHead, x.val + leftInfo.maxPathSumFromHead);
 		}
-		int p2 = Integer.MIN_VALUE;
 		if (rightInfo != null) {
-			p2 = rightInfo.maxPathSum;
+			maxPathSumFromHead = Math.max(maxPathSumFromHead, x.val + rightInfo.maxPathSumFromHead);
 		}
-		int p3 = x.val;
-		int p4 = Integer.MIN_VALUE;
+		// x整棵树最大路径和 1) 只有x 2)左树整体的最大路径和 3) 右树整体的最大路径和
+		int maxPathSum = x.val;
 		if (leftInfo != null) {
-			p4 = x.val + leftInfo.maxPathSumFromHead;
+			maxPathSum = Math.max(maxPathSum, leftInfo.maxPathSum);
 		}
-		int p5 = Integer.MIN_VALUE;
 		if (rightInfo != null) {
-			p5 = x.val + rightInfo.maxPathSumFromHead;
+			maxPathSum = Math.max(maxPathSum, rightInfo.maxPathSum);
 		}
-		int p6 = Integer.MIN_VALUE;
-		if (leftInfo != null && rightInfo != null) {
-			p6 = x.val + leftInfo.maxPathSumFromHead + rightInfo.maxPathSumFromHead;
+		// 4) x只往左扎 5）x只往右扎
+		maxPathSum = Math.max(maxPathSumFromHead, maxPathSum);
+		// 6）一起扎
+		if (leftInfo != null && rightInfo != null && leftInfo.maxPathSumFromHead > 0
+				&& rightInfo.maxPathSumFromHead > 0) {
+			maxPathSum = Math.max(maxPathSum, leftInfo.maxPathSumFromHead + rightInfo.maxPathSumFromHead + x.val);
 		}
-		int maxSum = Math.max(Math.max(Math.max(p1, p2), Math.max(p3, p4)), Math.max(p5, p6));
-		int maxSumFromHead = Math.max(p3, Math.max(p4, p5));
-		return new Info(maxSum, maxSumFromHead);
+		return new Info(maxPathSum, maxPathSumFromHead);
 	}
 
 	// 如果要返回路径的做法
@@ -97,14 +98,14 @@ public class Problem_0124_BinaryTreeMaximumPathSum {
 		}
 	}
 
-	public static Data f(TreeNode h) {
-		if (h == null) {
+	public static Data f(TreeNode x) {
+		if (x == null) {
 			return null;
 		}
-		Data l = f(h.left);
-		Data r = f(h.right);
-		int maxHeadSum = h.val;
-		TreeNode end = h;
+		Data l = f(x.left);
+		Data r = f(x.right);
+		int maxHeadSum = x.val;
+		TreeNode end = x;
 		if (l != null && l.maxHeadSum > 0 && (r == null || l.maxHeadSum > r.maxHeadSum)) {
 			maxHeadSum += l.maxHeadSum;
 			end = l.end;
@@ -126,12 +127,12 @@ public class Problem_0124_BinaryTreeMaximumPathSum {
 			from = r.from;
 			to = r.to;
 		}
-		int p3 = h.val + (l != null && l.maxHeadSum > 0 ? l.maxHeadSum : 0)
+		int p3 = x.val + (l != null && l.maxHeadSum > 0 ? l.maxHeadSum : 0)
 				+ (r != null && r.maxHeadSum > 0 ? r.maxHeadSum : 0);
 		if (p3 > maxAllSum) {
 			maxAllSum = p3;
-			from = (l != null && l.maxHeadSum > 0) ? l.end : h;
-			to = (r != null && r.maxHeadSum > 0) ? r.end : h;
+			from = (l != null && l.maxHeadSum > 0) ? l.end : x;
+			to = (r != null && r.maxHeadSum > 0) ? r.end : x;
 		}
 		return new Data(maxAllSum, from, to, maxHeadSum, end);
 	}

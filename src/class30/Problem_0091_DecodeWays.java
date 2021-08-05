@@ -19,17 +19,12 @@ public class Problem_0091_DecodeWays {
 		if (str[index] == '0') {
 			return 0;
 		}
-		// index还有字符, 又不是‘0’
-		// 1) （index 1 ~ 9）
 		int ways = process(str, index + 1);
-		// 2) (index index + 1) -> index + 2 ....
 		if (index + 1 == str.length) {
 			return ways;
 		}
-		// (index index + 1) "23" -> 23 "17" -> 17
 		int num = (str[index] - '0') * 10 + str[index + 1] - '0';
-		// num > 26
-		if (num <= 26) {
+		if (num < 27) {
 			ways += process(str, index + 2);
 		}
 		return ways;

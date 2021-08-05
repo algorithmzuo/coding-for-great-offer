@@ -1,4 +1,4 @@
-package class30;
+package class31;
 
 public class Problem_0191_NumberOf1Bits {
     
