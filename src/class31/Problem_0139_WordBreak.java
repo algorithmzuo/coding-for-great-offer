@@ -1,11 +1,21 @@
 package class31;
 
-import java.util.HashSet;
 import java.util.List;
 
+// lintcode也有测试，数据量比leetcode大很多 : https://www.lintcode.com/problem/107/
 public class Problem_0139_WordBreak {
 
-	public static boolean wordBreak(String s, List<String> wordDict) {
+	public static class Node {
+		public boolean end;
+		public Node[] nexts;
+
+		public Node() {
+			end = false;
+			nexts = new Node[26];
+		}
+	}
+
+	public static boolean wordBreak1(String s, List<String> wordDict) {
 		Node root = new Node();
 		for (String str : wordDict) {
 			char[] chs = str.toCharArray();
@@ -27,13 +37,14 @@ public class Problem_0139_WordBreak {
 		for (int i = N - 1; i >= 0; i--) {
 			Node cur = root;
 			for (int end = i; end < N; end++) {
-				int path = str[end] - 'a';
-				if (cur.nexts[path] == null) {
+				cur = cur.nexts[str[end] - 'a'];
+				if (cur == null) {
 					break;
 				}
-				cur = cur.nexts[path];
-				if (cur.end && dp[end + 1]) {
-					dp[i] = true;
+				if (cur.end) {
+					dp[i] |= dp[end + 1];
+				}
+				if (dp[i]) {
 					break;
 				}
 			}
@@ -41,63 +52,7 @@ public class Problem_0139_WordBreak {
 		return dp[0];
 	}
 
-	public static boolean wordBreak2(String s, List<String> wordDict) {
-		return process(s, 0, new HashSet<>(wordDict)) != 0;
-	}
-
-	// s[0......index-1]这一段，已经分解过了，不用在操心
-	// s[index.....] 这一段字符串，能够被分解的方法数，返回
-	public static int process(String s, int index, HashSet<String> wordDict) {
-		if (index == s.length()) {
-			return 1;
-		}
-		// index没到最后
-		// index...index
-		// index...index+1
-		// index....index+2
-		// index....end
-		int ways = 0;
-		for (int end = index; end < s.length(); end++) {
-			// s[index....end]
-			String pre = s.substring(index, end + 1);
-			if (wordDict.contains(pre)) {
-				ways += process(s, end + 1, wordDict);
-			}
-		}
-		return ways;
-	}
-
-	public static boolean wordBreak3(String s, List<String> wordDict) {
-		HashSet<String> set = new HashSet<>(wordDict);
-		int N = s.length();
-		int[] dp = new int[N + 1];
-		// dp[i] = process(s, i, set)的返回值
-		dp[N] = 1;
-		for (int index = N - 1; index >= 0; index--) {
-			int ways = 0;
-			for (int end = index; end < s.length(); end++) {
-				// s[index....end]
-				String pre = s.substring(index, end + 1);
-				if (set.contains(pre)) {
-					ways += dp[end + 1];
-				}
-			}
-			dp[index] = ways;
-		}
-		return dp[0] != 0;
-	}
-
-	public static class Node {
-		public boolean end;
-		public Node[] nexts;
-
-		public Node() {
-			end = false;
-			nexts = new Node[26];
-		}
-	}
-
-	public static boolean wordBreak4(String s, List<String> wordDict) {
+	public static int wordBreak2(String s, List<String> wordDict) {
 		Node root = new Node();
 		for (String str : wordDict) {
 			char[] chs = str.toCharArray();
@@ -128,7 +83,7 @@ public class Problem_0139_WordBreak {
 				}
 			}
 		}
-		return dp[0] != 0;
+		return dp[0];
 	}
 
 }
