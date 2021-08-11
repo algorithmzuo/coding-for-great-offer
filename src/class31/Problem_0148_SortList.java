@@ -23,7 +23,12 @@ public class Problem_0148_SortList {
 		ListNode pre = null;
 		for (int len = 1; len < N; len <<= 1) {
 			while (teamFirst != null) {
+				// 左组从哪到哪   ls le
+				// 右组从哪到哪   rs re
+				// 左 右  next
 				ListNode[] hthtn = hthtn(teamFirst, len);
+				// ls...le  rs...re -> merge去
+				// 整体的头、整体的尾
 				ListNode[] mhmt = merge(hthtn[0], hthtn[1], hthtn[2], hthtn[3]);
 				if (h == teamFirst) {
 					h = mhmt[0];

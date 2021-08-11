@@ -2,6 +2,8 @@ package class31;
 
 public class Problem_0125_ValidPalindrome {
 
+	// 忽略空格、忽略大小写 -> 是不是回文
+	// 数字不在忽略大小写的范围内
 	public static boolean isPalindrome(String s) {
 		if (s == null || s.length() == 0) {
 			return true;
@@ -10,6 +12,7 @@ public class Problem_0125_ValidPalindrome {
 		int L = 0;
 		int R = str.length - 1;
 		while (L < R) {
+			// 英文（大小写） + 数字
 			if (validChar(str[L]) && validChar(str[R])) {
 				if (!equal(str[L], str[R])) {
 					return false;
@@ -32,6 +35,9 @@ public class Problem_0125_ValidPalindrome {
 		if (isNumber(c1) || isNumber(c2)) {
 			return c1 == c2;
 		}
+		// a  A   32
+		// b  B   32
+		// c  C   32
 		return (c1 == c2) || (Math.max(c1, c2) - Math.min(c1, c2) == 32);
 	}
 

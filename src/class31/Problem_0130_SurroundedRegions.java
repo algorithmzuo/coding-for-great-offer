@@ -2,6 +2,20 @@ package class31;
 
 public class Problem_0130_SurroundedRegions {
 
+//	// m -> 二维数组， 不是0就是1
+//	//
+//	public static void infect(int[][] m, int i, int j) {
+//		if (i < 0 || i == m.length || j < 0 || j == m[0].length || m[i][j] != 1) {
+//			return;
+//		}
+//		// m[i][j] == 1
+//		m[i][j] = 2;
+//		infect(m, i - 1, j);
+//		infect(m, i + 1, j);
+//		infect(m, i, j - 1);
+//		infect(m, i, j + 1);
+//	}
+
 	public static void solve1(char[][] board) {
 		boolean[] ans = new boolean[1];
 		for (int i = 0; i < board.length; i++) {

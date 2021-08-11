@@ -1,4 +1,4 @@
-package class31;
+package class32;
 
 public class Problem_0204_CountPrimes {
 

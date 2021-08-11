@@ -1,4 +1,4 @@
-package class31;
+package class32;
 
 // 有关这个游戏更有意思、更完整的内容：
 // https://www.bilibili.com/video/BV1rJ411n7ri

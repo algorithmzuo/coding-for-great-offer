@@ -9,9 +9,21 @@ import java.util.Queue;
 
 public class Problem_0127_WordLadder {
 
+	// start，出发的单词
+	// to, 目标单位
+	// list, 列表
+	// to 一定属于list
+	// start未必
+	// 返回变幻的最短路径长度
 	public static int ladderLength1(String start, String to, List<String> list) {
 		list.add(start);
+
+		// key : 列表中的单词，每一个单词都会有记录！
+		// value : key这个单词，有哪些邻居！
 		HashMap<String, ArrayList<String>> nexts = getNexts(list);
+		// abc  出发     abc  -> abc  0
+		// 
+		// bbc  1
 		HashMap<String, Integer> distanceMap = new HashMap<>();
 		distanceMap.put(start, 1);
 		HashSet<String> set = new HashSet<>();
@@ -51,8 +63,8 @@ public class Problem_0127_WordLadder {
 	public static ArrayList<String> getNext(String word, HashSet<String> dict) {
 		ArrayList<String> res = new ArrayList<String>();
 		char[] chs = word.toCharArray();
-		for (char cur = 'a'; cur <= 'z'; cur++) {
-			for (int i = 0; i < chs.length; i++) {
+		for (int i = 0; i < chs.length; i++) {
+			for (char cur = 'a'; cur <= 'z'; cur++) {
 				if (chs[i] != cur) {
 					char tmp = chs[i];
 					chs[i] = cur;
@@ -77,8 +89,14 @@ public class Problem_0127_WordLadder {
 		startSet.add(beginWord);
 		endSet.add(endWord);
 		for (int len = 2; !startSet.isEmpty(); len++) {
+			// startSet是较小的，endSet是较大的
 			HashSet<String> nextSet = new HashSet<>();
 			for (String w : startSet) {
+				// w -> a(nextSet)
+				// a b c
+				// 0 
+				//   1
+				//     2
 				for (int j = 0; j < w.length(); j++) {
 					char[] ch = w.toCharArray();
 					for (char c = 'a'; c <= 'z'; c++) {
@@ -96,6 +114,7 @@ public class Problem_0127_WordLadder {
 					}
 				}
 			}
+			// startSet(小) -> nextSet(某个大小)   和 endSet大小来比
 			startSet = (nextSet.size() < endSet.size()) ? nextSet : endSet;
 			endSet = (startSet == nextSet) ? endSet : nextSet;
 		}

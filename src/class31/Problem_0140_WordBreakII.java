@@ -27,6 +27,10 @@ public class Problem_0140_WordBreakII {
 		return ans;
 	}
 
+	// str[index.....] 是要搞定的字符串
+	// dp[0...N-1] 0... 1.... 2... N-1... 在dp里
+	// root 单词表所有单词生成的前缀树头节点
+	// path str[0..index-1]做过决定了，做的决定放在path里
 	public static void process(char[] str, int index, Node root, boolean[] dp, ArrayList<String> path,
 			List<String> ans) {
 		if (index == str.length) {
@@ -39,12 +43,15 @@ public class Problem_0140_WordBreakII {
 		} else {
 			Node cur = root;
 			for (int end = index; end < str.length; end++) {
+				// str[i..end] （能不能拆出来）
 				int road = str[end] - 'a';
 				if (cur.nexts[road] == null) {
 					break;
 				}
 				cur = cur.nexts[road];
 				if (cur.end && dp[end + 1]) {
+					// [i...end] 前缀串
+					// str.subString(i,end+1)  [i..end]
 					path.add(cur.path);
 					process(str, end + 1, root, dp, path, ans);
 					path.remove(path.size() - 1);

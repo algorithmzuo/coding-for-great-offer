@@ -1,4 +1,4 @@
-package class31;
+package class32;
 
 import java.util.ArrayList;
 import java.util.HashMap;

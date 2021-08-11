@@ -33,15 +33,23 @@ public class Problem_0139_WordBreak {
 		char[] str = s.toCharArray();
 		int N = str.length;
 		boolean[] dp = new boolean[N + 1];
-		dp[N] = true;
+		dp[N] = true; // dp[i]  word[i.....] 能不能被分解
+		// dp[N] word[N...]  -> ""  能不能够被分解 
+		// dp[i] ... dp[i+1....]
 		for (int i = N - 1; i >= 0; i--) {
+			// i
+			// word[i....] 能不能够被分解
+			// i..i    i+1....
+			// i..i+1  i+2...
 			Node cur = root;
 			for (int end = i; end < N; end++) {
 				cur = cur.nexts[str[end] - 'a'];
 				if (cur == null) {
 					break;
 				}
+				// 有路！
 				if (cur.end) {
+					// i...end 真的是一个有效的前缀串  end+1....  能不能被分解
 					dp[i] |= dp[end + 1];
 				}
 				if (dp[i]) {
