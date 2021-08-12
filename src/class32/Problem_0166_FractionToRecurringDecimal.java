@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class Problem_0166_FractionToRecurringDecimal {
 
-	public String fractionToDecimal(int numerator, int denominator) {
+	public static String fractionToDecimal(int numerator, int denominator) {
 		if (numerator == 0) {
 			return "0";
 		}
@@ -37,6 +37,10 @@ public class Problem_0166_FractionToRecurringDecimal {
 			}
 		}
 		return res.toString();
+	}
+
+	public static void main(String[] args) {
+		System.out.println(fractionToDecimal(127, 999));
 	}
 
 }

@@ -2,7 +2,7 @@ package class32;
 
 public class Problem_0191_NumberOf1Bits {
     
-	
+	// n的二进制形式，有几个1？
 	public static int hammingWeight1(int n) {
 		int bits = 0;
 		int rightOne = 0;
