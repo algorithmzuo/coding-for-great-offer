@@ -22,7 +22,7 @@ public class Problem_0207_CourseSchedule {
 		}
 	}
 
-	public static boolean canFinish(int numCourses, int[][] prerequisites) {
+	public static boolean canFinish1(int numCourses, int[][] prerequisites) {
 		if (prerequisites == null || prerequisites.length == 0) {
 			return true;
 		}
@@ -59,6 +59,41 @@ public class Problem_0207_CourseSchedule {
 			}
 		}
 		return count == needPrerequisiteNums;
+	}
+
+	// 和方法1算法过程一样
+	// 但是写法优化了
+	public static boolean canFinish2(int courses, int[][] relation) {
+		if (relation == null || relation.length == 0) {
+			return true;
+		}
+		ArrayList<ArrayList<Integer>> nexts = new ArrayList<>();
+		for (int i = 0; i < courses; i++) {
+			nexts.add(new ArrayList<>());
+		}
+		int[] in = new int[courses];
+		for (int[] arr : relation) {
+			nexts.get(arr[1]).add(arr[0]);
+			in[arr[0]]++;
+		}
+		int[] zero = new int[courses];
+		int l = 0;
+		int r = 0;
+		for (int i = 0; i < courses; i++) {
+			if (in[i] == 0) {
+				zero[r++] = i;
+			}
+		}
+		int count = 0;
+		while (l != r) {
+			count++;
+			for (int next : nexts.get(zero[l++])) {
+				if (--in[next] == 0) {
+					zero[r++] = next;
+				}
+			}
+		}
+		return count == nexts.size();
 	}
 
 }
