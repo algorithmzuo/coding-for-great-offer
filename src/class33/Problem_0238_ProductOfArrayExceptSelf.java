@@ -18,4 +18,6 @@ public class Problem_0238_ProductOfArrayExceptSelf {
 		return ans;
 	}
 
+	// 扩展 : 如果仅仅是不能用除号，把结果直接填在nums里呢？
+
 }

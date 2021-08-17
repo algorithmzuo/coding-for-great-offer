@@ -15,14 +15,10 @@ public class Problem_0295_FindMedianFromDataStream {
 		}
 
 		public void addNum(int num) {
-			if (maxh.isEmpty()) {
+			if (maxh.isEmpty() || maxh.peek() >= num) {
 				maxh.add(num);
 			} else {
-				if (maxh.peek() >= num) {
-					maxh.add(num);
-				} else {
-					minh.add(num);
-				}
+				minh.add(num);
 			}
 			balance();
 		}

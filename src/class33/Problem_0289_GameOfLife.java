@@ -12,40 +12,30 @@ public class Problem_0289_GameOfLife {
 			for (int j = 0; j < M; j++) {
 				int neighbors = neighbors(board, i, j);
 				if (neighbors == 3 || (board[i][j] == 1 && neighbors == 2)) {
-					set(board, i, j);
+					board[i][j] |= 2;
 				}
 			}
 		}
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < M; j++) {
-				board[i][j] = get(board, i, j);
+				board[i][j] >>= 1;
 			}
 		}
 	}
 
-	public static int neighbors(int[][] board, int i, int j) {
-		int count = 0;
-		count += ok(board, i - 1, j - 1) ? 1 : 0;
-		count += ok(board, i - 1, j) ? 1 : 0;
-		count += ok(board, i - 1, j + 1) ? 1 : 0;
-		count += ok(board, i, j - 1) ? 1 : 0;
-		count += ok(board, i, j + 1) ? 1 : 0;
-		count += ok(board, i + 1, j - 1) ? 1 : 0;
-		count += ok(board, i + 1, j) ? 1 : 0;
-		count += ok(board, i + 1, j + 1) ? 1 : 0;
-		return count;
+	public static int neighbors(int[][] b, int i, int j) {
+		return f(b, i - 1, j - 1)
+				+ f(b, i - 1, j)
+				+ f(b, i - 1, j + 1)
+				+ f(b, i, j - 1)
+				+ f(b, i, j + 1)
+				+ f(b, i + 1, j - 1)
+				+ f(b, i + 1, j)
+				+ f(b, i + 1, j + 1);
 	}
 
-	public static boolean ok(int[][] board, int i, int j) {
-		return i >= 0 && i < board.length && j >= 0 && j < board[0].length && (board[i][j] & 1) == 1;
-	}
-
-	public static void set(int[][] board, int i, int j) {
-		board[i][j] |= 2;
-	}
-
-	public static int get(int[][] board, int i, int j) {
-		return board[i][j] >> 1;
+	public static int f(int[][] b, int i, int j) {
+		return (i >= 0 && i < b.length && j >= 0 && j < b[0].length && (b[i][j] & 1) == 1) ? 1 : 0;
 	}
 
 }
