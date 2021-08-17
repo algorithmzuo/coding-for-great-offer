@@ -32,11 +32,12 @@ public class Problem_0295_FindMedianFromDataStream {
 		}
 
 		private void balance() {
-			if (maxh.size() == minh.size() + 2) {
-				minh.add(maxh.poll());
-			}
-			if (maxh.size() == minh.size() - 2) {
-				maxh.add(minh.poll());
+			if (Math.abs(maxh.size() - minh.size()) == 2) {
+				if (maxh.size() > minh.size()) {
+					minh.add(maxh.poll());
+				} else {
+					maxh.add(minh.poll());
+				}
 			}
 		}
 
