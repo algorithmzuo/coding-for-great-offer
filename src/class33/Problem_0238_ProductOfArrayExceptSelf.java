@@ -19,5 +19,6 @@ public class Problem_0238_ProductOfArrayExceptSelf {
 	}
 
 	// 扩展 : 如果仅仅是不能用除号，把结果直接填在nums里呢？
+	// 解法：数一共几个0；每一个位得到结果就是，a / b，位运算替代 /，之前的课讲过（新手班）
 
 }

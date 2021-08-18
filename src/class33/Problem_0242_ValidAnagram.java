@@ -6,13 +6,13 @@ public class Problem_0242_ValidAnagram {
 		if (s.length() != t.length()) {
 			return false;
 		}
-		char[] str = s.toCharArray();
-		char[] tar = t.toCharArray();
+		char[] str1 = s.toCharArray();
+		char[] str2 = t.toCharArray();
 		int[] count = new int[256];
-		for (char cha : str) {
+		for (char cha : str1) {
 			count[cha]++;
 		}
-		for (char cha : tar) {
+		for (char cha : str2) {
 			if (--count[cha] < 0) {
 				return false;
 			}

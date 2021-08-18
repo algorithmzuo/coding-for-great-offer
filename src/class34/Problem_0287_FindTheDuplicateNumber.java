@@ -1,4 +1,4 @@
-package class33;
+package class34;
 
 public class Problem_0287_FindTheDuplicateNumber {
 

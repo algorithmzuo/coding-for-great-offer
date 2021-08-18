@@ -52,6 +52,7 @@ public class Problem_0279_PerfectSquares {
 			return 4;
 		}
 		for (int a = 0; a * a <= n; ++a) {
+			// a * a +  b * b = n  
 			int b = (int) Math.sqrt(n - a * a);
 			if (a * a + b * b == n) {
 				return (a > 0 && b > 0) ? 2 : 1;

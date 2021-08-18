@@ -2,6 +2,22 @@ package class33;
 
 public class Problem_0213_HouseRobberII {
 
+	// arr 长度大于等于1
+	public static int pickMaxSum(int[] arr) {
+		int n = arr.length;
+		// dp[i] : arr[0..i]范围上，随意选择，但是，任何两数不能相邻。得到的最大累加和是多少？
+		int[] dp = new int[n];
+		dp[0] = arr[0];
+		dp[1] = Math.max(arr[0], arr[1]);
+		for (int i = 2; i < n; i++) {
+			int p1 = arr[i];
+			int p2 = dp[i - 1];
+			int p3 = arr[i] + dp[i - 2];
+			dp[i] = Math.max(p1, Math.max(p2, p3));
+		}
+		return dp[n - 1];
+	}
+
 	public static int rob(int[] nums) {
 		if (nums == null || nums.length == 0) {
 			return 0;
