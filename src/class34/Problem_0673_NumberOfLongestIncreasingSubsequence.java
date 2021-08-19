@@ -10,37 +10,43 @@ public class Problem_0673_NumberOfLongestIncreasingSubsequence {
 			return 0;
 		}
 		ArrayList<TreeMap<Integer, Integer>> dp = new ArrayList<>();
+		int find = 0;
+		int count = 0;
 		for (int num : nums) {
-			int L = 0;
-			int R = dp.size() - 1;
-			int find = dp.size();
-			while (L <= R) {
-				int mid = (L + R) / 2;
-				if (dp.get(mid).firstKey() >= num) {
-					find = mid;
-					R = mid - 1;
-				} else {
-					L = mid + 1;
-				}
-			}
-			int count = 1;
-			if (find > 0) {
-				TreeMap<Integer, Integer> lastMap = dp.get(find - 1);
-				count = lastMap.get(lastMap.firstKey());
-				if (lastMap.ceilingKey(num) != null) {
-					count -= lastMap.get(lastMap.ceilingKey(num));
-				}
+			find = search(dp, num);
+			if (find == 0) {
+				count = 1;
+			} else {
+				TreeMap<Integer, Integer> pre = dp.get(find - 1);
+				count = pre.firstEntry().getValue()
+						- ((pre.ceilingKey(num) != null) ? pre.get(pre.ceilingKey(num)) : 0);
 			}
 			if (find == dp.size()) {
-				TreeMap<Integer, Integer> newMap = new TreeMap<Integer, Integer>();
-				newMap.put(num, count);
-				dp.add(newMap);
+				dp.add(new TreeMap<Integer, Integer>());
+				dp.get(find).put(num, count);
 			} else {
-				TreeMap<Integer, Integer> curMap = dp.get(find);
-				curMap.put(num, curMap.get(curMap.firstKey()) + count);
+				dp.get(find).put(num, dp.get(find).firstEntry().getValue() + count);
 			}
 		}
 		return dp.get(dp.size() - 1).firstEntry().getValue();
+	}
+
+	// >=num 最左的位置返回
+	public static int search(ArrayList<TreeMap<Integer, Integer>> dp, int num) {
+		int l = 0;
+		int r = dp.size() - 1;
+		int m = 0;
+		int ans = dp.size();
+		while (l <= r) {
+			m = (l + r) / 2;
+			if (dp.get(m).firstKey() >= num) {
+				ans = m;
+				r = m - 1;
+			} else {
+				l = m + 1;
+			}
+		}
+		return ans;
 	}
 
 }
