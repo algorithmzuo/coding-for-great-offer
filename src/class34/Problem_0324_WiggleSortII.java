@@ -3,7 +3,7 @@ package class34;
 public class Problem_0324_WiggleSortII {
 
 	// 时间复杂度O(N)，额外空间复杂度O(1)
-	public void wiggleSort(int[] nums) {
+	public static void wiggleSort(int[] nums) {
 		if (nums == null || nums.length < 2) {
 			return;
 		}
@@ -100,6 +100,77 @@ public class Problem_0324_WiggleSortII {
 		int tmp = nums[i];
 		nums[i] = nums[j];
 		nums[j] = tmp;
+	}
+
+	// 为了测试，暴力方法
+	// 把arr全排列尝试一遍，
+	// 其中任何一个排列能做到 < > < > ... 返回true;
+	// 如果没有任何一个排列能做到，返回false;
+	public static boolean test(int[] arr) {
+		return process(arr, 0);
+	}
+
+	// 为了测试
+	public static boolean process(int[] arr, int index) {
+		if (index == arr.length) {
+			return valid(arr);
+		}
+		for (int i = index; i < arr.length; i++) {
+			swap(arr, index, i);
+			if (process(arr, index + 1)) {
+				return true;
+			}
+			swap(arr, index, i);
+		}
+		return false;
+	}
+
+	// 为了测试
+	public static boolean valid(int[] arr) {
+		boolean more = true;
+		for (int i = 1; i < arr.length; i++) {
+			if ((more && arr[i - 1] >= arr[i]) || (!more && arr[i - 1] <= arr[i])) {
+				return false;
+			}
+			more = !more;
+		}
+		return true;
+	}
+
+	// 为了测试
+	public static int[] randomArray(int n, int v) {
+		int[] ans = new int[n];
+		for (int i = 0; i < n; i++) {
+			ans[i] = (int) (Math.random() * v);
+		}
+		return ans;
+	}
+
+	// 为了测试
+	public static int[] copyArray(int[] arr) {
+		int[] ans = new int[arr.length];
+		for (int i = 0; i < arr.length; i++) {
+			ans[i] = arr[i];
+		}
+		return ans;
+	}
+
+	// 为了测试
+	public static void main(String[] args) {
+		int N = 10;
+		int V = 10;
+		int testTime = 10000;
+		System.out.println("测试开始");
+		for (int i = 0; i < testTime; i++) {
+			int n = (int) (Math.random() * N) + 1;
+			int[] arr1 = randomArray(n, V);
+			int[] arr2 = copyArray(arr1);
+			wiggleSort(arr1);
+			if (valid(arr1) != test(arr2)) {
+				System.out.println("出错了!");
+			}
+		}
+		System.out.println("测试结束");
 	}
 
 }
