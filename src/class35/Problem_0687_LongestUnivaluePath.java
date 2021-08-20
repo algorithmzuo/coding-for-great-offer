@@ -1,4 +1,4 @@
-package class34;
+package class35;
 
 public class Problem_0687_LongestUnivaluePath {
 

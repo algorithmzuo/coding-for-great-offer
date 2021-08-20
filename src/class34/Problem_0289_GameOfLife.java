@@ -23,6 +23,7 @@ public class Problem_0289_GameOfLife {
 		}
 	}
 
+	// b[i][j] 这个位置的数，周围有几个1
 	public static int neighbors(int[][] b, int i, int j) {
 		return f(b, i - 1, j - 1)
 				+ f(b, i - 1, j)
@@ -34,6 +35,7 @@ public class Problem_0289_GameOfLife {
 				+ f(b, i + 1, j + 1);
 	}
 
+	// b[i][j] 上面有1，就返回1，上面不是1，就返回0
 	public static int f(int[][] b, int i, int j) {
 		return (i >= 0 && i < b.length && j >= 0 && j < b[0].length && (b[i][j] & 1) == 1) ? 1 : 0;
 	}

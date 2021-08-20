@@ -1,4 +1,4 @@
-package class34;
+package class35;
 
 import java.util.Comparator;
 import java.util.HashMap;

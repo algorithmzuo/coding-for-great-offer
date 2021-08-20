@@ -1,4 +1,4 @@
-package class37;
+package class36;
 
 public class Problem_0647_PalindromicSubstrings {
 

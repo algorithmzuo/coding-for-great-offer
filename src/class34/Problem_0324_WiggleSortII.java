@@ -8,9 +8,14 @@ public class Problem_0324_WiggleSortII {
 			return;
 		}
 		int N = nums.length;
+		// 小 中 右
 		findIndexNum(nums, 0, nums.length - 1, N / 2);
 		if ((N & 1) == 0) {
+			// R L -> L R
 			shuffle(nums, 0, nums.length - 1);
+			// R1 L1 R2 L2 R3 L3 R4 L4
+			// L4 R4 L3 R3 L2 R2 L1 R1 -> 代码中的方式，可以的！
+			// L1 R1 L2 R2 L3 R3 L4 R4 -> 课上的分析是不行的！不能两两换
 			reverse(nums, 0, nums.length - 1);
 		} else {
 			shuffle(nums, 1, nums.length - 1);
