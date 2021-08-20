@@ -15,8 +15,13 @@ public class Problem_0324_WiggleSortII {
 			shuffle(nums, 0, nums.length - 1);
 			// R1 L1 R2 L2 R3 L3 R4 L4
 			// L4 R4 L3 R3 L2 R2 L1 R1 -> 代码中的方式，可以的！
-			// L1 R1 L2 R2 L3 R3 L4 R4 -> 课上的分析是不行的！不能两两换
+			// L1 R1 L2 R2 L3 R3 L4 R4 -> 课上的分析，是不行的！不能两两交换！
 			reverse(nums, 0, nums.length - 1);
+			// 做个实验，如果把上一行的code注释掉(reverse过程)，然后跑下面注释掉的for循环代码
+			// for循环的代码就是两两交换，会发现对数器报错，说明两两交换是不行的, 必须整体逆序
+//			for (int i = 0; i < nums.length; i += 2) {
+//				swap(nums, i, i + 1);
+//			}
 		} else {
 			shuffle(nums, 1, nums.length - 1);
 		}
