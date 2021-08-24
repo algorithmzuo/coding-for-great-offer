@@ -37,8 +37,13 @@ public class Problem_0687_LongestUnivaluePath {
 		}
 		TreeNode l = x.left;
 		TreeNode r = x.right;
+		// 左树上，不要求从左孩子出发，最大路径
+		// 左树上，必须从左孩子出发，往下的最大路径
 		Info linfo = process(l);
+		// 右树上，不要求从右孩子出发，最大路径
+		// 右树上，必须从右孩子出发，往下的最大路径
 		Info rinfo = process(r);
+		// 必须从x出发的情况下，往下的最大路径
 		int len = 1;
 		if (l != null && l.val == x.val) {
 			len = linfo.len + 1;
@@ -46,6 +51,7 @@ public class Problem_0687_LongestUnivaluePath {
 		if (r != null && r.val == x.val) {
 			len = Math.max(len, rinfo.len + 1);
 		}
+		// 不要求从x出发，最大路径
 		int max = Math.max(Math.max(linfo.max, rinfo.max), len);
 		if (l != null && r != null && l.val == x.val && r.val == x.val) {
 			max = Math.max(max, linfo.len + rinfo.len + 1);

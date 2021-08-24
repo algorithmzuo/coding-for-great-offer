@@ -52,7 +52,9 @@ public class Problem_0673_NumberOfLongestIncreasingSubsequence {
 		int len = 0;
 		int cnt = 0;
 		for (int num : nums) {
+			// num之前的长度，num到哪个长度len+1
 			len = search(dp, num);
+			// cnt : 最终要去加底下的记录，才是应该填入的value
 			if (len == 0) {
 				cnt = 1;
 			} else {

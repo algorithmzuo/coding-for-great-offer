@@ -31,6 +31,7 @@ public class Problem_0395_LongestSubstringWithAtLeastKRepeatingCharacters {
 		int N = str.length;
 		int max = 0;
 		for (int require = 1; require <= 26; require++) {
+			// 3种
 			// a~z 出现次数
 			int[] count = new int[26];
 			// 目前窗口内收集了几种字符了
