@@ -3,7 +3,7 @@ package class36;
 import java.util.Arrays;
 
 // 来自腾讯
-public class Code09_MinBoat {
+public class Code09_MinBoatEvenNumbers {
 
 	public static int minBoat(int[] arr, int limit) {
 		Arrays.sort(arr);

@@ -1,21 +1,18 @@
 package class36;
 
-public class Code03_SA {
+public class Code03_MatchCount {
 
-	public static int sa(int n, String a) {
-		if (n < 1 || a == null || a.length() < 1) {
+	public static int sa(String s1, String s2) {
+		if (s1 == null || s2 == null || s1.length() < s2.length()) {
 			return 0;
 		}
-		StringBuilder builder = new StringBuilder();
-		for (int i = 1; i <= n; i++) {
-			builder.append(String.valueOf(i));
-		}
-		char[] str1 = builder.toString().toCharArray();
-		char[] str2 = a.toCharArray();
-		return kmp(str1, str2);
+		char[] str1 = s1.toCharArray();
+		char[] str2 = s2.toCharArray();
+		return count(str1, str2);
 	}
 
-	public static int kmp(char[] str1, char[] str2) {
+	// 改写kmp为这道题需要的功能
+	public static int count(char[] str1, char[] str2) {
 		int x = 0;
 		int y = 0;
 		int count = 0;

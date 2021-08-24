@@ -10,7 +10,7 @@ import java.util.List;
 // 比如len = 4，字典序的前几个字符串为:
 // a aa aaa aaaa aaab ... aaaz ... azzz b ba baa baaa ... bzzz c ...
 // a是这个序列中的第1个，bzzz是这个序列中的第36558个
-public class Code01_Kth {
+public class Code01_StringKth {
 	// 思路：
 	// cdb，总共长度为7，请问cdb是第几个？
 	// 第一位c :

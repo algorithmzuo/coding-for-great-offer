@@ -3,7 +3,7 @@ package class36;
 import java.util.HashMap;
 
 // 来自网易
-public class Code02_Ratio {
+public class Code02_Ratio01Split {
 
 	public static int[] split(int[] arr) {
 		HashMap<Integer, HashMap<Integer, Integer>> pre = new HashMap<>();

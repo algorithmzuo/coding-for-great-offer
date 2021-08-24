@@ -3,7 +3,7 @@ package class36;
 import java.util.Arrays;
 
 // 来自腾讯
-public class Code08_PickToMax {
+public class Code08_PickAddMax {
 
 	// 最优解
 	public static int pick(int[] arr) {

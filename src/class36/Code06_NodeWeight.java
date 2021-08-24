@@ -3,7 +3,7 @@ package class36;
 import java.util.HashMap;
 
 // 来自美团
-public class Code06_Weight {
+public class Code06_NodeWeight {
 
 	public static void w(int h, int[][] m, int[] w, int[] c) {
 		if (m[h].length == 0) {

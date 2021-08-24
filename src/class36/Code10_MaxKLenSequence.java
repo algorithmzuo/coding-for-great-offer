@@ -3,7 +3,7 @@ package class36;
 import java.util.TreeSet;
 
 // 来自腾讯
-public class Code10_MaxString {
+public class Code10_MaxKLenSequence {
 
 	public static String maxString(String s, int k) {
 		if (k <= 0 || s.length() < k) {

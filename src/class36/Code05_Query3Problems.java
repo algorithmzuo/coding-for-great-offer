@@ -1,7 +1,7 @@
 package class36;
 
 // 来自美团
-public class Code05_Query {
+public class Code05_Query3Problems {
 
 	public static class SegmentTree {
 		private int[] max;
