@@ -1,4 +1,4 @@
-package class35;
+package class37;
 
 public class Problem_0221_MaximalSquare {
 

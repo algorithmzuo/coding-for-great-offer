@@ -1,4 +1,4 @@
-package class35;
+package class37;
 
 // 利用morris遍历
 public class Problem_0114_FlattenBinaryTreeToLinkedList {
