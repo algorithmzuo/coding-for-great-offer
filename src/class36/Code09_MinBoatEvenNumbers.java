@@ -3,6 +3,13 @@ package class36;
 import java.util.Arrays;
 
 // 来自腾讯
+// 给定一个数组arr，代表每个人的体重。给定一个正数limit代表船的载重，所有的船都是一个载重量
+// 每个人的体重都一定不大于船的载重
+// 要求：
+// 1, 可以1个人单独一搜船
+// 2, 一艘船如果坐2人，两个人的体重相加需要是偶数，且总体重不能超过船的载重
+// 3, 一艘船最多坐2人
+// 返回如果想所有人同时坐船，船的最小数量
 public class Code09_MinBoatEvenNumbers {
 
 	public static int minBoat(int[] arr, int limit) {
