@@ -4,11 +4,16 @@ package class36;
 // 本题是leetcode原题 : https://leetcode.com/problems/stone-game-iv/
 public class Code11_StoneGameIV {
 
+	// 当前的！先手，会不会赢
+	// 打表，不能发现规律
 	public static boolean winnerSquareGame1(int n) {
 		if (n == 0) {
 			return false;
 		}
+		// 当前的先手，会尝试所有的情况，1，4，9，16，25，36....
 		for (int i = 1; i * i <= n; i++) {
+			// 当前的先手，决定拿走 i * i 这个平方数
+			// 它的对手会不会赢？ winnerSquareGame1(n - i * i)
 			if (!winnerSquareGame1(n - i * i)) {
 				return true;
 			}
@@ -48,6 +53,11 @@ public class Code11_StoneGameIV {
 			}
 		}
 		return dp[n];
+	}
+	
+	public static void main(String[] args) {
+		int n = 10000000;
+		System.out.println(winnerSquareGame3(n));
 	}
 
 }

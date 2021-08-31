@@ -19,11 +19,21 @@ import java.util.HashMap;
 // 请计算所有孩子的权值并返回
 public class Code06_NodeWeight {
 
+	// 当前来到h节点，
+	// h的直接孩子，在哪呢？m[h] = {a,b,c,d,e}
+	// 每个节点的颜色在哪？比如i号节点，c[i]就是i号节点的颜色
+	// 每个节点的权值在哪？比如i号节点，w[i]就是i号节点的权值
+	// void : 把w数组填满就是这个函数的目标
 	public static void w(int h, int[][] m, int[] w, int[] c) {
-		if (m[h].length == 0) {
+		if (m[h].length == 0) { // 叶节点
 			return;
 		}
+		// 有若干个直接孩子
+		// 1 7个
+		// 3 10个
 		HashMap<Integer, Integer> colors = new HashMap<Integer, Integer>();
+		// 1 20
+		// 3 45
 		HashMap<Integer, Integer> weihts = new HashMap<Integer, Integer>();
 		for (int child : m[h]) {
 			w(child, m, w, c);

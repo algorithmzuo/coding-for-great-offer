@@ -17,6 +17,10 @@ public class Code04_ComputeExpressionValue {
 		return compute(s.toCharArray(), 0)[0];
 	}
 
+	// s[i.....] 遇到 ')' 或者 终止位置  停！
+	// 返回值：int[]  长度就是2
+	// 0 ：分数是多少
+	// 1 : 来到了什么位置停的！
 	public static int[] compute(char[] s, int i) {
 		if (s[i] == ')') {
 			return new int[] { 1, i };

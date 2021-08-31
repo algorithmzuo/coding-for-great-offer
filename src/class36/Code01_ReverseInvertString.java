@@ -1,7 +1,7 @@
 package class36;
 
 // 来自网易
-// 规定：L[1]对应A，L[2]对应B，L[3]对应C，...，L[25]对应Y
+// 规定：L[1]对应a，L[2]对应b，L[3]对应c，...，L[25]对应y
 // S1 = a
 // S(i) = S(i-1) + L[i] + reverse(invert(S(i-1)));
 // 解释invert操作：
@@ -30,22 +30,27 @@ public class Code01_ReverseInvertString {
 		}
 	}
 
+	// 求sn中的第k个字符
+	// O(n), s <= 25 O(1)
 	public static char kth(int n, int k) {
 		if (lens == null) {
 			fillLens();
 		}
-		if (n == 1) {
+		if (n == 1) { // 无视k
 			return 'a';
 		}
+		// sn half
 		int half = lens[n - 1];
 		if (k <= half) {
 			return kth(n - 1, k);
 		} else if (k == half + 1) {
 			return (char) ('a' + n - 1);
 		} else {
-			int rightK = k - half - 1;
-			int nextK = half + 1 - rightK;
-			return invert(kth(n - 1, nextK));
+			// sn
+			// 我需要右半区，从左往右的第a个
+			// 需要找到，s(n-1)从右往左的第a个
+			// 当拿到字符之后，invert一下，就可以返回了！
+			return invert(kth(n - 1, ((half + 1) << 1) - k));
 		}
 	}
 
