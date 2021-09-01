@@ -9,7 +9,7 @@ package class37;
 // 5) 每一轮总分大的人获胜
 // 假设小明知道每一轮对手做出选择之后的总分，返回小明在每一轮都赢的情况下，最终的最大分是多少
 // 如果小明怎么都无法保证每一轮都赢，返回-1
-public class Code03_GameForEveryStepWin {
+public class Code02_GameForEveryStepWin {
 
 //	public static max(int[] cands, int[] sroces) {
 //		return f(cands, sroces, 0, 0, 0, 0);
