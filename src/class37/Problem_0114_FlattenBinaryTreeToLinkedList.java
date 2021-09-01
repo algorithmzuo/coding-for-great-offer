@@ -14,6 +14,44 @@ public class Problem_0114_FlattenBinaryTreeToLinkedList {
 		}
 	}
 
+	// 普通解
+	public static TreeNode convert(TreeNode head) {
+		if (head == null) {
+			return null;
+		}
+		return process(head).head;
+	}
+
+	public static class Info {
+		public TreeNode head;
+		public TreeNode tail;
+
+		public Info(TreeNode h, TreeNode t) {
+			head = h;
+			tail = t;
+		}
+	}
+
+	public static Info process(TreeNode x) {
+		if (x == null) {
+			return null;
+		}
+		Info leftInfo = process(x.left);
+		Info rightInfo = process(x.right);
+		// 2...4 5 6...13
+		if (leftInfo != null) {
+			leftInfo.tail.right = x;
+			x.left = leftInfo.tail;
+		}
+		if (rightInfo != null) {
+			x.right = rightInfo.head;
+			rightInfo.head.left = x;
+		}
+		TreeNode head = leftInfo != null ? leftInfo.head : x;
+		TreeNode tail = rightInfo != null ? rightInfo.tail : x;
+		return new Info(head, tail);
+	}
+
 	public static void flatten(TreeNode root) {
 		if (root == null) {
 			return;

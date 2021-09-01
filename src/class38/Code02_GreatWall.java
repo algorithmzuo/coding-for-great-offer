@@ -1,4 +1,4 @@
-package class37;
+package class38;
 
 // 360笔试题
 // 长城守卫军
@@ -19,7 +19,7 @@ package class37;
 // 4 4 2 4 4
 // 样例输出
 // 6
-public class Code05_GreatWall {
+public class Code02_GreatWall {
 
 	public static int maxForce(int[] wall, int m, int x, int k) {
 		long L = 0;
