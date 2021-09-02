@@ -1,39 +1,30 @@
 package class02;
 
+// 本题测试链接 : https://leetcode.com/problems/shortest-unsorted-continuous-subarray/
 public class Code06_MinLengthForSort {
 
-	public static int getMinLength(int[] arr) {
-		if (arr == null || arr.length < 2) {
+	public static int findUnsortedSubarray(int[] nums) {
+		if (nums == null || nums.length < 2) {
 			return 0;
 		}
-		int min = arr[arr.length - 1];
-		int noMinIndex = -1;
-		for (int i = arr.length - 2; i != -1; i--) {
-			if (arr[i] > min) {
-				noMinIndex = i;
-			} else {
-				min = Math.min(min, arr[i]);
+		int N = nums.length;
+		int right = -1;
+		int max = Integer.MIN_VALUE;
+		for (int i = 0; i < N; i++) {
+			if (max > nums[i]) {
+				right = i;
 			}
+			max = Math.max(max, nums[i]);
 		}
-		if (noMinIndex == -1) {
-			return 0;
-		}
-		int max = arr[0];
-		int noMaxIndex = -1;
-		for (int i = 1; i != arr.length; i++) {
-			if (arr[i] < max) {
-				noMaxIndex = i;
-			} else {
-				max = Math.max(max, arr[i]);
+		int min = Integer.MAX_VALUE;
+		int left = N;
+		for (int i = N - 1; i >= 0; i--) {
+			if (min < nums[i]) {
+				left = i;
 			}
+			min = Math.min(min, nums[i]);
 		}
-		return noMaxIndex - noMinIndex + 1;
-	}
-
-	public static void main(String[] args) {
-		int[] arr = { 1, 2, 4, 7, 10, 11, 7, 12, 6, 7, 16, 18, 19 };
-		System.out.println(getMinLength(arr));
-
+		return Math.max(0, right - left + 1);
 	}
 
 }
