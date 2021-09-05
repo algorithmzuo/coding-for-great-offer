@@ -12,6 +12,7 @@ public class Problem_0448_FindAllNumbersDisappearedInAnArray {
 		}
 		int N = nums.length;
 		for (int i = 0; i < N; i++) {
+			// 从i位置出发，去玩下标循环怼
 			walk(nums, i);
 		}
 		for (int i = 0; i < N; i++) {

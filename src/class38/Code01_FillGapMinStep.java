@@ -47,6 +47,7 @@ public class Code01_FillGapMinStep {
 			return 0;
 		}
 		int s = Math.abs(a - b);
+		// 找到sum >= s, 最小的i
 		int begin = best(s << 1);
 		for (; (begin * (begin + 1) / 2 - s) % 2 != 0;) {
 			begin++;

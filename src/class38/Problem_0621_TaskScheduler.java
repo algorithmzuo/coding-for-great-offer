@@ -18,11 +18,15 @@ public class Problem_0621_TaskScheduler {
 				maxKinds++;
 			}
 		}
+		// maxKinds : 有多少种任务，都出现最多次
+		// maxCount : 最多次，是几次？
 		// 砍掉最后一组剩余的任务数
 		int tasksExceptFinalTeam = tasks.length - maxKinds;
 		int spaces = (free + 1) * (maxCount - 1);
+		// 到底几个空格最终会留下！
 		int restSpaces = Math.max(0, spaces - tasksExceptFinalTeam);
 		return tasks.length + restSpaces;
+		// return Math.max(tasks.length, ((n + 1) * (maxCount - 1) + maxKinds));
 	}
 	
 
