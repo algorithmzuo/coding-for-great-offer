@@ -21,6 +21,7 @@ package class39;
 // 给定一个数组arr，最开始选择哪个下标，你随意
 // 你的目的是一定要让arr都成为一种数字，注意联动效果会一直生效
 // 返回最小的变化数
+// arr长度 <= 200, arr中的值 <= 10^6
 public class Code06_AllSame {
 
 	public static int allSame(int[] arr) {

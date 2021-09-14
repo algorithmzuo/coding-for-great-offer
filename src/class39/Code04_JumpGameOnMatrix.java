@@ -5,6 +5,7 @@ package class39;
 // 从(i,j)位置可以随意往右跳<=k步，或者从(i,j)位置可以随意往下跳<=k步
 // 如果matrix[i][j] = 0，代表来到(i,j)位置必须停止
 // 返回从matrix左上角到右下角，至少要跳几次
+// 已知matrix中行数n <= 5000, 列数m <= 5000
 public class Code04_JumpGameOnMatrix {
 
 	// 暴力方法，仅仅是做对数器
