@@ -22,7 +22,7 @@ public class Code01_01AddValue {
 	}
 
 	// 递归含义 :
-	// 目前在str[index...]上做选择, str[index...]的左边，最近的数字是lastNum
+	// 目前在arr[index...]上做选择, str[index...]的左边，最近的数字是lastNum
 	// 并且lastNum所带的价值，已经拉高到baseValue
 	// 返回在str[index...]上做选择，最终获得的最大价值
 	// index -> 0 ~ 4999
@@ -34,9 +34,13 @@ public class Code01_01AddValue {
 			return 0;
 		}
 		int curValue = lastNum == arr[index] ? (baseValue + 1) : 1;
+		// 当前index位置的字符保留
 		int next1 = process1(arr, index + 1, arr[index], curValue);
+		// 当前index位置的字符不保留
 		int next2 = process1(arr, index + 1, lastNum, baseValue);
 		return Math.max(curValue + next1, next2);
 	}
+
+	// 请看体系学习班，动态规划章节，把上面的递归改成动态规划！看完必会
 
 }

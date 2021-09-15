@@ -6,6 +6,8 @@ package class39;
 // 如果matrix[i][j] = 0，代表来到(i,j)位置必须停止
 // 返回从matrix左上角到右下角，至少要跳几次
 // 已知matrix中行数n <= 5000, 列数m <= 5000
+// matrix中的值，<= 5000
+// 最弟弟的技巧也过了。最优解 -> dp+枚举优化(线段树，体系学习班)
 public class Code04_JumpGameOnMatrix {
 
 	// 暴力方法，仅仅是做对数器
@@ -14,24 +16,39 @@ public class Code04_JumpGameOnMatrix {
 		return process(map, 0, 0);
 	}
 
+	// 当前来到的位置是(row,col)
+	// 目标：右下角
+	// 当前最大能跳多远，map[row][col]值决定，只能向右、或者向下
+	// 返回，到达右下角，最小跳几次？
+	// 5000 * 5000 = 25000000 -> 2 * (10 ^ 7)
 	public static int process(int[][] map, int row, int col) {
 		if (row == map.length - 1 && col == map[0].length - 1) {
 			return 0;
 		}
+		// 如果没到右下角
 		if (map[row][col] == 0) {
 			return Integer.MAX_VALUE;
 		}
+		// 当前位置，可以去很多的位置，next含义：
+		// 在所有能去的位置里，哪个位置最后到达右下角，跳的次数最少，就是next
 		int next = Integer.MAX_VALUE;
+		// 往下能到达的位置，全试一遍
 		for (int down = row + 1; down < map.length && (down - row) <= map[row][col]; down++) {
 			next = Math.min(next, process(map, down, col));
 		}
+		// 往右能到达的位置，全试一遍
 		for (int right = col + 1; right < map[0].length && (right - col) <= map[row][col]; right++) {
 			next = Math.min(next, process(map, row, right));
 		}
+		// 如果所有下一步的位置，没有一个能到右下角，next = 系统最大！
+		// 返回系统最大！
+		// next != 系统最大 7 + 1
 		return next != Integer.MAX_VALUE ? (next + 1) : next;
 	}
 
 	// 优化方法, 利用线段树做枚举优化
+	// 因为线段树，下标从1开始
+	// 所以，该方法中所有的下标，请都从1开始，防止乱！
 	public static int jump2(int[][] arr) {
 		int n = arr.length;
 		int m = arr[0].length;
@@ -76,9 +93,11 @@ public class Code04_JumpGameOnMatrix {
 		for (int row = n - 1; row >= 1; row--) {
 			for (int col = m - 1; col >= 1; col--) {
 				if (map[row][col] != 0) {
+					// (row,col) 往右是什么范围呢？[left,right]
 					int left = col + 1;
 					int right = Math.min(col + map[row][col], m);
 					int next1 = rowTrees[row].query(left, right, 1, m, 1);
+					// (row,col) 往下是什么范围呢？[up,down]
 					int up = row + 1;
 					int down = Math.min(row + map[row][col], n);
 					int next2 = colTrees[col].query(up, down, 1, n, 1);

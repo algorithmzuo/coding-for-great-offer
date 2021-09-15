@@ -3,8 +3,9 @@ package class39;
 // 来自腾讯
 // 给定一个长度为n的数组arr，求有多少个子数组满足 : 
 // 子数组两端的值，是这个子数组的最小值和次小值，最小值和次小值谁在最左和最右无所谓
-// n<=100000
+// n<=100000（10^5） n*logn  O(N)
 public class Code02_ValidSequence {
+	
 
 	public static int nums(int[] arr) {
 		if (arr == null || arr.length < 2) {

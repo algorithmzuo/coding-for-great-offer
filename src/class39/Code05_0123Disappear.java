@@ -9,7 +9,38 @@ package class39;
 // 如果某个子序列通过最优良的方式，可以都消掉，那么这样的子序列叫做“全消子序列”
 // 一个只由'0'、'1'、'2'、'3'四种字符组成的字符串str，可以生成很多子序列，返回“全消子序列”的最大长度
 // 字符串str长度 <= 200
+// 体系学习班，代码46节，第2题+第3题
 public class Code05_0123Disappear {
+
+	// str[L...R]上，都能消掉的子序列，最长是多少？
+	public static int f(char[] str, int L, int R) {
+		if (L >= R) {
+			return 0;
+		}
+		if (L == R - 1) {
+			return (str[L] == '0' && str[R] == '1') || (str[L] == '2' && str[R] == '3') ? 2 : 0;
+		}
+		// L...R 有若干个字符 > 2
+		// str[L...R]上，都能消掉的子序列，最长是多少？
+		// 可能性1，能消掉的子序列完全不考虑str[L]，最长是多少？
+		int p1 = f(str, L + 1, R);
+		if (str[L] == '1' || str[L] == '3') {
+			return p1;
+		}
+		// str[L] =='0' 或者 '2'
+		// '0' 去找 '1'
+		// '2' 去找 '3'
+		char find = str[L] == '0' ? '1' : '3';
+		int p2 = 0;
+		// L() ......
+		for (int i = L + 1; i <= R; i++) {
+			// L(0) ..... i(1) i+1....R
+			if (str[i] == find) {
+				p2 = Math.max(p2, f(str, L + 1, i - 1) + 2 + f(str, i + 1, R));
+			}
+		}
+		return Math.max(p1, p2);
+	}
 
 	public static int maxDisappear(String str) {
 		if (str == null || str.length() == 0) {

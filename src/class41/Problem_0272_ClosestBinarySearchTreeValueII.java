@@ -1,4 +1,4 @@
-package class40;
+package class41;
 
 import java.util.LinkedList;
 import java.util.List;

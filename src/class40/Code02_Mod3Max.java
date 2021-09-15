@@ -1,13 +1,13 @@
-package class39;
+package class40;
 
 import java.util.Arrays;
 import java.util.TreeSet;
 
-// 真实笔试，忘了哪个公司，但是绝对大厂
+// 来自去哪儿网
 // 给定一个arr，里面的数字都是0~9
 // 你可以随意使用arr中的数字，哪怕打乱顺序也行
 // 请拼出一个能被3整除的，最大的数字，用str形式返回
-public class Code07_Mod3Max {
+public class Code02_Mod3Max {
 
 	public static String max1(int[] arr) {
 		Arrays.sort(arr);

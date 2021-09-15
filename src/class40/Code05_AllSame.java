@@ -1,4 +1,4 @@
-package class39;
+package class40;
 
 // 来自腾讯
 // 比如arr = {3,1,2,4}
@@ -22,7 +22,7 @@ package class39;
 // 你的目的是一定要让arr都成为一种数字，注意联动效果会一直生效
 // 返回最小的变化数
 // arr长度 <= 200, arr中的值 <= 10^6
-public class Code06_AllSame {
+public class Code05_AllSame {
 
 	public static int allSame(int[] arr) {
 		int ans = Integer.MAX_VALUE;
