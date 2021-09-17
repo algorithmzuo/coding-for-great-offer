@@ -46,6 +46,8 @@ public class Code03_MaxMeetingScore {
 		Arrays.sort(meetings, (a, b) -> a[0] - b[0]);
 		PriorityQueue<Integer> heap = new PriorityQueue<>();
 		int time = 0;
+		// 已经把所有会议，按照截止时间，从小到大，排序了！
+		// 截止时间一样的，谁排前谁排后，无所谓
 		for (int i = 0; i < meetings.length; i++) {
 			if (time + 10 <= meetings[i][0]) {
 				heap.add(meetings[i][1]);

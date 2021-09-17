@@ -14,11 +14,60 @@ import java.util.HashMap;
 // 每一个数都可以这么分裂，在最终分裂的数组中，假设下标从1开始
 // 给定三个数n、l、r，返回n的最终分裂数组里[l,r]范围上有几个1
 // n <= 2 ^ 50，n是long类型
-// r - l <= 5000，l和r是int类型
+// r - l <= 50000，l和r是int类型
 // 我们的课加个码:
 // n是long类型随意多大都行
 // l和r也是long类型随意多大都行，但要保证l<=r
 public class Code01_SplitTo01 {
+
+//	public static long nums3(long n, long l, long r) {
+//		HashMap<Long, Long> lenMap = new HashMap<>();
+//		len(n, lenMap);
+//		HashMap<Long, Long> onesMap = new HashMap<>();
+//		ones(n, onesMap);
+//	}
+
+	// n = 100
+	// n = 100, 最终裂变的数组，长度多少？
+	// n = 50, 最终裂变的数组，长度多少？
+	// n = 25, 最终裂变的数组，长度多少？
+	// ..
+	// n = 1 ,.最终裂变的数组，长度多少？
+	// 请都填写到lenMap中去！
+	public static long len(long n, HashMap<Long, Long> lenMap) {
+		if (n == 1 || n == 0) {
+			lenMap.put(n, 1L);
+			return 1;
+		} else {
+			// n > 1
+			long half = len(n / 2, lenMap);
+			long all = half * 2 + 1;
+			lenMap.put(n, all);
+			return all;
+		}
+	}
+
+	// n = 100
+	// n = 100, 最终裂变的数组中，一共有几个1
+	// n = 50, 最终裂变的数组，一共有几个1
+	// n = 25, 最终裂变的数组，一共有几个1
+	// ..
+	// n = 1 ,.最终裂变的数组，一共有几个1
+	// 请都填写到onesMap中去！
+	public static long ones(long num, HashMap<Long, Long> onesMap) {
+		if (num == 1 || num == 0) {
+			onesMap.put(num, num);
+			return num;
+		}
+		// n > 1
+		long half = ones(num / 2, onesMap);
+		long mid = num % 2 == 1 ? 1 : 0;
+		long all = half * 2 + mid;
+		onesMap.put(num, all);
+		return all;
+	}
+
+	//
 
 	public static long nums1(long n, long l, long r) {
 		if (n == 1 || n == 0) {
@@ -133,7 +182,7 @@ public class Code01_SplitTo01 {
 		System.out.println("单独展示nums2方法强悍程度测试开始");
 		num = (2L << 55) + 22517998136L;
 		l = 30000L;
-		r = 643100000200L;
+		r = 6431000002000L;
 		start = System.currentTimeMillis();
 		System.out.println("nums2结果 : " + nums2(num, l, r));
 		end = System.currentTimeMillis();
