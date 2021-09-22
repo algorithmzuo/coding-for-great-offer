@@ -48,7 +48,7 @@ public class Code03_MagicGoToAim {
 				for (int next : gates[cur.city]) {
 					if (distance[1][next] > cur.cost) {
 						distance[1][next] = cur.cost;
-						heap.add(new Node(1, next, distance[0][next]));
+						heap.add(new Node(1, next, distance[1][next]));
 					}
 				}
 			}
