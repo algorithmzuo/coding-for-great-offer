@@ -11,16 +11,20 @@ public class Code01_MinSwapTimes {
 		return process1(arr, 0);
 	}
 
+	// 让arr变有序，最少的交换次数是多少！返回
+	// times, 之前已经做了多少次交换
 	public static int process1(int[] arr, int times) {
 		boolean sorted = true;
 		for (int i = 1; i < arr.length; i++) {
 			if (arr[i - 1] > arr[i]) {
 				sorted = false;
+				break;
 			}
 		}
 		if (sorted) {
 			return times;
 		}
+		// 数组现在是无序的状态！
 		if (times >= arr.length - 1) {
 			return Integer.MAX_VALUE;
 		}
@@ -41,6 +45,7 @@ public class Code01_MinSwapTimes {
 		arr[j] = tmp;
 	}
 
+	// 已知arr中，只有0~n-1这些值，并且都出现1次
 	public static int minSwap2(int[] arr) {
 		int ans = 0;
 		for (int i = 0; i < arr.length; i++) {

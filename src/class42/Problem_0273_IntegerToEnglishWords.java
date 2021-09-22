@@ -1,4 +1,4 @@
-package class41;
+package class42;
 
 public class Problem_0273_IntegerToEnglishWords {
 

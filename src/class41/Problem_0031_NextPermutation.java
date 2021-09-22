@@ -4,6 +4,7 @@ public class Problem_0031_NextPermutation {
 
 	public static void nextPermutation(int[] nums) {
 		int N = nums.length;
+		// 从右往左第一次降序的位置
 		int firstLess = -1;
 		for (int i = N - 2; i >= 0; i--) {
 			if (nums[i] < nums[i + 1]) {

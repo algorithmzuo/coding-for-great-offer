@@ -13,15 +13,20 @@ import java.util.PriorityQueue;
 // 现在处于1号结点，最终要到达N号结点，求最小的到达时间 保证所有输入均有效，不存在环等情况 
 public class Code03_MagicGoToAim {
 
+	// 城市编号从0开始，编号对应0~n-1
 	// roads[i]是一个数组，表示i能走路达到的城市有哪些，每条路都花费1分钟
 	// gates[i]是一个数组，表示i能传送达到的城市有哪些
 	// 返回从0到n-1的最少用时
 	public static int fast(int n, int[][] roads, int[][] gates) {
 		int[][] distance = new int[2][n];
+		// 因为从0开始走，所以distance[0][0] = 0, distance[1][0] = 0
+		// distance[0][i] -> 0 : 前一个城市到达i，是走路的方式, 最小代价，distance[0][i]
+		// distance[1][i] -> 1 : 前一个城市到达i，是传送的方式, 最小代价，distance[1][i]
 		for (int i = 1; i < n; i++) {
 			distance[0][i] = Integer.MAX_VALUE;
 			distance[1][i] = Integer.MAX_VALUE;
 		}
+		// 小根堆，根据距离排序，距离小的点，在上！
 		PriorityQueue<Node> heap = new PriorityQueue<>((a, b) -> a.cost - b.cost);
 		heap.add(new Node(0, 0, 0));
 		boolean[][] visited = new boolean[2][n];
@@ -31,12 +36,14 @@ public class Code03_MagicGoToAim {
 				continue;
 			}
 			visited[cur.preTransfer][cur.city] = true;
+			// 走路的方式
 			for (int next : roads[cur.city]) {
 				if (distance[0][next] > cur.cost + 1) {
 					distance[0][next] = cur.cost + 1;
 					heap.add(new Node(0, next, distance[0][next]));
 				}
 			}
+			// 传送的方式
 			if (cur.preTransfer == 0) {
 				for (int next : gates[cur.city]) {
 					if (distance[1][next] > cur.cost) {

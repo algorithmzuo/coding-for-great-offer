@@ -13,7 +13,26 @@ import java.util.HashMap;
 // 可以看到，整个子序列一直以韵律的方式连接起来，所以这个子序列是有效的
 // 给定一个数组arr, 返回最长的有效子序列长度
 // 题目限制 : arr长度 <= 4000, arr中的值<= 10^9
+// 离散化之后，arr长度 <= 4000,  arr中的值<= 4000
 public class Code02_PoemProblem {
+
+	// arr[i.....]符合规则连接的最长子序列长度
+//	public static int zuo(int[] arr, int i) {
+//		if (i + 4 > arr.length) {
+//			return 0;
+//		}
+//		// 最终的，符合规则连接的最长子序列长度，就是不要i位置的字符
+//		int p0 = zuo(arr, i + 1);
+//		// p1使用for循环搞定的！
+//		int p1 = 找到arr[i..s]是最短的，且能搞出AABB来的(4个) + zuo(arr, s + 1);
+//		// p2使用for循环搞定的！
+//		int p2 = 找到arr[i..t]是最短的，且能搞出ABAB来的(4个) + zuo(arr, t + 1);
+//		// p3使用for循环搞定的！
+//		int p3 = 找到arr[i..k]是最短的，且能搞出ABBA来的(4个) + zuo(arr, k + 1);
+//		// p4没用
+//		int p4 = 找到arr[i..f]是最短的，且能搞出AAAA来的(4个) + zuo(arr, f + 1);
+//		return p0~p4的最大值
+//	}
 
 	// AABB
 	// ABAB
@@ -57,6 +76,12 @@ public class Code02_PoemProblem {
 				|| (p[i] == p[i + 3] && p[i + 1] == p[i + 2] && p[i] != p[i + 1]);
 	}
 
+	// 0 : [3,6,9]
+	// 1 : [2,7,13]
+	// 2 : [23]
+	// [
+	// [3,6,9]
+	// ]
 	public static int maxLen2(int[] arr) {
 		if (arr == null || arr.length < 4) {
 			return 0;
@@ -276,8 +301,13 @@ public class Code02_PoemProblem {
 		System.out.println(maxLen3(arr3));
 		System.out.println("===========");
 
-		int[] longArr = randomArray(4000, 20);
+		long start;
+		long end;
+		int[] longArr = randomArray(4000, 10);
+		start = System.currentTimeMillis();
 		System.out.println(maxLen3(longArr));
+		end = System.currentTimeMillis();
+		System.out.println("运行时间(毫秒) : " + (end - start));
 		System.out.println("===========");
 
 	}
