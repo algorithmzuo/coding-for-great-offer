@@ -302,27 +302,23 @@ public class Code02_PoemProblem {
 	public static int maxLen4(int[] arr) {
 		// 统计某个数(key)，出现的次数(value)
 		HashMap<Integer, Integer> map = new HashMap<>();
-		// tow代表目前出现了2次的数，有几个
+		// tow代表目前有多少数出现了2次
 		int two = 0;
-		// ans代表目前符合韵律链接的子序列最长是多长
+		// ans代表目前符合韵律链接的子序列增长到了多长
 		int ans = 0;
+		// 当前的num出现了几次
+		int numTimes = 0;
 		for (int num : arr) {
 			// 对当前的num，做次数统计
 			map.put(num, map.getOrDefault(num, 0) + 1);
-			if (map.get(num) == 2) { // 如果num刚出现了两次
-				// 目前出现了2次的数，增加了
-				two++;
-				// 下面的if代表 :
-				// 如果num已经出现了2次了, 只要之前还有一个和num不同的数，也出现了两次
-				// 可以连接了！
-				if (two == 2) {
-					ans += 4;
-					map.clear();
-					two = 0;
-				}
-			}
-			// 或者已经有一种数出现4次了，也可以连接了！
-			if (map.containsKey(num) && map.get(num) == 4) {
+			// 把num出现的次数拿出来
+			numTimes = map.get(num);
+			// 如果num刚刚出现了2次, 那么目前出现了2次的数，的数量，需要增加1个
+			two += numTimes == 2 ? 1 : 0;
+			// 下面的if代表 :
+			// 如果目前有2个数出现2次了，可以连接了
+			// 如果目前有1个数出现4次了，可以连接了
+			if (two == 2 || numTimes == 4) {
 				ans += 4;
 				map.clear();
 				two = 0;
@@ -367,7 +363,7 @@ public class Code02_PoemProblem {
 
 		long start;
 		long end;
-		int[] longArr = randomArray(4000, 10);
+		int[] longArr = randomArray(4000, 20);
 		start = System.currentTimeMillis();
 		System.out.println(maxLen3(longArr));
 		end = System.currentTimeMillis();
