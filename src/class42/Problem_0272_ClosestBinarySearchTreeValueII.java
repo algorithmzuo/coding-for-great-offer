@@ -44,6 +44,9 @@ public class Problem_0272_ClosestBinarySearchTreeValueII {
 		return ret;
 	}
 
+	// 在root为头的树上
+	// 找到>=target，且最接近target的节点
+	// 并且找的过程中，只要某个节点x往左走了，就把x放入moreTops里
 	public static void getMoreTops(TreeNode root, double target, Stack<TreeNode> moreTops) {
 		while (root != null) {
 			if (root.val == target) {
@@ -58,6 +61,9 @@ public class Problem_0272_ClosestBinarySearchTreeValueII {
 		}
 	}
 
+	// 在root为头的树上
+	// 找到<=target，且最接近target的节点
+	// 并且找的过程中，只要某个节点x往右走了，就把x放入lessTops里
 	public static void getLessTops(TreeNode root, double target, Stack<TreeNode> lessTops) {
 		while (root != null) {
 			if (root.val == target) {
@@ -72,6 +78,8 @@ public class Problem_0272_ClosestBinarySearchTreeValueII {
 		}
 	}
 
+	// 返回moreTops的头部的值
+	// 并且调整moreTops : 为了以后能很快的找到返回节点的后继节点
 	public static int getSuccessor(Stack<TreeNode> moreTops) {
 		TreeNode cur = moreTops.pop();
 		int ret = cur.val;
@@ -83,6 +91,8 @@ public class Problem_0272_ClosestBinarySearchTreeValueII {
 		return ret;
 	}
 
+	// 返回lessTops的头部的值
+	// 并且调整lessTops : 为了以后能很快的找到返回节点的前驱节点
 	public static int getPredecessor(Stack<TreeNode> lessTops) {
 		TreeNode cur = lessTops.pop();
 		int ret = cur.val;
