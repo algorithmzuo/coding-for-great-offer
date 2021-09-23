@@ -273,6 +273,65 @@ public class Code02_PoemProblem {
 		return dp[0];
 	}
 
+	// 贪心策略（这题还真是有贪心策略）
+	// AABB
+	// ABAB
+	// ABBA
+	// AAAA
+	// 先看前三个规则：AABB、ABAB、ABBA
+	// 首先A、A、B、B的全排列为:
+	// AABB -> AABB
+	// ABAB -> ABAB
+	// ABBA -> ABBA
+	// BBAA -> 等同于AABB，因为A和B谁在前、谁在后都算是 : AABB的范式
+	// BABA -> 等同于ABAB，因为A和B谁在前、谁在后都算是 : ABAB的范式
+	// BAAB -> 等同于ABBA，因为A和B谁在前、谁在后都算是 : ABBA的范式
+	// 也就是说，AABB、ABAB、ABBA这三个规则，可以这么用：
+	// 只要有两个不同的数，都出现2次，那么这一共4个数就一定符合韵律规则。
+	// 所以：
+	// 1) 当来到arr中的一个数字num的时候，
+	// 如果num已经出现了2次了, 只要之前还有一个和num不同的数，
+	// 也出现了两次，则一定符合了某个规则, 长度直接+4，然后清空所有的统计
+	// 2) 当来到arr中的一个数字num的时候,
+	// 如果num已经出现了4次了(规则四), 长度直接+4，然后清空所有的统计
+	// 但是如果我去掉某个规则，该贪心直接报废，比如韵律规则变成:
+	// AABB、ABAB、AAAA
+	// 因为少了ABBA, 所以上面的化简不成立了, 得重新分析新规则下的贪心策略
+	// 而尝试的方法就更通用(也就是maxLen3)，只是减少一个分支而已
+	// 但是这个贪心费了很多心思，值得点赞！
+	public static int maxLen4(int[] arr) {
+		// 统计某个数(key)，出现的次数(value)
+		HashMap<Integer, Integer> map = new HashMap<>();
+		// tow代表目前出现了2次的数，有几个
+		int two = 0;
+		// ans代表目前符合韵律链接的子序列最长是多长
+		int ans = 0;
+		for (int num : arr) {
+			// 对当前的num，做次数统计
+			map.put(num, map.getOrDefault(num, 0) + 1);
+			if (map.get(num) == 2) { // 如果num刚出现了两次
+				// 目前出现了2次的数，增加了
+				two++;
+				// 下面的if代表 :
+				// 如果num已经出现了2次了, 只要之前还有一个和num不同的数，也出现了两次
+				// 可以连接了！
+				if (two == 2) {
+					ans += 4;
+					map.clear();
+					two = 0;
+				}
+			}
+			// 或者已经有一种数出现4次了，也可以连接了！
+			if (map.containsKey(num) && map.get(num) == 4) {
+				ans += 4;
+				map.clear();
+				two = 0;
+			}
+		}
+		return ans;
+	}
+
+	// 为了测试
 	public static int[] randomArray(int len, int value) {
 		int[] arr = new int[len];
 		for (int i = 0; i < len; i++) {
@@ -281,6 +340,7 @@ public class Code02_PoemProblem {
 		return arr;
 	}
 
+	// 为了测试
 	public static void main(String[] args) {
 
 		// 1111 2332 4343 7799
@@ -288,6 +348,7 @@ public class Code02_PoemProblem {
 		System.out.println(maxLen1(test));
 		System.out.println(maxLen2(test));
 		System.out.println(maxLen3(test));
+		System.out.println(maxLen4(test));
 		System.out.println("===========");
 
 		int len = 16;
@@ -296,9 +357,12 @@ public class Code02_PoemProblem {
 		int[] arr1 = Arrays.copyOf(arr, arr.length);
 		int[] arr2 = Arrays.copyOf(arr, arr.length);
 		int[] arr3 = Arrays.copyOf(arr, arr.length);
+		int[] arr4 = Arrays.copyOf(arr, arr.length);
 		System.out.println(maxLen1(arr1));
 		System.out.println(maxLen2(arr2));
 		System.out.println(maxLen3(arr3));
+		System.out.println(maxLen4(arr4));
+
 		System.out.println("===========");
 
 		long start;
@@ -306,6 +370,12 @@ public class Code02_PoemProblem {
 		int[] longArr = randomArray(4000, 10);
 		start = System.currentTimeMillis();
 		System.out.println(maxLen3(longArr));
+		end = System.currentTimeMillis();
+		System.out.println("运行时间(毫秒) : " + (end - start));
+		System.out.println("===========");
+
+		start = System.currentTimeMillis();
+		System.out.println(maxLen4(longArr));
 		end = System.currentTimeMillis();
 		System.out.println("运行时间(毫秒) : " + (end - start));
 		System.out.println("===========");
