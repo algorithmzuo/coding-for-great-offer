@@ -273,7 +273,7 @@ public class Code02_PoemProblem {
 		return dp[0];
 	}
 
-	// 贪心策略（这题还真是有贪心策略）
+	// 课堂有同学提出了贪心策略（这题还真是有贪心策略），是正确的
 	// AABB
 	// ABAB
 	// ABBA
