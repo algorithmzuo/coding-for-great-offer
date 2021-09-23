@@ -298,7 +298,7 @@ public class Code02_PoemProblem {
 	// AABB、ABAB、AAAA
 	// 因为少了ABBA, 所以上面的化简不成立了, 得重新分析新规则下的贪心策略
 	// 而尝试的方法就更通用(也就是maxLen3)，只是减少一个分支而已
-	// 但是这个贪心费了很多心思，值得点赞！
+	// 这个贪心费了很多心思，值得点赞！
 	public static int maxLen4(int[] arr) {
 		// 统计某个数(key)，出现的次数(value)
 		HashMap<Integer, Integer> map = new HashMap<>();
