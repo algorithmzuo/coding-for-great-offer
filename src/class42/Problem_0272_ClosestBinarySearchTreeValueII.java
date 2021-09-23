@@ -83,12 +83,12 @@ public class Problem_0272_ClosestBinarySearchTreeValueII {
 		return ret;
 	}
 
-	public static int getPredecessor(Stack<TreeNode> lesstTops) {
-		TreeNode cur = lesstTops.pop();
+	public static int getPredecessor(Stack<TreeNode> lessTops) {
+		TreeNode cur = lessTops.pop();
 		int ret = cur.val;
 		cur = cur.left;
 		while (cur != null) {
-			lesstTops.push(cur);
+			lessTops.push(cur);
 			cur = cur.right;
 		}
 		return ret;
