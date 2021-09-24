@@ -64,4 +64,15 @@ public class Problem_0273_IntegerToEnglishWords {
 		return res.trim();
 	}
 
+	public static void main(String[] args) {
+		int test = Integer.MIN_VALUE;
+		System.out.println(test);
+
+		test = -test;
+		System.out.println(test);
+
+		int num = -10001;
+		System.out.println(numberToWords(num));
+	}
+
 }

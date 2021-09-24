@@ -1,4 +1,4 @@
-package class42;
+package class43;
 
 import java.util.HashMap;
 import java.util.LinkedList;

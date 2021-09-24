@@ -11,16 +11,18 @@ public class Problem_0265_PaintHouseII {
 			return 0;
 		}
 		int K = costs[0].length;
+		// 之前取得的最小代价、取得最小代价时的颜色
 		int preMin1 = 0;
 		int preEnd1 = -1;
+		// 之前取得的次小代价、取得次小代价时的颜色
 		int preMin2 = 0;
 		int preEnd2 = -1;
-		for (int i = 0; i < N; i++) {
+		for (int i = 0; i < N; i++) { // i房子
 			int curMin1 = Integer.MAX_VALUE;
 			int curEnd1 = -1;
 			int curMin2 = Integer.MAX_VALUE;
 			int curEnd2 = -1;
-			for (int j = 0; j < K; j++) {
+			for (int j = 0; j < K; j++) { // j颜色！
 				if (j != preEnd1) {
 					if (preMin1 + costs[i][j] < curMin1) {
 						curMin2 = curMin1;

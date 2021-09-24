@@ -19,7 +19,9 @@ public class Problem_0272_ClosestBinarySearchTreeValueII {
 	// 这个解法来自讨论区的回答，最优解实现的很易懂且漂亮
 	public static List<Integer> closestKValues(TreeNode root, double target, int k) {
 		List<Integer> ret = new LinkedList<>();
+		// >=8，最近的节点，而且需要快速找后继的这么一种结构
 		Stack<TreeNode> moreTops = new Stack<>();
+		// <=8，最近的节点，而且需要快速找前驱的这么一种结构
 		Stack<TreeNode> lessTops = new Stack<>();
 		getMoreTops(root, target, moreTops);
 		getLessTops(root, target, lessTops);
