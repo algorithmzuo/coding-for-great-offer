@@ -80,10 +80,13 @@ public class Code07_TargetSum {
 		return sum < target || ((target & 1) ^ (sum & 1)) != 0 ? 0 : subset2(arr, (target + sum) >> 1);
 	}
 
-	// 求nums有多少个子集，累加和是s
+	// 求非负数组nums有多少个子集，累加和是s
 	// 二维动态规划
 	// 不用空间压缩
 	public static int subset1(int[] nums, int s) {
+		if (s < 0) {
+			return 0;
+		}
 		int n = nums.length;
 		// dp[i][j] : nums前缀长度为i的所有子集，有多少累加和是j？
 		int[][] dp = new int[n + 1][s + 1];
@@ -100,7 +103,7 @@ public class Code07_TargetSum {
 		return dp[n][s];
 	}
 
-	// 求nums有多少个子集，累加和是s
+	// 求非负数组nums有多少个子集，累加和是s
 	// 二维动态规划
 	// 用空间压缩:
 	// 核心就是for循环里面的：for (int i = s; i >= n; i--) {
@@ -108,6 +111,9 @@ public class Code07_TargetSum {
 	// 因为如果 i - n < 0，dp[i]怎么更新？和上一步的dp[i]一样！所以不用更新
 	// 如果 i - n >= 0，dp[i]怎么更新？上一步的dp[i] + 上一步dp[i - n]的值，这才需要更新
 	public static int subset2(int[] nums, int s) {
+		if (s < 0) {
+			return 0;
+		}
 		int[] dp = new int[s + 1];
 		dp[0] = 1;
 		for (int n : nums) {
