@@ -1,4 +1,4 @@
-package class43;
+package class44;
 
 public class Problem_0248_StrobogrammaticNumberIII {
 
