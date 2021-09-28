@@ -9,7 +9,7 @@ import java.util.Arrays;
 // 你每一步可以进行如下操作：对任何位置的数让其-1
 // 你的目的是让arr[1~n-1]都达标
 // 返回至少要多少步可以完成这个目标
-// 数据规模 : 数组长度 <= 5000，数组中的值<=500
+// 数据规模 : 数组长度 <= 10000，数组中的值<=500
 public class Code01_MinusOneTimes {
 
 	public static final int INVALID = Integer.MAX_VALUE;
@@ -132,9 +132,10 @@ public class Code01_MinusOneTimes {
 		return dp[1][1][arr[0]];
 	}
 
-	// 动态规划方法，minCost2 + 枚举优化，改出来的版本
-	// 很可惜不是最优解
-	// 但是非常有意义
+	// minCost2动态规划 + 枚举优化
+	// 改出的这个版本，需要一些技巧，但很可惜不是最优解
+	// 虽然不是最优解，也足以通过100%的case了，
+	// 这种技法的练习，非常有意义
 	public static int minCost3(int[] arr) {
 		if (arr == null || arr.length < 3) {
 			return 0;
@@ -186,6 +187,9 @@ public class Code01_MinusOneTimes {
 	}
 
 	// 最终的最优解，贪心
+	// 时间复杂度O(N)
+	// 请注意，重点看上面的方法
+	// 这个最优解容易理解，但让你学到的东西不是很多
 	public static int yeah(int[] arr) {
 		if (arr == null || arr.length < 3) {
 			return 0;
