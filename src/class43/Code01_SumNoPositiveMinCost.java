@@ -10,7 +10,7 @@ import java.util.Arrays;
 // 2）可以选择让num变成-num，承担y的代价
 // 返回你达到目标的最小代价
 // 数据规模 : 面试时面试官没有说数据规模
-public class Code02_SumNoPositiveMinCost {
+public class Code01_SumNoPositiveMinCost {
 
 	// 动态规划
 	public static int minOpStep1(int[] arr, int x, int y) {
