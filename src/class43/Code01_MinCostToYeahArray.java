@@ -246,6 +246,7 @@ public class Code01_MinCostToYeahArray {
 		int len = 7;
 		int v = 10;
 		int testTime = 100;
+		System.out.println("==========");
 		System.out.println("功能测试开始");
 		for (int i = 0; i < testTime; i++) {
 			int n = (int) (Math.random() * len) + 1;
@@ -266,13 +267,14 @@ public class Code01_MinCostToYeahArray {
 			}
 		}
 		System.out.println("功能测试结束");
+		System.out.println("==========");
 
 		System.out.println("性能测试开始");
 
 		len = 10000;
 		v = 500;
-		System.out.println("生成随机数组长度：" + len + ", 生成随机数组值的范围：[1, " + v + "]");
-
+		System.out.println("生成随机数组长度：" + len);
+		System.out.println("生成随机数组值的范围：[1, " + v + "]");
 		int[] arr = randomArray(len, v);
 		int[] arr3 = copyArray(arr);
 		int[] arrYeah = copyArray(arr);
@@ -281,14 +283,17 @@ public class Code01_MinCostToYeahArray {
 		start = System.currentTimeMillis();
 		int ans3 = minCost3(arr3);
 		end = System.currentTimeMillis();
-		System.out.println("minCost3的运行结果: " + ans3 + ", 时间(毫秒) : " + (end - start));
+		System.out.println("minCost3方法:");
+		System.out.println("运行结果: " + ans3 + ", 时间(毫秒) : " + (end - start));
 
 		start = System.currentTimeMillis();
 		int ansYeah = yeah(arrYeah);
 		end = System.currentTimeMillis();
-		System.out.println("yeah的运行结果: " + ansYeah + ", 时间(毫秒) : " + (end - start));
+		System.out.println("yeah方法:");
+		System.out.println("运行结果: " + ansYeah + ", 时间(毫秒) : " + (end - start));
 
 		System.out.println("性能测试结束");
+		System.out.println("==========");
 
 	}
 
