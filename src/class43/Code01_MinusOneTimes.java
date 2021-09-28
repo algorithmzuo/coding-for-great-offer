@@ -132,7 +132,9 @@ public class Code01_MinusOneTimes {
 		return dp[1][1][arr[0]];
 	}
 
-	// 最终动态规划方法，minCost2 + 枚举优化，改出来的版本
+	// 动态规划方法，minCost2 + 枚举优化，改出来的版本
+	// 很可惜不是最优解
+	// 但是非常有意义
 	public static int minCost3(int[] arr) {
 		if (arr == null || arr.length < 3) {
 			return 0;
@@ -183,6 +185,40 @@ public class Code01_MinusOneTimes {
 		return best;
 	}
 
+	// 最终的最优解，贪心
+	public static int yeah(int[] arr) {
+		if (arr == null || arr.length < 3) {
+			return 0;
+		}
+		int n = arr.length;
+		int[] nums = new int[n + 2];
+		nums[0] = Integer.MAX_VALUE;
+		nums[n + 1] = Integer.MAX_VALUE;
+		for (int i = 0; i < arr.length; i++) {
+			nums[i + 1] = arr[i];
+		}
+		int[] leftCost = new int[n + 2];
+		int pre = nums[0];
+		int change = 0;
+		for (int i = 1; i <= n; i++) {
+			change = Math.min(pre - 1, nums[i]);
+			leftCost[i] = nums[i] - change + leftCost[i - 1];
+			pre = change;
+		}
+		int[] rightCost = new int[n + 2];
+		pre = nums[n + 1];
+		for (int i = n; i >= 1; i--) {
+			change = Math.min(pre - 1, nums[i]);
+			rightCost[i] = nums[i] - change + rightCost[i + 1];
+			pre = change;
+		}
+		int ans = Integer.MAX_VALUE;
+		for (int i = 1; i <= n; i++) {
+			ans = Math.min(ans, leftCost[i] + rightCost[i + 1]);
+		}
+		return ans;
+	}
+
 	// 为了测试
 	public static int[] randomArray(int len, int v) {
 		int[] arr = new int[len];
@@ -190,6 +226,15 @@ public class Code01_MinusOneTimes {
 			arr[i] = (int) (Math.random() * v) + 1;
 		}
 		return arr;
+	}
+
+	// 为了测试
+	public static int[] copyArray(int[] arr) {
+		int[] ans = new int[arr.length];
+		for (int i = 0; i < arr.length; i++) {
+			ans[i] = arr[i];
+		}
+		return ans;
 	}
 
 	// 为了测试
@@ -201,25 +246,44 @@ public class Code01_MinusOneTimes {
 		for (int i = 0; i < testTime; i++) {
 			int n = (int) (Math.random() * len) + 1;
 			int[] arr = randomArray(n, v);
-			int ans0 = minCost0(arr);
-			int ans1 = minCost1(arr);
-			int ans2 = minCost2(arr);
-			int ans3 = minCost3(arr);
-			if (ans0 != ans1 || ans0 != ans2 || ans0 != ans3) {
+			int[] arr0 = copyArray(arr);
+			int[] arr1 = copyArray(arr);
+			int[] arr2 = copyArray(arr);
+			int[] arr3 = copyArray(arr);
+			int[] arr4 = copyArray(arr);
+			int ans0 = minCost0(arr0);
+			int ans1 = minCost1(arr1);
+			int ans2 = minCost2(arr2);
+			int ans3 = minCost3(arr3);
+			int ans4 = yeah(arr4);
+			if (ans0 != ans1 || ans0 != ans2 || ans0 != ans3 || ans0 != ans4) {
 				System.out.println("出错了！");
+				break;
 			}
 		}
 		System.out.println("功能测试结束");
 
 		System.out.println("性能测试开始");
+
 		len = 10000;
 		v = 500;
-		int[] arr = randomArray(len, v);
-		long start = System.currentTimeMillis();
-		minCost3(arr);
-		long end = System.currentTimeMillis();
 		System.out.println("生成随机数组长度：" + len + ", 生成随机数组值的范围：[1, " + v + "]");
-		System.out.println("最终优化解(minCost3)的运行时间(毫秒) : " + (end - start));
+
+		int[] arr = randomArray(len, v);
+		int[] arr3 = copyArray(arr);
+		int[] arrYeah = copyArray(arr);
+		long start;
+		long end;
+		start = System.currentTimeMillis();
+		int ans3 = minCost3(arr3);
+		end = System.currentTimeMillis();
+		System.out.println("minCost3的运行结果: " + ans3 + ", 时间(毫秒) : " + (end - start));
+
+		start = System.currentTimeMillis();
+		int ansYeah = yeah(arrYeah);
+		end = System.currentTimeMillis();
+		System.out.println("yeah的运行结果: " + ansYeah + ", 时间(毫秒) : " + (end - start));
+
 		System.out.println("性能测试结束");
 
 	}
