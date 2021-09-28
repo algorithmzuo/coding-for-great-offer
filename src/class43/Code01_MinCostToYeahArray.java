@@ -10,7 +10,7 @@ import java.util.Arrays;
 // 你的目的是让arr[1~n-1]都达标
 // 返回至少要多少步可以完成这个目标
 // 数据规模 : 数组长度 <= 10000，数组中的值<=500
-public class Code01_MinusOneTimes {
+public class Code01_MinCostToYeahArray {
 
 	public static final int INVALID = Integer.MAX_VALUE;
 
