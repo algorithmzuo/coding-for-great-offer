@@ -7,7 +7,7 @@ import java.util.Arrays;
 // arr中的0、n-1位置不需要达标，它们分别是最左、最右的位置
 // 中间位置i需要达标，达标的条件是 : arr[i-1] > arr[i] 或者 arr[i+1] > arr[i]哪个都可以
 // 你每一步可以进行如下操作：对任何位置的数让其-1
-// 你的目的是让arr[1~n-1]都达标，这时arr称之为yeah！数组
+// 你的目的是让arr[1~n-2]都达标，这时arr称之为yeah！数组
 // 返回至少要多少步可以让arr变成yeah！数组
 // 数据规模 : 数组长度 <= 10000，数组中的值<=500
 public class Code02_MinCostToYeahArray {
@@ -66,10 +66,15 @@ public class Code02_MinCostToYeahArray {
 		return process1(arr, 1, arr[0], true);
 	}
 
+	// 当前来到index位置，值arr[index]
+	// pre : 前一个位置的值，可能减掉了一些，所以不能用arr[index-1]
+	// preOk : 前一个位置的值，是否被它左边的数变有效了
+	// 返回 : 让arr都变有效，最小代价是什么？
 	public static int process1(int[] arr, int index, int pre, boolean preOk) {
-		if (index == arr.length - 1) {
+		if (index == arr.length - 1) { // 已经来到最后一个数了
 			return preOk || pre < arr[index] ? 0 : INVALID;
 		}
+		// 当前index，不是最后一个数！
 		int ans = INVALID;
 		if (preOk) {
 			for (int cur = arr[index]; cur >= 0; cur--) {
@@ -263,7 +268,6 @@ public class Code02_MinCostToYeahArray {
 			int ans4 = yeah(arr4);
 			if (ans0 != ans1 || ans0 != ans2 || ans0 != ans3 || ans0 != ans4) {
 				System.out.println("出错了！");
-				break;
 			}
 		}
 		System.out.println("功能测试结束");

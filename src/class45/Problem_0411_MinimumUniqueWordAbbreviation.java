@@ -1,4 +1,4 @@
-package class44;
+package class45;
 
 public class Problem_0411_MinimumUniqueWordAbbreviation {
 
