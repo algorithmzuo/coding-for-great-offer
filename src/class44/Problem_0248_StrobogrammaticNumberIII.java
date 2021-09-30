@@ -16,8 +16,10 @@ public class Problem_0248_StrobogrammaticNumberIII {
 			return up1 - up2 + (valid(high) ? 1 : 0);
 		}
 		int ans = 0;
+		// lowLen = 3 hightLen = 7
+		// 4 5 6
 		for (int i = lowLen + 1; i < highLen; i++) {
-			ans += numLen(i, true);
+			ans += all(i);
 		}
 		ans += up(low, 0, false, 1);
 		ans += down(high, 0, false, 1);
@@ -96,17 +98,29 @@ public class Problem_0248_StrobogrammaticNumberIII {
 		}
 	}
 
-	// lm > =
+	// low [左边已经做完决定了 left.....right 右边已经做完决定了]
+	// 左边已经做完决定的部分，如果大于low的原始，leftMore = true;
+	// 左边已经做完决定的部分，如果不大于low的原始，那一定是相等，不可能小于，leftMore = false;
+	// 右边已经做完决定的部分，如果大于low的原始，rs = 2;
+	// 右边已经做完决定的部分，如果等于low的原始，rs = 1;
+	// 右边已经做完决定的部分，如果小于low的原始，rs = 0;
 	// rs < = >
-	public static int up(char[] low, int left, boolean lm, int rs) {
+	//    0 1 2
+	// 返回 ：没做决定的部分，随意变，几个有效的情况？返回！
+	public static int up(char[] low, int left, boolean leftMore, int rs) {
 		int N = low.length;
 		int right = N - 1 - left;
-		if (left > right) {
-			return lm || (!lm && rs != 0) ? 1 : 0;
+		if (left > right) { // 都做完决定了！
+			// 如果左边做完决定的部分大于原始 或者 如果左边做完决定的部分等于原始&左边做完决定的部分不小于原始
+			// 有效！
+			// 否则，无效！
+			return leftMore || (!leftMore && rs != 0) ? 1 : 0;
 		}
-		if (lm) {
+		
+		// 如果上面没有return，说明决定没做完，就继续做
+		if (leftMore) { // 如果左边做完决定的部分大于原始
 			return num(N - (left << 1));
-		} else {
+		} else { // 如果左边做完决定的部分等于原始
 			int ways = 0;
 			for (char cha = (char) (low[left] + 1); cha <= '9'; cha++) {
 				if (convert(cha, left != right) != -1) {
@@ -127,6 +141,8 @@ public class Problem_0248_StrobogrammaticNumberIII {
 		}
 	}
 
+	// 1 : 0 1 8
+	// 2 :
 	public static int num(int bits) {
 		if (bits == 1) {
 			return 3;
@@ -145,18 +161,42 @@ public class Problem_0248_StrobogrammaticNumberIII {
 		return ans;
 	}
 
-	public static int numLen(int bits, boolean first) {
-		if (bits == 0) {
+	// 如果是最开始 :
+	// Y X X X Y
+	// -> 1 X X X 1
+	// -> 8 X X X 8
+	// -> 9 X X X 6
+	// -> 6 X X X 9
+	// 如果不是最开始 :
+	// Y X X X Y
+	// -> 0 X X X 0
+	// -> 1 X X X 1
+	// -> 8 X X X 8
+	// -> 9 X X X 6
+	// -> 6 X X X 9
+	// 所有的len位数，有几个有效的？
+	public static int all(int len) {
+		int ans = (len & 1) == 0 ? 1 : 3;
+		for (int i = (len & 1) == 0 ? 2 : 3; i < len; i += 2) {
+			ans *= 5;
+		}
+		return ans << 2;
+	}
+	
+	// 我们课上讲的
+	public static int all(int len, boolean init) {
+		if (len == 0) { // init == true，不可能调用all(0)
 			return 1;
 		}
-		if (bits == 1) {
+		if (len == 1) { 
 			return 3;
 		}
-		if (first) {
-			return numLen(bits - 2, false) << 2;
+		if (init) {
+			return all(len - 2, false) << 2;
 		} else {
-			return numLen(bits - 2, false) * 5;
+			return all(len - 2, false) * 5;
 		}
 	}
+	
 
 }

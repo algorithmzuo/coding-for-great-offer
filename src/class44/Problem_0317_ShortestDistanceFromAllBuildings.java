@@ -201,6 +201,13 @@ public class Problem_0317_ShortestDistanceFromAllBuildings {
 		return step == Integer.MAX_VALUE ? -1 : step;
 	}
 
+	// 原始矩阵是grid，但是所有的路(0)，被改了
+	// 改成了啥？改成认为，pass才是路！原始矩阵中的1和2呢？不变！
+	// dist，距离压缩表，之前的bfs，也就是之前每个1，走到某个0，总距离和都在dist里
+	// row,col 宽度优先遍历的，出发点！
+	// trans -> 炫技的，上下左右
+	// 返回值代表，进行完这一遍bfs，压缩距离表中(dist)，最小值是谁？
+	// 如果突然发现，无法联通！返回系统最大！
 	public static int bfs(int[][] grid, int[][] dist, int row, int col, int pass, int[] trans) {
 		Queue<int[]> que = new LinkedList<int[]>();
 		que.offer(new int[] { row, col });
@@ -211,7 +218,7 @@ public class Problem_0317_ShortestDistanceFromAllBuildings {
 			level++;
 			for (int k = 0; k < size; k++) {
 				int[] node = que.poll();
-				for (int i = 1; i < trans.length; i++) {
+				for (int i = 1; i < trans.length; i++) { // 上下左右
 					int nextr = node[0] + trans[i - 1];
 					int nextc = node[1] + trans[i];
 					if (nextr >= 0 && nextr < grid.length && nextc >= 0 && nextc < grid[0].length
