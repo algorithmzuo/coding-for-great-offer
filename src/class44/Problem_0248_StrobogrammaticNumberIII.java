@@ -122,11 +122,13 @@ public class Problem_0248_StrobogrammaticNumberIII {
 			return num(N - (left << 1));
 		} else { // 如果左边做完决定的部分等于原始
 			int ways = 0;
+			// 当前left做的决定，大于原始的left
 			for (char cha = (char) (low[left] + 1); cha <= '9'; cha++) {
 				if (convert(cha, left != right) != -1) {
 					ways += up(low, left + 1, true, rs);
 				}
 			}
+			// 当前left做的决定，等于原始的left
 			int convert = convert(low[left], left != right);
 			if (convert != -1) {
 				if (convert < low[right]) {
