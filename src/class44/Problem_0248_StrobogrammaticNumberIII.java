@@ -83,6 +83,50 @@ public class Problem_0248_StrobogrammaticNumberIII {
 		}
 	}
 
+	// low [左边已经做完决定了 left.....right 右边已经做完决定了]
+	// 左边已经做完决定的部分，如果大于low的原始，leftMore = true;
+	// 左边已经做完决定的部分，如果不大于low的原始，那一定是相等，不可能小于，leftMore = false;
+	// 右边已经做完决定的部分，如果小于low的原始，rightLessEqualMore = 0;
+	// 右边已经做完决定的部分，如果等于low的原始，rightLessEqualMore = 1;
+	// 右边已经做完决定的部分，如果大于low的原始，rightLessEqualMore = 2;
+	// rightLessEqualMore < = >
+	//                    0 1 2
+	// 返回 ：没做决定的部分，随意变，几个有效的情况？返回！
+	public static int up(char[] low, int left, boolean leftMore, int rightLessEqualMore) {
+		int N = low.length;
+		int right = N - 1 - left;
+		if (left > right) { // 都做完决定了！
+			// 如果左边做完决定的部分大于原始 或者 如果左边做完决定的部分等于原始&左边做完决定的部分不小于原始
+			// 有效！
+			// 否则，无效！
+			return leftMore || (!leftMore && rightLessEqualMore != 0) ? 1 : 0;
+		}
+		// 如果上面没有return，说明决定没做完，就继续做
+		if (leftMore) { // 如果左边做完决定的部分大于原始
+			return num(N - (left << 1));
+		} else { // 如果左边做完决定的部分等于原始
+			int ways = 0;
+			// 当前left做的决定，大于原始的left
+			for (char cha = (char) (low[left] + 1); cha <= '9'; cha++) {
+				if (convert(cha, left != right) != -1) {
+					ways += up(low, left + 1, true, rightLessEqualMore);
+				}
+			}
+			// 当前left做的决定，等于原始的left
+			int convert = convert(low[left], left != right);
+			if (convert != -1) {
+				if (convert < low[right]) {
+					ways += up(low, left + 1, false, 0);
+				} else if (convert == low[right]) {
+					ways += up(low, left + 1, false, rightLessEqualMore);
+				} else {
+					ways += up(low, left + 1, false, 2);
+				}
+			}
+			return ways;
+		}
+	}
+
 	// ll < =
 	// rs < = >
 	public static int down(char[] high, int left, boolean ll, int rs) {
@@ -114,53 +158,6 @@ public class Problem_0248_StrobogrammaticNumberIII {
 		}
 	}
 
-	// low [左边已经做完决定了 left.....right 右边已经做完决定了]
-	// 左边已经做完决定的部分，如果大于low的原始，leftMore = true;
-	// 左边已经做完决定的部分，如果不大于low的原始，那一定是相等，不可能小于，leftMore = false;
-	// 右边已经做完决定的部分，如果大于low的原始，rs = 2;
-	// 右边已经做完决定的部分，如果等于low的原始，rs = 1;
-	// 右边已经做完决定的部分，如果小于low的原始，rs = 0;
-	// rs < = >
-	// 0 1 2
-	// 返回 ：没做决定的部分，随意变，几个有效的情况？返回！
-	public static int up(char[] low, int left, boolean leftMore, int rs) {
-		int N = low.length;
-		int right = N - 1 - left;
-		if (left > right) { // 都做完决定了！
-			// 如果左边做完决定的部分大于原始 或者 如果左边做完决定的部分等于原始&左边做完决定的部分不小于原始
-			// 有效！
-			// 否则，无效！
-			return leftMore || (!leftMore && rs != 0) ? 1 : 0;
-		}
-
-		// 如果上面没有return，说明决定没做完，就继续做
-		if (leftMore) { // 如果左边做完决定的部分大于原始
-			return num(N - (left << 1));
-		} else { // 如果左边做完决定的部分等于原始
-			int ways = 0;
-			// 当前left做的决定，大于原始的left
-			for (char cha = (char) (low[left] + 1); cha <= '9'; cha++) {
-				if (convert(cha, left != right) != -1) {
-					ways += up(low, left + 1, true, rs);
-				}
-			}
-			// 当前left做的决定，等于原始的left
-			int convert = convert(low[left], left != right);
-			if (convert != -1) {
-				if (convert < low[right]) {
-					ways += up(low, left + 1, false, 0);
-				} else if (convert == low[right]) {
-					ways += up(low, left + 1, false, rs);
-				} else {
-					ways += up(low, left + 1, false, 2);
-				}
-			}
-			return ways;
-		}
-	}
-
-	// 1 : 0 1 8
-	// 2 :
 	public static int num(int bits) {
 		if (bits == 1) {
 			return 3;
