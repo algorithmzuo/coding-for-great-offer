@@ -50,6 +50,22 @@ public class Problem_0248_StrobogrammaticNumberIII {
 		return true;
 	}
 
+	// left想得到cha字符，right配合应该做什么决定，
+	// 如果left怎么也得不到cha字符，返回-1；如果能得到，返回right配合应做什么决定
+	// 比如，left!=right，即不是同一个位置
+	// left想得到0，那么就right就需要是0
+	// left想得到1，那么就right就需要是1
+	// left想得到6，那么就right就需要是9
+	// left想得到8，那么就right就需要是8
+	// left想得到9，那么就right就需要是6
+	// 除此了这些之外，left不能得到别的了。
+	// 比如，left==right，即是同一个位置
+	// left想得到0，那么就right就需要是0
+	// left想得到1，那么就right就需要是1
+	// left想得到8，那么就right就需要是8
+	// 除此了这些之外，left不能得到别的了，比如：
+	// left想得到6，那么就right就需要是9，而left和right是一个位置啊，怎么可能即6又9，返回-1
+	// left想得到9，那么就right就需要是6，而left和right是一个位置啊，怎么可能即9又6，返回-1
 	public static int convert(char cha, boolean diff) {
 		switch (cha) {
 		case '0':
@@ -105,7 +121,7 @@ public class Problem_0248_StrobogrammaticNumberIII {
 	// 右边已经做完决定的部分，如果等于low的原始，rs = 1;
 	// 右边已经做完决定的部分，如果小于low的原始，rs = 0;
 	// rs < = >
-	//    0 1 2
+	// 0 1 2
 	// 返回 ：没做决定的部分，随意变，几个有效的情况？返回！
 	public static int up(char[] low, int left, boolean leftMore, int rs) {
 		int N = low.length;
@@ -116,7 +132,7 @@ public class Problem_0248_StrobogrammaticNumberIII {
 			// 否则，无效！
 			return leftMore || (!leftMore && rs != 0) ? 1 : 0;
 		}
-		
+
 		// 如果上面没有return，说明决定没做完，就继续做
 		if (leftMore) { // 如果左边做完决定的部分大于原始
 			return num(N - (left << 1));
@@ -184,13 +200,13 @@ public class Problem_0248_StrobogrammaticNumberIII {
 		}
 		return ans << 2;
 	}
-	
+
 	// 我们课上讲的
 	public static int all(int len, boolean init) {
 		if (len == 0) { // init == true，不可能调用all(0)
 			return 1;
 		}
-		if (len == 1) { 
+		if (len == 1) {
 			return 3;
 		}
 		if (init) {
@@ -199,6 +215,5 @@ public class Problem_0248_StrobogrammaticNumberIII {
 			return all(len - 2, false) * 5;
 		}
 	}
-	
 
 }
