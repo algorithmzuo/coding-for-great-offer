@@ -7,7 +7,7 @@ import java.util.Queue;
 
 public class Problem_0428_SerializeAndDeserializeNaryTree {
 
-	// 提交时不要提交这个类
+	// 不要提交这个类
 	public static class Node {
 		public int val;
 		public List<Node> children;
@@ -26,8 +26,8 @@ public class Problem_0428_SerializeAndDeserializeNaryTree {
 		}
 	};
 
-	// 提交时把static关键字去掉
-	public static class Codec {
+	// 提交下面这个类
+	public class Codec {
 
 		public String serialize(Node root) {
 			if (root == null) {
