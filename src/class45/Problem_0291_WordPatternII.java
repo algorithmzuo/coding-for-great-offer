@@ -20,26 +20,23 @@ public class Problem_0291_WordPatternII {
 		char ch = p.charAt(pi);
 		String matched = map[ch - 'a'];
 		if (matched != null) {
-			int count = matched.length();
-			return si + count <= s.length() && matched.equals(s.substring(si, si + count))
+			return si + matched.length() <= s.length() && matched.equals(s.substring(si, si + matched.length()))
 					&& process(s, p, si + matched.length(), pi + 1, map, set);
-		} else {
-			int endPoint = s.length() - 1;
-			for (int i = p.length() - 1; i > pi; i--) {
-				endPoint -= map[p.charAt(i) - 'a'] == null ? 1 : map[p.charAt(i) - 'a'].length();
-			}
-			for (int i = si; i <= endPoint; i++) {
-				matched = s.substring(si, i + 1);
-				if (!set.contains(matched)) {
-					set.add(matched);
-					map[ch - 'a'] = matched;
-					if (process(s, p, i + 1, pi + 1, map, set)) {
-						return true;
-					} else {
-						map[ch - 'a'] = null;
-						set.remove(matched);
-					}
+		}
+		int end = s.length();
+		for (int i = p.length() - 1; i > pi; i--) {
+			end -= map[p.charAt(i) - 'a'] == null ? 1 : map[p.charAt(i) - 'a'].length();
+		}
+		for (int i = si; i < end; i++) {
+			matched = s.substring(si, i + 1);
+			if (!set.contains(matched)) {
+				set.add(matched);
+				map[ch - 'a'] = matched;
+				if (process(s, p, i + 1, pi + 1, map, set)) {
+					return true;
 				}
+				map[ch - 'a'] = null;
+				set.remove(matched);
 			}
 		}
 		return false;
