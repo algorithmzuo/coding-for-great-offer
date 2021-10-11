@@ -1,60 +1,49 @@
 package class45;
 
-import java.util.HashMap;
+import java.util.HashSet;
 
 public class Problem_0291_WordPatternII {
 
 	public static boolean wordPatternMatch(String pattern, String str) {
-		if (pattern == null || str == null) {
-			return pattern == str;
-		}
-		if (pattern.length() == 0 || str.length() == 0) {
-			return pattern.length() == str.length();
-		}
-		HashMap<String, Character> map1 = new HashMap<>();
-		HashMap<Character, String> map2 = new HashMap<>();
-		return process(str.toCharArray(), pattern.toCharArray(), 0, 0, map1, map2);
+		String[] map = new String[26];
+		HashSet<String> set = new HashSet<>();
+		return process(str, pattern, 0, str.length() - 1, 0, pattern.length() - 1, map, set);
 	}
 
-	public static boolean process(char[] s, char[] p, int si, int pi, HashMap<String, Character> map1,
-			HashMap<Character, String> map2) {
-		if (si == s.length) {
-			return pi == 0;
+	public static boolean process(String s, String p, int si, int se, int pi, int pe, String[] map,
+			HashSet<String> set) {
+		if (pi == pe + 1 && si == se + 1) {
+			return true;
 		}
-		String pre = "";
-		for (int i = si; i < s.length; i++) {
-			pre += s[i];
-			if (map1.containsKey(pre) && p[pi] != map1.get(pre)) {
-				continue;
+		if ((pi > pe && si <= se) || (pi < pe && si > se)) {
+			return false;
+		}
+		char ch = p.charAt(pi);
+		String matched = map[ch - 'a'];
+		if (matched != null) {
+			int count = matched.length();
+			return si + count <= se + 1 && matched.equals(s.substring(si, si + count))
+					&& process(s, p, si + matched.length(), se, pi + 1, pe, map, set);
+		} else {
+			int endPoint = se;
+			for (int i = pe; i > pi; i--) {
+				endPoint -= map[p.charAt(i) - 'a'] == null ? 1 : map[p.charAt(i) - 'a'].length();
 			}
-			if (map2.containsKey(p[pi]) && !pre.equals(map2.get(p[pi]))) {
-				continue;
-			}
-			boolean add1 = false;
-			if (!map1.containsKey(pre)) {
-				map1.put(pre, p[pi]);
-				add1 = true;
-			}
-			boolean add2 = false;
-			if (!map2.containsKey(p[pi])) {
-				map2.put(p[pi], pre);
-				add2 = true;
-			}
-			if (process(s, p, i + 1, nextpi(p.length, pi), map1, map2)) {
-				return true;
-			}
-			if (add1) {
-				map1.remove(pre);
-			}
-			if (add2) {
-				map2.remove(p[pi]);
+			for (int i = si; i <= endPoint; i++) {
+				matched = s.substring(si, i + 1);
+				if (!set.contains(matched)) {
+					set.add(matched);
+					map[ch - 'a'] = matched;
+					if (process(s, p, i + 1, se, pi + 1, pe, map, set)) {
+						return true;
+					} else {
+						map[ch - 'a'] = null;
+						set.remove(matched);
+					}
+				}
 			}
 		}
 		return false;
-	}
-
-	public static int nextpi(int M, int i) {
-		return i == M - 1 ? 0 : i + 1;
 	}
 
 }
