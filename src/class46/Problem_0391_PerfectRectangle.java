@@ -1,10 +1,10 @@
-package class45;
+package class46;
 
 import java.util.HashSet;
 
 public class Problem_0391_PerfectRectangle {
 
-    public static boolean isRectangleCover(int[][] matrix) {
+	public static boolean isRectangleCover(int[][] matrix) {
 		if (matrix.length == 0 || matrix[0].length == 0) {
 			return false;
 		}
@@ -24,19 +24,25 @@ public class Problem_0391_PerfectRectangle {
 			String leftUp = rect[0] + "_" + rect[3];
 			String rightDown = rect[2] + "_" + rect[1];
 			String rightUp = rect[2] + "_" + rect[3];
-			if (!set.add(leftDown)) set.remove(leftDown);
-			if (!set.add(leftUp)) set.remove(leftUp);
-			if (!set.add(rightUp)) set.remove(rightUp);
-			if (!set.add(rightDown)) set.remove(rightDown);
+			if (!set.add(leftDown)) {
+				set.remove(leftDown);
+			}
+			if (!set.add(leftUp)) {
+				set.remove(leftUp);
+			}
+			if (!set.add(rightUp)) {
+				set.remove(rightUp);
+			}
+			if (!set.add(rightDown)) {
+				set.remove(rightDown);
+			}
 		}
-		if (!set.contains(mostLeft + "_" + mostDown) 
-				|| !set.contains(mostLeft + "_" + mostUp)
-				|| !set.contains(mostRight + "_" + mostDown) 
-				|| !set.contains(mostRight + "_" + mostUp) 
+		if (!set.contains(mostLeft + "_" + mostDown) || !set.contains(mostLeft + "_" + mostUp)
+				|| !set.contains(mostRight + "_" + mostDown) || !set.contains(mostRight + "_" + mostUp)
 				|| set.size() != 4) {
 			return false;
 		}
 		return area == (mostRight - mostLeft) * (mostUp - mostDown);
 	}
-	
+
 }
