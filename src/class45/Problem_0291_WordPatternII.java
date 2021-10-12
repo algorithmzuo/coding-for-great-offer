@@ -33,10 +33,10 @@ public class Problem_0291_WordPatternII {
 				if (match(s, p, i + 1, pi + 1, map, set)) {
 					return true;
 				}
+				map[ch - 'a'] = null;
 				set.remove(cur);
 			}
 		}
-		map[ch - 'a'] = null;
 		return false;
 	}
 
