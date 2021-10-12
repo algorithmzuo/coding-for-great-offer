@@ -8,49 +8,43 @@ public class Problem_0411_MinimumUniqueWordAbbreviation {
 
 	public static String minAbbreviation(String target, String[] dictionary) {
 		char[] t = target.toCharArray();
-		int N = t.length;
-		int M = 0;
+		int len = t.length;
+		int siz = 0;
 		for (String word : dictionary) {
-			if (word.length() == N) {
-				M++;
+			if (word.length() == len) {
+				siz++;
 			}
 		}
-		if (M == 0) {
-			return String.valueOf(N);
-		}
-		int[] words = new int[M];
+		int[] words = new int[siz];
 		int index = 0;
-		int cands = 0;
+		int diff = 0;
 		for (String word : dictionary) {
-			if (word.length() == N) {
+			if (word.length() == len) {
 				char[] w = word.toCharArray();
 				int status = 0;
-				for (int j = 0; j < N; j++) {
+				for (int j = 0; j < len; j++) {
 					if (t[j] != w[j]) {
 						status |= 1 << j;
 					}
 				}
 				words[index++] = status;
-				cands |= status;
+				diff |= status;
 			}
-		}
-		if (cands == 0) {
-			return target;
 		}
 		min = Integer.MAX_VALUE;
 		best = 0;
-		dfs(words, N, cands, 0, 0);
+		dfs(words, len, diff, 0, 0);
 		StringBuilder builder = new StringBuilder();
 		int count = 0;
-		for (int i = 0; i < N; i++) {
-			if ((best & (1 << i)) == 0) {
-				count++;
-			} else {
+		for (int i = 0; i < len; i++) {
+			if ((best & (1 << i)) != 0) {
 				if (count > 0) {
 					builder.append(count);
 				}
 				builder.append(t[i]);
 				count = 0;
+			} else {
+				count++;
 			}
 		}
 		if (count > 0) {
@@ -59,15 +53,16 @@ public class Problem_0411_MinimumUniqueWordAbbreviation {
 		return builder.toString();
 	}
 
-	public static void dfs(int[] words, int N, int cands, int fix, int index) {
-		if (!fix(words, fix)) {
-			for (int i = index; i < N; i++) {
-				if ((cands & (1 << i)) != 0) {
-					dfs(words, N, cands, fix | (1 << i), i + 1);
+	public static void dfs(int[] words, int len, int diff, int fix, int index) {
+		if (!canFix(words, fix)) {
+			if (index < len) {
+				dfs(words, len, diff, fix, index + 1);
+				if ((diff & (1 << index)) != 0) {
+					dfs(words, len, diff, fix | (1 << index), index + 1);
 				}
 			}
 		} else {
-			int ans = parts(fix, N);
+			int ans = abbrLen(fix, len);
 			if (ans < min) {
 				min = ans;
 				best = fix;
@@ -75,23 +70,33 @@ public class Problem_0411_MinimumUniqueWordAbbreviation {
 		}
 	}
 
-	public static int parts(int fix, int N) {
-		int count = N;
-		int limit = 1 << N;
-		for (int check = 3; check < limit; check <<= 1)
-			if ((fix & check) == 0) {
-				count--;
-			}
-		return count;
-	}
-
-	public static boolean fix(int[] words, int fix) {
+	public static boolean canFix(int[] words, int fix) {
 		for (int word : words) {
 			if ((fix & word) == 0) {
 				return false;
 			}
 		}
 		return true;
+	}
+
+	public static int abbrLen(int fix, int len) {
+		int ans = 0;
+		int cnt = 0;
+		for (int i = 0; i < len; i++) {
+			if ((fix & (1 << i)) != 0) {
+				ans++;
+				if (cnt != 0) {
+					ans += (cnt > 9 ? 2 : 1) - cnt;
+				}
+				cnt = 0;
+			} else {
+				cnt++;
+			}
+		}
+		if (cnt != 0) {
+			ans += (cnt > 9 ? 2 : 1) - cnt;
+		}
+		return ans;
 	}
 
 }
