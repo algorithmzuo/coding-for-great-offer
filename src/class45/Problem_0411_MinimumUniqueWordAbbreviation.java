@@ -2,11 +2,12 @@ package class45;
 
 public class Problem_0411_MinimumUniqueWordAbbreviation {
 
-	public static int min = 0;
-
+	public static int min = Integer.MAX_VALUE;
 	public static int best = 0;
 
 	public static String minAbbreviation(String target, String[] dictionary) {
+		min = Integer.MAX_VALUE;
+		best = 0;
 		char[] t = target.toCharArray();
 		int len = t.length;
 		int siz = 0;
@@ -31,8 +32,6 @@ public class Problem_0411_MinimumUniqueWordAbbreviation {
 				diff |= status;
 			}
 		}
-		min = Integer.MAX_VALUE;
-		best = 0;
 		dfs(words, len, diff, 0, 0);
 		StringBuilder builder = new StringBuilder();
 		int count = 0;
