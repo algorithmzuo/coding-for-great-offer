@@ -111,8 +111,10 @@ public class Code01_SumNoPositiveMinCost {
 
 	// 不回退
 	public static int minOpStep3(int[] arr, int x, int y) {
+		// 系统排序，小 -> 大
 		Arrays.sort(arr);
 		int n = arr.length;
+		// 如何变成 大 -> 小
 		for (int l = 0, r = n - 1; l <= r; l++, r--) {
 			int tmp = arr[l];
 			arr[l] = arr[r];
@@ -130,17 +132,19 @@ public class Code01_SumNoPositiveMinCost {
 			}
 			return cost;
 		} else {
-			for (int i = n - 2; i >= 0; i--) {
-				arr[i] += arr[i + 1];
-			}
+			// 0个数执行Y
 			int benefit = 0;
-			int cost = n * x;
-			for (int i = 0, r = n; i < r - 1; i++) {
-				benefit += arr[i] - arr[i + 1];
-				while (r - 1 > i && arr[r - 1] <= benefit) {
-					r--;
+			// 全部的数都需要执行x，才能让累加和<=0
+			int cost = arr.length * x;
+			int holdSum = 0;
+			for (int yRight = 0, holdLeft = n; yRight < holdLeft - 1; yRight++) {
+				benefit += arr[yRight];
+				while (holdLeft - 1 > yRight && holdSum + arr[holdLeft - 1] <= benefit) {
+					holdSum += arr[holdLeft - 1];
+					holdLeft--;
 				}
-				cost = Math.min(cost, (i + 1) * y + (r - i - 1) * x);
+				// 0...yRight x holdLeft....
+				cost = Math.min(cost, (yRight + 1) * y + (holdLeft - yRight - 1) * x);
 			}
 			return cost;
 		}
