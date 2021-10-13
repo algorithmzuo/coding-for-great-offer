@@ -28,8 +28,8 @@ public class Code01_SplitBuildingBlock {
 	// 这是启发解
 	// arr是从小到大排序的，x是限制，固定参数
 	// 当前来到i位置，积木重量arr[i]
-	// 潜台词，当前i位置的积木，堆的开头，之前已经决定了
-	// i i+1 该在一起，该用魔法积木弥合，该分家！
+	// 潜台词 : 当前i位置的积木在一个堆里，堆的开头在哪？之前已经决定了
+	// i i+1 该在一起 or 该用魔法积木弥合 or 该分家
 	// 返回值：arr[i....]最少能分几个堆？
 	public static int zuo(int[] arr, int x, int i, int r) {
 		if (i == arr.length - 1) {
