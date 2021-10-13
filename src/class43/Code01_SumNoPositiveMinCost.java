@@ -109,11 +109,48 @@ public class Code01_SumNoPositiveMinCost {
 		return ans;
 	}
 
+	// 不回退
+	public static int minOpStep3(int[] arr, int x, int y) {
+		Arrays.sort(arr);
+		int n = arr.length;
+		for (int l = 0, r = n - 1; l <= r; l++, r--) {
+			int tmp = arr[l];
+			arr[l] = arr[r];
+			arr[r] = tmp;
+		}
+		if (x >= y) {
+			int sum = 0;
+			for (int num : arr) {
+				sum += num;
+			}
+			int cost = 0;
+			for (int i = 0; i < n && sum > 0; i++) {
+				sum -= arr[i] << 1;
+				cost += y;
+			}
+			return cost;
+		} else {
+			for (int i = n - 2; i >= 0; i--) {
+				arr[i] += arr[i + 1];
+			}
+			int benefit = 0;
+			int cost = n * x;
+			for (int i = 0, r = n; i < r - 1; i++) {
+				benefit += arr[i] - arr[i + 1];
+				while (r - 1 > i && arr[r - 1] <= benefit) {
+					r--;
+				}
+				cost = Math.min(cost, (i + 1) * y + (r - i - 1) * x);
+			}
+			return cost;
+		}
+	}
+
 	// 为了测试
 	public static int[] randomArray(int len, int v) {
 		int[] arr = new int[len];
 		for (int i = 0; i < len; i++) {
-			arr[i] = (int) (Math.random() * v);
+			arr[i] = (int) (Math.random() * v) + 1;
 		}
 		return arr;
 	}
@@ -139,11 +176,13 @@ public class Code01_SumNoPositiveMinCost {
 			int[] arr = randomArray(len, v);
 			int[] arr1 = copyArray(arr);
 			int[] arr2 = copyArray(arr);
+			int[] arr3 = copyArray(arr);
 			int x = (int) (Math.random() * c);
 			int y = (int) (Math.random() * c);
 			int ans1 = minOpStep1(arr1, x, y);
 			int ans2 = minOpStep2(arr2, x, y);
-			if (ans1 != ans2) {
+			int ans3 = minOpStep3(arr3, x, y);
+			if (ans1 != ans2 || ans1 != ans3) {
 				System.out.println("出错了!");
 			}
 		}
