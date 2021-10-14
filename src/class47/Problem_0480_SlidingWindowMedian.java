@@ -1,4 +1,4 @@
-package class46;
+package class47;
 
 public class Problem_0480_SlidingWindowMedian {
 
