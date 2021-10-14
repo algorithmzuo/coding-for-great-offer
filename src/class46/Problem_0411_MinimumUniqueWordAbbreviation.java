@@ -2,8 +2,10 @@ package class46;
 
 public class Problem_0411_MinimumUniqueWordAbbreviation {
 
+	// 区分出来之后，缩写的长度，最短是多少？
 	public static int min = Integer.MAX_VALUE;
 
+	// 取得缩写的长度最短的时候，决定是什么(fix)
 	public static int best = 0;
 
 	public static int abbrLen(int fix, int len) {
@@ -26,6 +28,9 @@ public class Problem_0411_MinimumUniqueWordAbbreviation {
 		return ans;
 	}
 
+	// 原始的字典，被改了
+	// target : abc  字典中的词 : bbb   ->  101 -> int -> 
+	// fix -> int -> 根本不用值，用状态 -> 每一位保留还是不保留的决定
 	public static boolean canFix(int[] words, int fix) {
 		for (int word : words) {
 			if ((fix & word) == 0) {
@@ -81,6 +86,9 @@ public class Problem_0411_MinimumUniqueWordAbbreviation {
 		return builder.toString();
 	}
 
+	// 所有字典中的单词现在都变成了int，放在words里
+	// 0....len-1 位去决定保留还是不保留！当前来到index位
+	// 之前做出的决定!
 	public static void dfs1(int[] words, int len, int fix, int index) {
 		if (!canFix(words, fix)) {
 			if (index < len) {
@@ -88,6 +96,7 @@ public class Problem_0411_MinimumUniqueWordAbbreviation {
 				dfs1(words, len, fix | (1 << index), index + 1);
 			}
 		} else {
+			// 决定是fix，一共的长度是len，求出缩写是多长？
 			int ans = abbrLen(fix, len);
 			if (ans < min) {
 				min = ans;
