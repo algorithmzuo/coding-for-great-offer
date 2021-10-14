@@ -1,4 +1,4 @@
-package class48;
+package class46;
 
 public class Problem_0499_TheMazeIII {
 
