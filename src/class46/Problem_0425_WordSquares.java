@@ -1,85 +1,45 @@
 package class46;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Problem_0425_WordSquares {
 
-	public static class Node {
-		public List<String> words;
-		public Node[] nexts;
-
-		public Node() {
-			words = new ArrayList<>();
-			nexts = new Node[26];
-		}
-
-	}
-
-	public static class Trie {
-
-		public Node root;
-
-		public Trie(String[] words) {
-			root = new Node();
-			Node cur = null;
-			for (String word : words) {
-				cur = root;
-				cur.words.add(word);
-				char[] str = word.toCharArray();
-				for (int i = 0; i < str.length; i++) {
-					int path = str[i] - 'a';
-					if (cur.nexts[path] == null) {
-						cur.nexts[path] = new Node();
-					}
-					cur = cur.nexts[path];
-					cur.words.add(word);
-				}
-			}
-		}
-
-		public List<String> getCands(String prefix) {
-			char[] str = prefix.toCharArray();
-			Node cur = root;
-			for (int i = 0; i < str.length; i++) {
-				int path = str[i] - 'a';
-				if (cur.nexts[path] == null) {
-					return new ArrayList<>();
-				}
-				cur = cur.nexts[str[i] - 'a'];
-			}
-			return cur.words;
-		}
-
-	}
-
 	public static List<List<String>> wordSquares(String[] words) {
-		Trie trie = new Trie(words);
-		LinkedList<String> path = new LinkedList<>();
-		List<List<String>> ans = new ArrayList<>();
-		int N = words[0].length();
+		int n = words[0].length();
+		HashMap<String, List<String>> map = new HashMap<>();
 		for (String word : words) {
-			path.addLast(word);
-			process(path, 1, trie, ans, N);
-			path.pollLast();
+			for (int end = 0; end <= n; end++) {
+				String prefix = word.substring(0, end);
+				if (!map.containsKey(prefix)) {
+					map.put(prefix, new ArrayList<>());
+				}
+				map.get(prefix).add(word);
+			}
 		}
+		List<List<String>> ans = new ArrayList<>();
+		process(0, n, map, new LinkedList<>(), ans);
 		return ans;
 	}
 
-	public static void process(LinkedList<String> path, int index, Trie trie, List<List<String>> ans, int len) {
-		if (index == len) {
+	public static void process(int i, int n, HashMap<String, List<String>> map, LinkedList<String> path,
+			List<List<String>> ans) {
+		if (i == n) {
 			ans.add(new ArrayList<>(path));
 		} else {
-			StringBuilder prefix = new StringBuilder();
+			StringBuilder builder = new StringBuilder();
 			for (String pre : path) {
-				prefix.append(pre.charAt(index));
+				builder.append(pre.charAt(i));
 			}
-			List<String> nexts = trie.getCands(prefix.toString());
-			for (String next : nexts) {
-				path.addLast(next);
-				process(path, index + 1, trie, ans, len);
-				path.pollLast();
+			String prefix = builder.toString();
+			if (map.containsKey(prefix)) {
+				for (String next : map.get(prefix)) {
+					path.addLast(next);
+					process(i + 1, n, map, path, ans);
+					path.pollLast();
+				}
 			}
 		}
 	}

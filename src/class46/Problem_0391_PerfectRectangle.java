@@ -1,6 +1,6 @@
 package class46;
 
-import java.util.HashSet;
+import java.util.HashMap;
 
 public class Problem_0391_PerfectRectangle {
 
@@ -8,41 +8,52 @@ public class Problem_0391_PerfectRectangle {
 		if (matrix.length == 0 || matrix[0].length == 0) {
 			return false;
 		}
-		int mostLeft = Integer.MAX_VALUE;
-		int mostRight = Integer.MIN_VALUE;
-		int mostDown = Integer.MAX_VALUE;
-		int mostUp = Integer.MIN_VALUE;
-		HashSet<String> set = new HashSet<String>();
+		int l = Integer.MAX_VALUE;
+		int r = Integer.MIN_VALUE;
+		int d = Integer.MAX_VALUE;
+		int u = Integer.MIN_VALUE;
+		HashMap<Integer, HashMap<Integer, Integer>> map = new HashMap<>();
 		int area = 0;
 		for (int[] rect : matrix) {
-			mostLeft = Math.min(rect[0], mostLeft);
-			mostDown = Math.min(rect[1], mostDown);
-			mostRight = Math.max(rect[2], mostRight);
-			mostUp = Math.max(rect[3], mostUp);
+			add(map, rect[0], rect[1]);
+			add(map, rect[0], rect[3]);
+			add(map, rect[2], rect[1]);
+			add(map, rect[2], rect[3]);
 			area += (rect[2] - rect[0]) * (rect[3] - rect[1]);
-			String leftDown = rect[0] + "_" + rect[1];
-			String leftUp = rect[0] + "_" + rect[3];
-			String rightDown = rect[2] + "_" + rect[1];
-			String rightUp = rect[2] + "_" + rect[3];
-			if (!set.add(leftDown)) {
-				set.remove(leftDown);
-			}
-			if (!set.add(leftUp)) {
-				set.remove(leftUp);
-			}
-			if (!set.add(rightUp)) {
-				set.remove(rightUp);
-			}
-			if (!set.add(rightDown)) {
-				set.remove(rightDown);
-			}
+			l = Math.min(rect[0], l);
+			d = Math.min(rect[1], d);
+			r = Math.max(rect[2], r);
+			u = Math.max(rect[3], u);
 		}
-		if (!set.contains(mostLeft + "_" + mostDown) || !set.contains(mostLeft + "_" + mostUp)
-				|| !set.contains(mostRight + "_" + mostDown) || !set.contains(mostRight + "_" + mostUp)
-				|| set.size() != 4) {
+		return checkPoints(map, l, d, r, u) && area == (r - l) * (u - d);
+	}
+
+	public static void add(HashMap<Integer, HashMap<Integer, Integer>> map, int row, int col) {
+		if (!map.containsKey(row)) {
+			map.put(row, new HashMap<>());
+		}
+		map.get(row).put(col, map.get(row).getOrDefault(col, 0) + 1);
+	}
+
+	public static boolean checkPoints(HashMap<Integer, HashMap<Integer, Integer>> map, int l, int d, int r, int u) {
+		if (map.get(l).getOrDefault(d, 0) != 1
+				|| map.get(l).getOrDefault(u, 0) != 1
+				|| map.get(r).getOrDefault(d, 0) != 1
+				|| map.get(r).getOrDefault(u, 0) != 1) {
 			return false;
 		}
-		return area == (mostRight - mostLeft) * (mostUp - mostDown);
+		map.get(l).remove(d);
+		map.get(l).remove(u);
+		map.get(r).remove(d);
+		map.get(r).remove(u);
+		for (int key : map.keySet()) {
+			for (int value : map.get(key).values()) {
+				if ((value & 1) != 0) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 }
