@@ -7,12 +7,6 @@ public class Code01_DynamicSegmentTree {
 		public int sum;
 		public Node left;
 		public Node right;
-
-		public Node() {
-			sum = 0;
-			left = null;
-			right = null;
-		}
 	}
 
 	public static class DynamicSegmentTree {

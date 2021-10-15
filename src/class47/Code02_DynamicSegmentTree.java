@@ -10,15 +10,6 @@ public class Code02_DynamicSegmentTree {
 		public boolean update;
 		public Node left;
 		public Node right;
-
-		public Node() {
-			sum = 0;
-			lazy = 0;
-			change = 0;
-			update = false;
-			left = null;
-			right = null;
-		}
 	}
 
 	public static class DynamicSegmentTree {
