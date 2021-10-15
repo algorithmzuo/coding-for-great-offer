@@ -11,12 +11,6 @@ public class Problem_0315_CountOfSmallerNumbersAfterSelf {
 		public int sum;
 		public Node left;
 		public Node right;
-
-		public Node() {
-			sum = 0;
-			left = null;
-			right = null;
-		}
 	}
 
 	public static class DynamicSegmentTree {
