@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-// 利用只支持单点增加 + 范围查询的动态开点线段树，解决leetcode 315
+// 利用只支持单点增加 + 范围查询的动态开点线段树（累加和），解决leetcode 315
 public class Problem_0315_CountOfSmallerNumbersAfterSelf {
 
 	public static class Node {

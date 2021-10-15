@@ -1,6 +1,6 @@
 package class47;
 
-// 同时支持范围增加 + 范围修改 + 范围查询的动态开点线段树
+// 同时支持范围增加 + 范围修改 + 范围查询的动态开点线段树（累加和）
 public class Code02_DynamicSegmentTree {
 
 	public static class Node {
