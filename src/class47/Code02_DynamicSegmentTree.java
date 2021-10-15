@@ -31,35 +31,33 @@ public class Code02_DynamicSegmentTree {
 		}
 
 		private void pushUp(Node c) {
-			c.sum = (c.left != null ? c.left.sum : 0) + (c.right != null ? c.right.sum : 0);
+			c.sum = c.left.sum + c.right.sum;
 		}
 
 		private void pushDown(Node p, int ln, int rn) {
-			if (p.update || p.lazy != 0) {
-				if (p.left == null) {
-					p.left = new Node();
-				}
-				if (p.right == null) {
-					p.right = new Node();
-				}
-				if (p.update) {
-					p.left.update = true;
-					p.right.update = true;
-					p.left.change = p.change;
-					p.right.change = p.change;
-					p.left.lazy = 0;
-					p.right.lazy = 0;
-					p.left.sum = p.change * ln;
-					p.right.sum = p.change * rn;
-					p.update = false;
-				}
-				if (p.lazy != 0) {
-					p.left.lazy += p.lazy;
-					p.right.lazy += p.lazy;
-					p.left.sum += p.lazy * ln;
-					p.right.sum += p.lazy * rn;
-					p.lazy = 0;
-				}
+			if (p.left == null) {
+				p.left = new Node();
+			}
+			if (p.right == null) {
+				p.right = new Node();
+			}
+			if (p.update) {
+				p.left.update = true;
+				p.right.update = true;
+				p.left.change = p.change;
+				p.right.change = p.change;
+				p.left.lazy = 0;
+				p.right.lazy = 0;
+				p.left.sum = p.change * ln;
+				p.right.sum = p.change * rn;
+				p.update = false;
+			}
+			if (p.lazy != 0) {
+				p.left.lazy += p.lazy;
+				p.right.lazy += p.lazy;
+				p.left.sum += p.lazy * ln;
+				p.right.sum += p.lazy * rn;
+				p.lazy = 0;
 			}
 		}
 
@@ -77,15 +75,9 @@ public class Code02_DynamicSegmentTree {
 				int mid = (l + r) >> 1;
 				pushDown(c, mid - l + 1, r - mid);
 				if (s <= mid) {
-					if (c.left == null) {
-						c.left = new Node();
-					}
 					update(c.left, l, mid, s, e, v);
 				}
 				if (e > mid) {
-					if (c.right == null) {
-						c.right = new Node();
-					}
 					update(c.right, mid + 1, r, s, e, v);
 				}
 				pushUp(c);
@@ -104,15 +96,9 @@ public class Code02_DynamicSegmentTree {
 				int mid = (l + r) >> 1;
 				pushDown(c, mid - l + 1, r - mid);
 				if (s <= mid) {
-					if (c.left == null) {
-						c.left = new Node();
-					}
 					add(c.left, l, mid, s, e, v);
 				}
 				if (e > mid) {
-					if (c.right == null) {
-						c.right = new Node();
-					}
 					add(c.right, mid + 1, r, s, e, v);
 				}
 				pushUp(c);
@@ -124,9 +110,6 @@ public class Code02_DynamicSegmentTree {
 		}
 
 		private int query(Node c, int l, int r, int s, int e) {
-			if (c == null) {
-				return 0;
-			}
 			if (s <= l && r <= e) {
 				return c.sum;
 			}
