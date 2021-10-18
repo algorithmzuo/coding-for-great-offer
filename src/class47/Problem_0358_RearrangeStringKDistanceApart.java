@@ -6,33 +6,23 @@ import java.util.Arrays;
 // 本题的解法思路与leetcode 621题 TaskScheduler 问题是一样的
 public class Problem_0358_RearrangeStringKDistanceApart {
 
-	public static class Count {
-		public int cha;
-		public int times;
-
-		public Count(int c, int t) {
-			cha = c;
-			times = t;
-		}
-	}
-
 	public String rearrangeString(String s, int k) {
 		if (s == null || s.length() < k) {
 			return s;
 		}
 		char[] str = s.toCharArray();
-		Count[] counts = new Count[256];
+		int[][] cnts = new int[256][2];
 		for (int i = 0; i < 256; i++) {
-			counts[i] = new Count(i, 0);
+			cnts[i] = new int[] { i, 0 };
 		}
 		int maxCount = 0;
 		for (char task : str) {
-			counts[task].times++;
-			maxCount = Math.max(maxCount, counts[task].times);
+			cnts[task][1]++;
+			maxCount = Math.max(maxCount, cnts[task][1]);
 		}
 		int maxKinds = 0;
 		for (int task = 0; task < 256; task++) {
-			if (counts[task].times == maxCount) {
+			if (cnts[task][1] == maxCount) {
 				maxKinds++;
 			}
 		}
@@ -44,19 +34,17 @@ public class Problem_0358_RearrangeStringKDistanceApart {
 		for (int i = 0; i < maxCount; i++) {
 			ans.add(new StringBuilder());
 		}
-		Arrays.sort(counts, (a, b) -> (b.times - a.times));
+		Arrays.sort(cnts, (a, b) -> (b[1] - a[1]));
 		int i = 0;
-		for (; i < 256 && counts[i].times == maxCount; i++) {
-			char cha = (char) counts[i].cha;
+		for (; i < 256 && cnts[i][1] == maxCount; i++) {
 			for (int j = 0; j < maxCount; j++) {
-				ans.get(j).append(cha);
+				ans.get(j).append((char) cnts[i][0]);
 			}
 		}
 		int out = 0;
 		for (; i < 256; i++) {
-			char cha = (char) counts[i].cha;
-			for (int j = 0; j < counts[i].times; j++) {
-				ans.get(out).append(cha);
+			for (int j = 0; j < cnts[i][1]; j++) {
+				ans.get(out).append((char) cnts[i][0]);
 				out = out == ans.size() - 2 ? 0 : out + 1;
 			}
 		}
