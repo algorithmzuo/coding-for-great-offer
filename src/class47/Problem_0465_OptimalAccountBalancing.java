@@ -35,7 +35,8 @@ public class Problem_0465_OptimalAccountBalancing {
 		return sum == 0 ? max + 1 : max;
 	}
 
-	// 记忆化搜索的解
+	// 上面的尝试过程 + 记忆化搜索
+	// 最优解
 	public static int minTransfers2(int[][] transactions) {
 		int[] debt = debts(transactions);
 		int N = debt.length;
@@ -92,6 +93,7 @@ public class Problem_0465_OptimalAccountBalancing {
 		return debt;
 	}
 
+	// 为了测试
 	public static int[][] randomTrans(int s, int n, int m) {
 		int[][] trans = new int[s][3];
 		for (int i = 0; i < s; i++) {
@@ -102,6 +104,7 @@ public class Problem_0465_OptimalAccountBalancing {
 		return trans;
 	}
 
+	// 为了测试
 	public static void main(String[] args) {
 		int s = 8;
 		int n = 8;

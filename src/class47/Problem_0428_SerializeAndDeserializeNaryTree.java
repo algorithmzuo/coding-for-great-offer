@@ -13,11 +13,12 @@ public class Problem_0428_SerializeAndDeserializeNaryTree {
 		public List<Node> children;
 
 		public Node() {
-
+			children = new ArrayList<>();
 		}
 
 		public Node(int _val) {
 			val = _val;
+			children = new ArrayList<>();
 		}
 
 		public Node(int _val, List<Node> _children) {
@@ -76,5 +77,26 @@ public class Problem_0428_SerializeAndDeserializeNaryTree {
 		}
 
 	}
+
+//	public static void main(String[] args) {
+//		如果想跑以下的code，请把Codec类描述和内部所有方法改成static的
+//		Node a = new Node(1);
+//		Node b = new Node(2);
+//		Node c = new Node(3);
+//		Node d = new Node(4);
+//		Node e = new Node(5);
+//		Node f = new Node(6);
+//		Node g = new Node(7);
+//		a.children.add(b);
+//		a.children.add(c);
+//		a.children.add(d);
+//		b.children.add(e);
+//		b.children.add(f);
+//		e.children.add(g);
+//		String content = Codec.serialize(a);
+//		System.out.println(content);
+//		Node head = Codec.deserialize(content);
+//		System.out.println(content.equals(Codec.serialize(head)));
+//	}
 
 }
