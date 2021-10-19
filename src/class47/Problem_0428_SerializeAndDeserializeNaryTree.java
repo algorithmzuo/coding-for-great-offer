@@ -28,10 +28,10 @@ public class Problem_0428_SerializeAndDeserializeNaryTree {
 	};
 
 	// 提交下面这个类
-	public class Codec {
+	public static class Codec {
 
-		public String serialize(Node root) {
-			if (root == null) {
+		public static String serialize(Node root) {
+			if (root == null) { // 空树！直接返回#
 				return "#";
 			}
 			StringBuilder builder = new StringBuilder();
@@ -39,7 +39,8 @@ public class Problem_0428_SerializeAndDeserializeNaryTree {
 			return builder.toString();
 		}
 
-		private void serial(StringBuilder builder, Node head) {
+		// 当前来到head
+		private static void serial(StringBuilder builder, Node head) {
 			builder.append(head.val + ",");
 			if (!head.children.isEmpty()) {
 				builder.append("[,");
@@ -50,7 +51,7 @@ public class Problem_0428_SerializeAndDeserializeNaryTree {
 			}
 		}
 
-		public Node deserialize(String data) {
+		public static Node deserialize(String data) {
 			if (data.equals("#")) {
 				return null;
 			}
@@ -62,7 +63,7 @@ public class Problem_0428_SerializeAndDeserializeNaryTree {
 			return deserial(queue);
 		}
 
-		private Node deserial(Queue<String> queue) {
+		private static Node deserial(Queue<String> queue) {
 			Node cur = new Node(Integer.valueOf(queue.poll()));
 			cur.children = new ArrayList<>();
 			if (!queue.isEmpty() && queue.peek().equals("[")) {
@@ -78,25 +79,25 @@ public class Problem_0428_SerializeAndDeserializeNaryTree {
 
 	}
 
-//	public static void main(String[] args) {
-//		如果想跑以下的code，请把Codec类描述和内部所有方法改成static的
-//		Node a = new Node(1);
-//		Node b = new Node(2);
-//		Node c = new Node(3);
-//		Node d = new Node(4);
-//		Node e = new Node(5);
-//		Node f = new Node(6);
-//		Node g = new Node(7);
-//		a.children.add(b);
-//		a.children.add(c);
-//		a.children.add(d);
-//		b.children.add(e);
-//		b.children.add(f);
-//		e.children.add(g);
-//		String content = Codec.serialize(a);
-//		System.out.println(content);
-//		Node head = Codec.deserialize(content);
-//		System.out.println(content.equals(Codec.serialize(head)));
-//	}
+	public static void main(String[] args) {
+		// 如果想跑以下的code，请把Codec类描述和内部所有方法改成static的
+		Node a = new Node(1);
+		Node b = new Node(2);
+		Node c = new Node(3);
+		Node d = new Node(4);
+		Node e = new Node(5);
+		Node f = new Node(6);
+		Node g = new Node(7);
+		a.children.add(b);
+		a.children.add(c);
+		a.children.add(d);
+		b.children.add(e);
+		b.children.add(f);
+		e.children.add(g);
+		String content = Codec.serialize(a);
+		System.out.println(content);
+		Node head = Codec.deserialize(content);
+		System.out.println(content.equals(Codec.serialize(head)));
+	}
 
 }
