@@ -1,5 +1,6 @@
 package class47;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 // 需要证明：
@@ -45,9 +46,7 @@ public class Problem_0465_OptimalAccountBalancing {
 			sum += num;
 		}
 		int[] dp = new int[1 << N];
-		for (int i = 0; i < dp.length; i++) {
-			dp[i] = -1;
-		}
+		Arrays.fill(dp, -1);
 		return N - process2(debt, (1 << N) - 1, sum, N, dp);
 	}
 

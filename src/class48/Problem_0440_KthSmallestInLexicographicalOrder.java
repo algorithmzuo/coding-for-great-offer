@@ -13,9 +13,9 @@ public class Problem_0440_KthSmallestInLexicographicalOrder {
 		int prefix = 0;
 		int pre = 0;
 		if (k <= left) {
-			prefix = ((k - 1) / k1[len]) + 1;
+			prefix = (k + k1[len] - 1) / k1[len];
 			pre = (prefix - 1) * k1[len];
-			return kth(prefix * k0[len] - 1 + k0[len], len, k - pre);
+			return kth((prefix + 1) * k0[len] - 1, len, k - pre);
 		}
 		int mid = k1[len - 1] + (n % k0[len]) + 1;
 		if (k - left <= mid) {
@@ -23,9 +23,9 @@ public class Problem_0440_KthSmallestInLexicographicalOrder {
 		}
 		k -= left + mid;
 		len--;
-		prefix = ((k - 1) / k1[len]) + first + 1;
+		prefix = (k + k1[len] - 1) / k1[len] + first;
 		pre = (prefix - first - 1) * k1[len];
-		return kth(prefix * k0[len] - 1 + k0[len], len, k - pre);
+		return kth((prefix + 1) * k0[len] - 1, len, k - pre);
 	}
 
 	// 求一个正数有几个十进制位
@@ -38,70 +38,44 @@ public class Problem_0440_KthSmallestInLexicographicalOrder {
 		return len;
 	}
 
-	public static int kth(int limit, int len, int k) {
-		boolean touchLimit = true;
+	public static int kth(int max, int len, int kth) {
+		boolean touchMax = true;
 		int offset = k0[len];
-		int prefix = limit / offset;
+		int prefix = max / offset;
 		int chooseNum = 0;
 		int limitNum = 0;
 		int left = 0;
 		int mid = 0;
-		for (len--, k--, limit %= offset, offset /= 10; k > 0; len--, k--, limit %= offset, offset /= 10) {
-			if (!touchLimit) {
-				chooseNum = (k - 1) / k1[len];
+		for (len--, kth--, max %= offset, offset /= 10; kth > 0; len--, kth--, max %= offset, offset /= 10) {
+			if (!touchMax) {
+				chooseNum = (kth - 1) / k1[len];
 				prefix = prefix * 10 + chooseNum;
-				k -= chooseNum * k1[len];
+				kth -= chooseNum * k1[len];
 			} else {
-				limitNum = offset > limit ? 0 : (limit / offset);
+				limitNum = offset > max ? 0 : (max / offset);
 				left = limitNum * k1[len];
-				if (k <= left) {
-					touchLimit = false;
-					chooseNum = (k - 1) / k1[len];
+				if (kth <= left) {
+					touchMax = false;
+					chooseNum = (kth - 1) / k1[len];
 					prefix = prefix * 10 + chooseNum;
-					k -= chooseNum * k1[len];
+					kth -= chooseNum * k1[len];
 					continue;
 				}
-				k -= left;
-				mid = k1[len - 1] + (limit % k0[len]) + 1;
-				if (k <= mid) {
+				kth -= left;
+				mid = k1[len - 1] + (max % k0[len]) + 1;
+				if (kth <= mid) {
 					prefix = prefix * 10 + limitNum;
 					continue;
 				}
-				touchLimit = false;
-				k -= mid;
+				touchMax = false;
+				kth -= mid;
 				len--;
-				chooseNum = (k - 1) / k1[len] + limitNum + 1;
+				chooseNum = (kth - 1) / k1[len] + limitNum + 1;
 				prefix = prefix * 10 + chooseNum;
-				k -= (chooseNum - limitNum - 1) * k1[len];
+				kth -= (chooseNum - limitNum - 1) * k1[len];
 			}
 		}
 		return prefix;
-	}
-
-	public static int findKthNumber2(int n, int k) {
-		int curr = 1;
-		k = k - 1;
-		while (k > 0) {
-			int steps = calSteps(n, curr, curr + 1);
-			if (steps <= k) {
-				curr += 1;
-				k -= steps;
-			} else {
-				curr *= 10;
-				k -= 1;
-			}
-		}
-		return curr;
-	}
-
-	public static int calSteps(int n, long n1, long n2) {
-		int steps = 0;
-		while (n1 <= n) {
-			steps += Math.min(n + 1, n2) - n1;
-			n1 *= 10;
-			n2 *= 10;
-		}
-		return steps;
 	}
 
 }
