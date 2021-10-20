@@ -56,14 +56,14 @@ public class Code01_MinKthPairMinusABS {
 	// 如果 x < k，达标，返回true
 	// 如果 x >= k，不达标，返回false
 	public static boolean valid(int[] arr, int limit, int k) {
-		int num = 0;
+		int x = 0;
 		for (int l = 0, r = 1; l < arr.length; r = Math.max(r, ++l)) {
 			while (r < arr.length && arr[r] - arr[l] <= limit) {
 				r++;
 			}
-			num += r - l - 1;
+			x += r - l - 1;
 		}
-		return num < k;
+		return x < k;
 	}
 
 	// 为了测试
