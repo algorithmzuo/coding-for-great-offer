@@ -34,10 +34,11 @@ public class Problem_0472_ConcatenatedWords {
 		if (words == null || words.length < 3) {
 			return ans;
 		}
+		// 字符串数量 >= 3个
 		Arrays.sort(words, (str1, str2) -> str1.length() - str2.length());
 		TrieNode root = new TrieNode();
 		for (String str : words) {
-			char[] s = str.toCharArray();
+			char[] s = str.toCharArray(); // "" 题目要求
 			if (s.length > 0 && split1(s, root, 0)) {
 				ans.add(str);
 			} else {
@@ -47,12 +48,16 @@ public class Problem_0472_ConcatenatedWords {
 		return ans;
 	}
 
+	// 字符串s[i....]能不能被分解？
+	// 之前的元件，全在前缀树上，r就是前缀树头节点
 	public static boolean split1(char[] s, TrieNode r, int i) {
 		boolean ans = false;
-		if (i == s.length) {
+		if (i == s.length) { // 没字符了！
 			ans = true;
-		} else {
+		} else { // 还有字符
 			TrieNode c = r;
+			// s[i.....]
+			// s[i..end]作前缀，看看是不是一个元件！f(end+1)...
 			for (int end = i; end < s.length; end++) {
 				int path = s[end] - 'a';
 				if (c.nexts[path] == null) {

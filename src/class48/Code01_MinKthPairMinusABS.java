@@ -13,6 +13,7 @@ import java.util.Arrays;
 // 返回2
 public class Code01_MinKthPairMinusABS {
 
+	// 暴力解，生成所有数字对差值绝对值，排序，拿出第k个，k从1开始
 	public static int kthABS1(int[] arr, int k) {
 		int n = arr.length;
 		int m = ((n - 1) * n) >> 1;
@@ -30,18 +31,22 @@ public class Code01_MinKthPairMinusABS {
 		return abs[k - 1];
 	}
 
+	// 二分 + 不回退
 	public static int kthABS2(int[] arr, int k) {
 		int n = arr.length;
 		if (n < 2 || k < 1 || k > ((n * (n - 1)) >> 1)) {
 			return -1;
 		}
 		Arrays.sort(arr);
+		// 0 ~ 大-小 二分
+		// l  ~  r
 		int left = 0;
 		int right = arr[n - 1] - arr[0];
 		int mid = 0;
 		int rightest = -1;
 		while (left <= right) {
 			mid = (left + right) / 2;
+			// 数字对差值的绝对值<=mid的数字对个数，是不是 < k个的！
 			if (valid(arr, mid, k)) {
 				rightest = mid;
 				left = mid + 1;
