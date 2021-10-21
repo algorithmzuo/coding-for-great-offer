@@ -1,4 +1,4 @@
-package class48;
+package class49;
 
 public class Problem_0564_FindTheClosestPalindrome {
 

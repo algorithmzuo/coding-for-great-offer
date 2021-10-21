@@ -39,40 +39,37 @@ public class Problem_0440_KthSmallestInLexicographicalOrder {
 	}
 
 	public static int kth(int max, int len, int kth) {
-		boolean touchMax = true;
+		boolean closeMax = true;
 		int offset = k0[len];
 		int prefix = max / offset;
-		int chooseNum = 0;
-		int limitNum = 0;
-		int left = 0;
-		int mid = 0;
 		for (len--, kth--, max %= offset, offset /= 10; kth > 0; len--, kth--, max %= offset, offset /= 10) {
-			if (!touchMax) {
-				chooseNum = (kth - 1) / k1[len];
-				prefix = prefix * 10 + chooseNum;
-				kth -= chooseNum * k1[len];
+			int pick = 0;
+			if (!closeMax) {
+				pick = (kth - 1) / k1[len];
+				prefix = prefix * 10 + pick;
+				kth -= pick * k1[len];
 			} else {
-				limitNum = offset > max ? 0 : (max / offset);
-				left = limitNum * k1[len];
+				int first = max / offset;
+				int left = first * k1[len];
 				if (kth <= left) {
-					touchMax = false;
-					chooseNum = (kth - 1) / k1[len];
-					prefix = prefix * 10 + chooseNum;
-					kth -= chooseNum * k1[len];
+					closeMax = false;
+					pick = (kth - 1) / k1[len];
+					prefix = prefix * 10 + pick;
+					kth -= pick * k1[len];
 					continue;
 				}
 				kth -= left;
-				mid = k1[len - 1] + (max % k0[len]) + 1;
+				int mid = k1[len - 1] + (max % k0[len]) + 1;
 				if (kth <= mid) {
-					prefix = prefix * 10 + limitNum;
+					prefix = prefix * 10 + first;
 					continue;
 				}
-				touchMax = false;
+				closeMax = false;
 				kth -= mid;
 				len--;
-				chooseNum = (kth - 1) / k1[len] + limitNum + 1;
-				prefix = prefix * 10 + chooseNum;
-				kth -= (chooseNum - limitNum - 1) * k1[len];
+				pick = (kth + k1[len] - 1) / k1[len] + first;
+				prefix = prefix * 10 + pick;
+				kth -= (pick - first - 1) * k1[len];
 			}
 		}
 		return prefix;

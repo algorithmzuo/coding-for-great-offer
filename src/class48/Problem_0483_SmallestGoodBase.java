@@ -1,35 +1,30 @@
 package class48;
 
-import java.math.BigInteger;
-
 public class Problem_0483_SmallestGoodBase {
 
-	public static String smallestGoodBase(String str) {
-		long n = Long.valueOf(str);
-		BigInteger N = BigInteger.valueOf(n);
-		for (int s = 62; s > 2; s--) {
-			long l = 2;
-			long r = n - 1;
+	public static String smallestGoodBase(String n) {
+		long num = Long.valueOf(n);
+		for (int m = (int) (Math.log(num + 1) / Math.log(2)); m > 2; m--) {
+			long l = (long) (Math.pow(num, 1.0 / m));
+			long r = (long) (Math.pow(num, 1.0 / (m - 1))) + 1L;
 			while (l <= r) {
-				long m = l + ((r - l) >> 1);
-				BigInteger M = BigInteger.valueOf(m);
-				BigInteger ans = BigInteger.valueOf(1);
-				BigInteger add = BigInteger.valueOf(m);
-				for (int i = 1; i < s && ans.compareTo(N) < 0; i++) {
-					ans = ans.add(add);
-					add = add.multiply(M);
+				long k = l + ((r - l) >> 1);
+				long sum = 0L;
+				long base = 1L;
+				for (int i = 0; i < m && sum <= num; i++) {
+					sum += base;
+					base *= k;
 				}
-				int comp = ans.compareTo(N);
-				if (comp == 0) {
-					return String.valueOf(m);
-				} else if (comp < 0) {
-					l = m + 1;
+				if (sum < num) {
+					l = k + 1;
+				} else if (sum > num) {
+					r = k - 1;
 				} else {
-					r = m - 1;
+					return String.valueOf(k);
 				}
 			}
 		}
-		return String.valueOf(n - 1);
+		return String.valueOf(num - 1);
 	}
 
 }
