@@ -2,33 +2,32 @@ package class48;
 
 public class Problem_0440_KthSmallestInLexicographicalOrder {
 
-	public static int[] k0 = { 0, 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000 };
+	public static int[] offset = { 0, 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000 };
 
-	public static int[] k1 = { 0, 1, 11, 111, 1111, 11111, 111111, 1111111, 11111111, 111111111, 1111111111 };
+	public static int[] number = { 0, 1, 11, 111, 1111, 11111, 111111, 1111111, 11111111, 111111111, 1111111111 };
 
 	public static int findKthNumber(int n, int k) {
 		int len = len(n);
-		int first = n / k0[len];
-		int left = (first - 1) * k1[len];
-		int prefix = 0;
-		int pre = 0;
+		int first = n / offset[len];
+		int left = (first - 1) * number[len];
+		int pick = 0;
+		int already = 0;
 		if (k <= left) {
-			prefix = (k + k1[len] - 1) / k1[len];
-			pre = (prefix - 1) * k1[len];
-			return kth((prefix + 1) * k0[len] - 1, len, k - pre);
+			pick = (k + number[len] - 1) / number[len];
+			already = (pick - 1) * number[len];
+			return kth((pick + 1) * offset[len] - 1, len, k - already);
 		}
-		int mid = k1[len - 1] + (n % k0[len]) + 1;
+		int mid = number[len - 1] + (n % offset[len]) + 1;
 		if (k - left <= mid) {
 			return kth(n, len, k - left);
 		}
 		k -= left + mid;
 		len--;
-		prefix = (k + k1[len] - 1) / k1[len] + first;
-		pre = (prefix - first - 1) * k1[len];
-		return kth((prefix + 1) * k0[len] - 1, len, k - pre);
+		pick = (k + number[len] - 1) / number[len] + first;
+		already = (pick - first - 1) * number[len];
+		return kth((pick + 1) * offset[len] - 1, len, k - already);
 	}
 
-	// 求一个正数有几个十进制位
 	public static int len(int n) {
 		int len = 0;
 		while (n != 0) {
@@ -39,40 +38,40 @@ public class Problem_0440_KthSmallestInLexicographicalOrder {
 	}
 
 	public static int kth(int max, int len, int kth) {
-		boolean closeMax = true;
-		int offset = k0[len];
-		int prefix = max / offset;
-		for (len--, kth--, max %= offset, offset /= 10; kth > 0; len--, kth--, max %= offset, offset /= 10) {
+		boolean closeToMax = true;
+		int ans = max / offset[len];
+		while (--kth > 0) {
+			max %= offset[len--];
 			int pick = 0;
-			if (!closeMax) {
-				pick = (kth - 1) / k1[len];
-				prefix = prefix * 10 + pick;
-				kth -= pick * k1[len];
+			if (!closeToMax) {
+				pick = (kth - 1) / number[len];
+				ans = ans * 10 + pick;
+				kth -= pick * number[len];
 			} else {
-				int first = max / offset;
-				int left = first * k1[len];
+				int first = max / offset[len];
+				int left = first * number[len];
 				if (kth <= left) {
-					closeMax = false;
-					pick = (kth - 1) / k1[len];
-					prefix = prefix * 10 + pick;
-					kth -= pick * k1[len];
+					closeToMax = false;
+					pick = (kth - 1) / number[len];
+					ans = ans * 10 + pick;
+					kth -= pick * number[len];
 					continue;
 				}
 				kth -= left;
-				int mid = k1[len - 1] + (max % k0[len]) + 1;
+				int mid = number[len - 1] + (max % offset[len]) + 1;
 				if (kth <= mid) {
-					prefix = prefix * 10 + first;
+					ans = ans * 10 + first;
 					continue;
 				}
-				closeMax = false;
+				closeToMax = false;
 				kth -= mid;
 				len--;
-				pick = (kth + k1[len] - 1) / k1[len] + first;
-				prefix = prefix * 10 + pick;
-				kth -= (pick - first - 1) * k1[len];
+				pick = (kth + number[len] - 1) / number[len] + first;
+				ans = ans * 10 + pick;
+				kth -= (pick - first - 1) * number[len];
 			}
 		}
-		return prefix;
+		return ans;
 	}
 
 }
