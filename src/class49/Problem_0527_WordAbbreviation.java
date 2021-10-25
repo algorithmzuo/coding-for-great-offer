@@ -9,15 +9,14 @@ public class Problem_0527_WordAbbreviation {
 	public static List<String> wordsAbbreviation(List<String> words) {
 		int len = words.size();
 		List<String> res = new ArrayList<>();
-		int[] prefix = new int[len];
 		HashMap<String, List<Integer>> map = new HashMap<>();
 		for (int i = 0; i < len; i++) {
-			prefix[i] = 0;
 			res.add(makeAbbr(words.get(i), 1));
 			List<Integer> list = map.getOrDefault(res.get(i), new ArrayList<>());
 			list.add(i);
 			map.put(res.get(i), list);
 		}
+		int[] prefix = new int[len];
 		for (int i = 0; i < len; i++) {
 			if (map.get(res.get(i)).size() > 1) {
 				List<Integer> indexes = map.get(res.get(i));

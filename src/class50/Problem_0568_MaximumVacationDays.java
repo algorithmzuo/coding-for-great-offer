@@ -1,4 +1,4 @@
-package class49;
+package class50;
 
 public class Problem_0568_MaximumVacationDays {
 

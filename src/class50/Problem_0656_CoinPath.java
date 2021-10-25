@@ -1,4 +1,4 @@
-package class49;
+package class50;
 
 import java.util.Arrays;
 import java.util.LinkedList;
