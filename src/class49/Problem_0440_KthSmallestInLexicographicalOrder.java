@@ -1,5 +1,8 @@
 package class49;
 
+// 这道题在leetcode上，所有题解都只能做到O( (logN) 平方)的解
+// 我们课上讲的是O(logN)的解
+// 打败所有题解
 public class Problem_0440_KthSmallestInLexicographicalOrder {
 
 	public static int[] offset = { 0, 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000 };
@@ -7,12 +10,17 @@ public class Problem_0440_KthSmallestInLexicographicalOrder {
 	public static int[] number = { 0, 1, 11, 111, 1111, 11111, 111111, 1111111, 11111111, 111111111, 1111111111 };
 
 	public static int findKthNumber(int n, int k) {
+		// 数字num，有几位，len位
+		// 65237, 5位，len = 5
 		int len = len(n);
+		// 65237, 开头数字，6，first
 		int first = n / offset[len];
+		// 65237，左边有几个？
 		int left = (first - 1) * number[len];
 		int pick = 0;
 		int already = 0;
 		if (k <= left) {
+			// k / a 向上取整-> (k + a - 1) / a
 			pick = (k + number[len] - 1) / number[len];
 			already = (pick - 1) * number[len];
 			return kth((pick + 1) * offset[len] - 1, len, k - already);
@@ -38,6 +46,8 @@ public class Problem_0440_KthSmallestInLexicographicalOrder {
 	}
 
 	public static int kth(int max, int len, int kth) {
+		// 中间范围还管不管的着！
+		// 有任何一步，中间位置如果管不着了！以后都管不着了！
 		boolean closeToMax = true;
 		int ans = max / offset[len];
 		while (--kth > 0) {
