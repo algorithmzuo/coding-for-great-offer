@@ -47,7 +47,8 @@ public class Problem_0440_KthSmallestInLexicographicalOrder {
 
 	public static int kth(int max, int len, int kth) {
 		// 中间范围还管不管的着！
-		// 有任何一步，中间位置如果管不着了！以后都管不着了！
+		// 有任何一步，中间位置没命中，左或者右命中了，那以后就都管不着了！
+		// 但是开始时，肯定是管的着的！
 		boolean closeToMax = true;
 		int ans = max / offset[len];
 		while (--kth > 0) {
