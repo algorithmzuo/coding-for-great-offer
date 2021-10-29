@@ -1,4 +1,4 @@
-package class50;
+package class51;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -19,7 +19,7 @@ public class Problem_0656_CoinPath {
 				for (int j = Math.max(0, i - jump); j < i; j++) {
 					if (arr[j] != -1) {
 						int cur = best[j] + arr[i];
-						if (cur < best[i] || (cur == best[i] && size[i] < size[j] + 1)) {
+						if (cur < best[i] || (cur == best[i] && size[i] - 1 < size[j])) {
 							best[i] = cur;
 							last[i] = j;
 							size[i] = size[j] + 1;

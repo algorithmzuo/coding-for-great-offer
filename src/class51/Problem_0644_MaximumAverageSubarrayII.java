@@ -1,4 +1,4 @@
-package class50;
+package class51;
 
 public class Problem_0644_MaximumAverageSubarrayII {
 
