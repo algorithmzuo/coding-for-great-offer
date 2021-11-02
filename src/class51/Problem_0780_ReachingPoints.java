@@ -1,4 +1,4 @@
-package class52;
+package class51;
 
 public class Problem_0780_ReachingPoints {
 
@@ -26,7 +26,7 @@ public class Problem_0780_ReachingPoints {
 				tx %= ty;
 			}
 		}
-		return sx == tx && sy <= ty && (ty - sy) % sx == 0 || sy == ty && sx <= tx && (tx - sx) % sy == 0;
+		return (sx == tx && sy <= ty && (ty - sy) % sx == 0) || (sy == ty && sx <= tx && (tx - sx) % sy == 0);
 	}
 
 }

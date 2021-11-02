@@ -55,7 +55,10 @@ public class Problem_0675_CutOffTreesForGolfEvent {
 					if (nr == tr && nc == tc) {
 						return step + 1;
 					}
-					boolean closer = (di == 0 && r > tr) || (di == 1 && r < tr) || (di == 2 && c > tc)
+					boolean closer = 
+							(di == 0 && r > tr) 
+							|| (di == 1 && r < tr) 
+							|| (di == 2 && c > tc)
 							|| (di == 3 && c < tc);
 					if (forest.get(nr).get(nc) > 0) {
 						if (closer) {
