@@ -16,10 +16,11 @@ public class LCP_0003_Robot {
 			Y += c == 'U' ? 1 : 0;
 			set.add((X << 10) | Y);
 		}
+		// 不考虑任何额外的点，机器人能不能到达，(x，y)
 		if (!meet1(x, y, X, Y, set)) {
 			return false;
 		}
-		for (int[] ob : obstacles) {
+		for (int[] ob : obstacles) { // ob[0] ob[1]
 			if (ob[0] <= x && ob[1] <= y && meet1(ob[0], ob[1], X, Y, set)) {
 				return false;
 			}
@@ -27,15 +28,23 @@ public class LCP_0003_Robot {
 		return true;
 	}
 
+	// 一轮以内，X，往右一共有几个单位
+	// Y, 往上一共有几个单位
+	// set, 一轮以内的所有可能性
+	// (x,y)要去的点
+	// 机器人从(0,0)位置，能不能走到(x,y)
 	public static boolean meet1(int x, int y, int X, int Y, HashSet<Integer> set) {
-		if (X == 0) {
-			return x == 0 && set.contains(y % Y);
+		if (X == 0) { // Y != 0 往上肯定走了！
+			return x == 0;
 		}
 		if (Y == 0) {
-			return y == 0 && set.contains((x % X) << 10);
+			return y == 0;
 		}
+		// 至少几轮？
 		int atLeast = Math.min(x / X, y / Y);
+		// 经历过最少轮数后，x剩多少？
 		int rx = x - atLeast * X;
+		// 经历过最少轮数后，y剩多少？
 		int ry = y - atLeast * Y;
 		return set.contains((rx << 10) | ry);
 	}
@@ -77,10 +86,10 @@ public class LCP_0003_Robot {
 
 	public static boolean meet2(int x, int y, int X, int Y) {
 		if (X == 0) {
-			return x == 0 && contains(y % Y);
+			return x == 0;
 		}
 		if (Y == 0) {
-			return y == 0 && contains((x % X) << 10);
+			return y == 0;
 		}
 		int atLeast = Math.min(x / X, y / Y);
 		int rx = x - atLeast * X;
@@ -94,6 +103,42 @@ public class LCP_0003_Robot {
 
 	public static boolean contains(int status) {
 		return (status < bits) && (set[status >> 5] & (1 << (status & 31))) != 0;
+	}
+
+	// int num -> 32位的状态
+	// 请打印这32位状态
+	public static void printBinary(int num) {
+		for (int i = 31; i >= 0; i--) {
+			System.out.print((num & (1 << i)) != 0 ? "1" : "0");
+		}
+		System.out.println();
+	}
+
+	public static void main(String[] args) {
+		int x = 7;
+		printBinary(x);
+
+		int y = 4;
+
+		printBinary(y);
+
+		// x_y 组合！
+		int c = (x << 10) | y;
+		printBinary(c);
+
+		System.out.println(c);
+
+		// 0 ~ 1048575 任何一个数，bit来表示的！
+//		int[] set = new int[32768];
+//		set[0] = int  32 位   0~31这些数出现过没出现过
+//		set[1] = int  32 位   32~63这些数出现过没出现过
+
+		// 0 ~ 1048575
+//		int[] set = new int[32768];
+//		int num = 738473; // 32 bit int
+////		set[  734873 / 32   ] // 734873 % 32
+//		boolean exist = (set[num / 32] & (1 << (num % 32))) != 0;
+
 	}
 
 }
