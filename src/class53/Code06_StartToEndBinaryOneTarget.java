@@ -68,6 +68,8 @@ public class Code06_StartToEndBinaryOneTarget {
 	// 返回[index...0]上，有多少合法的决定
 	// 这个方法可以改动态规划，因为：index范围62~0, less范围0或者1，rest范围0~target
 	// 自己改动态规划吧
+	// 只有index、less、rest这三个有效可变参数、num是固定参数
+	// 所以可以改成三维动态规划
 	public static long process(int index, int less, int rest, long num) {
 		if (rest > index + 1) {
 			return 0;
