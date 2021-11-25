@@ -1,5 +1,9 @@
 package class37;
 
+// 注意，我们课上讲了一个别的题，并不是leetcode 114
+// 我们课上讲的是，把一棵搜索二叉树变成有序链表，怎么做
+// 而leetcode 114是，把一棵树先序遍历的结果串成链表
+// 所以我更新了代码，这个代码是leetcode 114的实现
 // 利用morris遍历
 public class Problem_0114_FlattenBinaryTreeToLinkedList {
 
@@ -15,11 +19,8 @@ public class Problem_0114_FlattenBinaryTreeToLinkedList {
 	}
 
 	// 普通解
-	public static TreeNode convert(TreeNode head) {
-		if (head == null) {
-			return null;
-		}
-		return process(head).head;
+	public static void flatten1(TreeNode root) {
+		process(root);
 	}
 
 	public static class Info {
@@ -32,27 +33,22 @@ public class Problem_0114_FlattenBinaryTreeToLinkedList {
 		}
 	}
 
-	public static Info process(TreeNode x) {
-		if (x == null) {
+	public static Info process(TreeNode head) {
+		if (head == null) {
 			return null;
 		}
-		Info leftInfo = process(x.left);
-		Info rightInfo = process(x.right);
-		// 2...4 5 6...13
-		if (leftInfo != null) {
-			leftInfo.tail.right = x;
-			x.left = leftInfo.tail;
-		}
-		if (rightInfo != null) {
-			x.right = rightInfo.head;
-			rightInfo.head.left = x;
-		}
-		TreeNode head = leftInfo != null ? leftInfo.head : x;
-		TreeNode tail = rightInfo != null ? rightInfo.tail : x;
+		Info leftInfo = process(head.left);
+		Info rightInfo = process(head.right);
+		head.left = null;
+		head.right = leftInfo == null ? null : leftInfo.head;
+		TreeNode tail = leftInfo == null ? head : leftInfo.tail;
+		tail.right = rightInfo == null ? null : rightInfo.head;
+		tail = rightInfo == null ? tail : rightInfo.tail;
 		return new Info(head, tail);
 	}
 
-	public static void flatten(TreeNode root) {
+	// Morris遍历的解
+	public static void flatten2(TreeNode root) {
 		if (root == null) {
 			return;
 		}
@@ -91,24 +87,6 @@ public class Problem_0114_FlattenBinaryTreeToLinkedList {
 			cur.left = null;
 			cur.right = next;
 			cur = next;
-		}
-	}
-
-	public static void main(String[] args) {
-		TreeNode head = new TreeNode(1);
-		head.left = new TreeNode(2);
-		head.left.left = new TreeNode(3);
-		head.left.right = new TreeNode(4);
-		head.right = new TreeNode(5);
-		head.right.left = new TreeNode(6);
-		head.right.right = new TreeNode(7);
-
-		flatten(head);
-
-		while (head != null) {
-			System.out.println(head.val);
-			System.out.println(head.left);
-			head = head.right;
 		}
 	}
 
