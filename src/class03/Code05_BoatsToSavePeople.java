@@ -7,9 +7,10 @@ import java.util.Arrays;
 // 每艘船最多坐两人，且不能超过载重
 // 想让所有的人同时过河，并且用最好的分配方法让船尽量少
 // 返回最少的船数
-public class Code05_MinBoat {
+// 测试链接 : https://leetcode.com/problems/boats-to-save-people/
+public class Code05_BoatsToSavePeople {
 
-	public static int minBoat(int[] arr, int limit) {
+	public static int numRescueBoats(int[] arr, int limit) {
 		if (arr == null || arr.length == 0) {
 			return 0;
 		}
@@ -49,7 +50,5 @@ public class Code05_MinBoat {
 		int moreUnsolved = (N - all) - used;
 		return used + ((noUsed + 1) >> 1) + moreUnsolved;
 	}
-
-	// 练习 : 自己补出对数器，这包括一个暴力方法，和生成随机数据发生器的，以及main函数做验证
 
 }
