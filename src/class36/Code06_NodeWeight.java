@@ -38,7 +38,7 @@ public class Code06_NodeWeight {
 		for (int child : m[h]) {
 			w(child, m, w, c);
 			colors.put(c[child], colors.getOrDefault(c[child], 0) + 1);
-			weihts.put(c[child], weihts.getOrDefault(c[child], 0) + w[c[child]]);
+			weihts.put(c[child], weihts.getOrDefault(c[child], 0) + w[child]);
 		}
 		for (int color : colors.keySet()) {
 			w[h] = Math.max(w[h], colors.get(color) + weihts.get(color));
