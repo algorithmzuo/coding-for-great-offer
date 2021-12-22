@@ -1,5 +1,6 @@
 package class17;
 
+// 测试链接 : https://leetcode-cn.com/problems/21dk04/
 public class Code04_DistinctSubseq {
 
 	public static int numDistinct1(String S, String T) {
