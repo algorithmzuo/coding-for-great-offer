@@ -10,7 +10,7 @@ import java.util.Arrays;
 // 2, 一艘船如果坐2人，两个人的体重相加需要是偶数，且总体重不能超过船的载重
 // 3, 一艘船最多坐2人
 // 返回如果想所有人同时坐船，船的最小数量
-public class Code09_MinBoatEvenNumbers {
+public class Code08_MinBoatEvenNumbers {
 
 	public static int minBoat(int[] arr, int limit) {
 		Arrays.sort(arr);

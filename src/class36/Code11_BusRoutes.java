@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 // 来自三七互娱
 // Leetcode原题 : https://leetcode.com/problems/bus-routes/
-public class Code12_BusRoutes {
+public class Code11_BusRoutes {
 
 	// 0 : [1,3,7,0]
 	// 1 : [7,9,6,2]

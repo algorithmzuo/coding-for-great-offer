@@ -10,7 +10,7 @@ import java.util.Arrays;
 // 当拿走5时，获得5分，数组变成[9]
 // 当拿走9时，获得9分，数组变成[]
 // 这是最大的拿取方式，返回总分17
-public class Code08_PickAddMax {
+public class Code07_PickAddMax {
 
 	// 最优解
 	public static int pick(int[] arr) {
