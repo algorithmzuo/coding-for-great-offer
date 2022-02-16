@@ -2,6 +2,7 @@ package class34;
 
 import java.util.HashMap;
 
+// 测试链接 : https://leetcode.com/problems/insert-delete-getrandom-o1/
 public class Problem_0380_InsertDeleteGetRandom {
 
 	public class RandomizedSet {
