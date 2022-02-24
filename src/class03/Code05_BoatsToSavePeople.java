@@ -10,7 +10,7 @@ import java.util.Arrays;
 // 测试链接 : https://leetcode.com/problems/boats-to-save-people/
 public class Code05_BoatsToSavePeople {
 
-	public static int numRescueBoats(int[] arr, int limit) {
+	public static int numRescueBoats1(int[] arr, int limit) {
 		if (arr == null || arr.length == 0) {
 			return 0;
 		}
@@ -49,6 +49,28 @@ public class Code05_BoatsToSavePeople {
 		int used = all - noUsed;
 		int moreUnsolved = (N - all) - used;
 		return used + ((noUsed + 1) >> 1) + moreUnsolved;
+	}
+
+	// 首尾双指针的解法
+	public static int numRescueBoats2(int[] people, int limit) {
+		Arrays.sort(people);
+		int ans = 0;
+		int l = 0;
+		int r = people.length - 1;
+		int no = people.length;
+		int both = 0;
+		while (l <= r) {
+			both = l == r ? people[l] : people[l] + people[r];
+			if (both > limit) {
+				r--;
+			} else {
+				ans += no - r;
+				no = r;
+				l++;
+				r--;
+			}
+		}
+		return ans;
 	}
 
 }
