@@ -57,18 +57,16 @@ public class Code05_BoatsToSavePeople {
 		int ans = 0;
 		int l = 0;
 		int r = people.length - 1;
-		int no = people.length;
-		int both = 0;
+		int sum = 0;
 		while (l <= r) {
-			both = l == r ? people[l] : people[l] + people[r];
-			if (both > limit) {
+			sum = l == r ? people[l] : people[l] + people[r];
+			if (sum > limit) {
 				r--;
 			} else {
-				ans += no - r;
-				no = r;
 				l++;
 				r--;
 			}
+			ans++;
 		}
 		return ans;
 	}
