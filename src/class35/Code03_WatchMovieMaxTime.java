@@ -63,6 +63,40 @@ public class Code03_WatchMovieMaxTime {
 	}
 
 	// 记忆化搜索的动态规划
+	public static int maxEnjoy3(int[][] movies) {
+		Arrays.sort(movies, (a, b) -> a[0] != b[0] ? (a[0] - b[0]) : (a[1] - b[1]));
+
+		int max = 0;
+		for (int[] movie : movies) {
+			max = Math.max(max, movie[1]);
+		}
+
+		int[][][] dp = new int[movies.length][max + 1][4];
+		for (int i = 0; i < movies.length; i++) {
+			for (int j = 0; j <= max; j++) {
+				for (int k = 0; k <= 3; k++) {
+					dp[i][j][k] = -2;// 用-2代表没算过这个过程
+				}
+			}
+		}
+		return process3(movies, 0, 0, 3, dp);
+	}
+
+	public static int process3(int[][] movies, int index, int time, int rest, int[][][] dp) {
+		if (index == movies.length) {
+			return rest == 0 ? 0 : -1;
+		}
+		if (dp[index][time][rest] != -2) {
+			return dp[index][time][rest];
+		}
+		int p1 = process3(movies, index + 1, time, rest, dp);
+		int next = movies[index][0] >= time && rest > 0 ? process3(movies, index + 1, movies[index][1], rest - 1, dp)
+				: -1;
+		int p2 = next != -1 ? (movies[index][1] - movies[index][0] + next) : -1;
+		int ans = Math.max(p1, p2);
+		dp[index][time][rest] = ans;
+		return ans;
+	}
 
 	// 为了测试
 	public static int[][] randomMovies(int len, int time) {
@@ -86,7 +120,8 @@ public class Code03_WatchMovieMaxTime {
 			int[][] movies = randomMovies(len, t);
 			int ans1 = maxEnjoy1(movies);
 			int ans2 = maxEnjoy2(movies);
-			if (ans1 != ans2) {
+			int ans3 = maxEnjoy3(movies);
+			if (ans1 != ans2 || ans1 != ans3) {
 				for (int[] m : movies) {
 					System.out.println(m[0] + " , " + m[1]);
 				}
