@@ -17,6 +17,10 @@ public class Code01_LongestSubstringWithoutRepeatingCharacters {
 		int ans = 1;
 		int pre = 1;
 		for (int i = 1; i < N; i++) {
+			// 假设后面的字符都不重复，最大值为pre+N-i，若还小于以求的最大值，则后面的位置不需要计算
+            if (pre + N - i < longestLength) {
+                break;
+            }
 			pre = Math.min(i - map[str[i]], pre + 1);
 			ans = Math.max(ans, pre);
 			map[str[i]] = i;
