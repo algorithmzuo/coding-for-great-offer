@@ -68,6 +68,7 @@ public class Code06_AOE {
 	// 2) 然后向右找下一个没死的怪物，重复步骤1)
 	public static int minAoe2(int[] x, int[] hp, int range) {
 		int n = x.length;
+        // cover[i]表示元素i为AOE最左侧点时，能否覆盖的最右侧元素的位置
 		int[] cover = new int[n];
 		int r = 0;
 		for (int i = 0; i < n; i++) {
@@ -80,7 +81,7 @@ public class Code06_AOE {
 		for (int i = 0; i < n; i++) {
 			if (hp[i] > 0) {
 				int minus = hp[i];
-				for (int index = i; index < cover[i]; index++) {
+				for (int index = i; index <= cover[i]; index++) {
 					hp[index] -= minus;
 				}
 				ans += minus;
