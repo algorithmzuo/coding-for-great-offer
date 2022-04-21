@@ -236,6 +236,29 @@ public class Code06_AOE {
 			}
 		}
 		System.out.println("测试结束");
+
+		N = 500000;
+		long start;
+		long end;
+		int[] x2 = randomArray(N, N);
+		Arrays.sort(x2);
+		int[] hp2 = new int[N];
+		for (int i = 0; i < N; i++) {
+			hp2[i] = i * 5 + 10;
+		}
+		int[] x3 = copyArray(x2);
+		int[] hp3 = copyArray(hp2);
+		int range = 10000;
+
+		start = System.currentTimeMillis();
+		System.out.println(minAoe2(x2, hp2, range));
+		end = System.currentTimeMillis();
+		System.out.println("运行时间 : " + (end - start) + " 毫秒");
+
+		start = System.currentTimeMillis();
+		System.out.println(minAoe3(x3, hp3, range));
+		end = System.currentTimeMillis();
+		System.out.println("运行时间 : " + (end - start) + " 毫秒");
 	}
 
 }

@@ -19,7 +19,7 @@ public class Code02_LeftRightSameTreeNumber {
 		if (head == null) {
 			return 0;
 		}
-		return sameNumber1(head.left) + sameNumber2(head.right) + (same(head.left, head.right) ? 1 : 0);
+		return sameNumber1(head.left) + sameNumber1(head.right) + (same(head.left, head.right) ? 1 : 0);
 	}
 
 	public static boolean same(Node h1, Node h2) {
