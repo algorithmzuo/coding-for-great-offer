@@ -177,6 +177,67 @@ public class Code04_DeleteMinCost {
 		return ans;
 	}
 
+	// 解法二的优化，加入贪心的思想
+	public int minCost2_3(String s1, String s2) {
+		// 求S1的所有字串
+		List<String> substrings = new ArrayList<>();
+		for (int i = 0; i <= s1.length(); i++) {
+			for (int j = i; j <= s1.length(); j++) {
+				substrings.add(s1.substring(i, j));
+			}
+		}
+		// 对s1字串按长度降序排列
+		substrings.sort(new Comparator<>() {
+			@Override
+			public int compare(String o1, String o2) {
+				return o2.length() - o1.length();
+			}
+		});
+
+		// 对s1字串从长到短依次计算：s2到子串的只能删除的编辑距离，存在编辑距离即返回
+		for (String s : substrings) {
+			int distance = deleteDistance(s2, s);
+			// 如果编辑距离存在，则为 len(s) - len(s2)，对于比s短的字串，即使存在编辑距离，也一定大于当前距离
+			if (distance != Integer.MAX_VALUE) {
+				return distance;
+			}
+		}
+		return Integer.MAX_VALUE;
+	}
+
+	private int deleteDistance(String s1, String s2) {
+		int N = s1.length();
+		int M = s2.length();
+		int[][] dp = new int[N+1][M+1];
+		// 初始化dp边界
+		for (int i = 0; i < N+1; i++) {
+			dp[i][0] = i;
+		}
+		for (int i = 0; i < N+1; i++) {
+			for (int j = i+1; j < M+1; j++) {
+				dp[i][j] = Integer.MAX_VALUE;
+			}
+		}
+		// 根据dp方程填表
+		for (int i = 1; i < N+1; i++) {
+			for (int j = 1; j < Math.min(M+1, i+1); j++) {
+				if (s1.charAt(i-1) == s2.charAt(j-1)) {
+					int t = dp[i-1][j] == Integer.MAX_VALUE ? Integer.MAX_VALUE : dp[i-1][j]+1;
+					dp[i][j] = Math.min(dp[i-1][j-1], t);
+				} else {
+					dp[i][j] = dp[i-1][j] == Integer.MAX_VALUE ? Integer.MAX_VALUE : dp[i-1][j]+1;
+				}
+			}
+		}
+//        for (int i = 0; i < N+1; i++) {
+//            for (int j = 0; j < M+1; j++) {
+//                System.out.print(dp[i][j] + "\t");
+//            }
+//            System.out.println();
+//        }
+		return dp[N][M];
+	}
+
 	// 来自学生的做法，时间复杂度O(N * M平方)
 	// 复杂度和方法三一样，但是思路截然不同
 	public static int minCost4(String s1, String s2) {
