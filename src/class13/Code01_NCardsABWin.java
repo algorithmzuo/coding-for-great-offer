@@ -146,8 +146,8 @@ public class Code01_NCardsABWin {
 			a = (int) (Math.random() * maxM);
 			b = (int) (Math.random() * maxM);
 			double ans2 = Double.valueOf(df.format(f2(N, a, b)));
-			double ans3 = Double.valueOf(df.format(f2(N, a, b)));
-			double ans4 = Double.valueOf(df.format(f2(N, a, b)));
+			double ans3 = Double.valueOf(df.format(f3(N, a, b)));
+			double ans4 = Double.valueOf(df.format(f4(N, a, b)));
 			if (ans2 != ans3 || ans2 != ans4) {
 				System.out.println("Oops!");
 				System.out.println(N + " , " + a + " , " + b);
