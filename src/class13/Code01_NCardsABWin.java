@@ -140,11 +140,11 @@ public class Code01_NCardsABWin {
 		System.out.println("比对double类型答案可能会有精度对不准的问题");
 		System.out.println("所以答案一律只保留小数点后四位进行比对");
 		System.out.println("如果没有错误提示, 说明验证通过");
+		DecimalFormat df = new DecimalFormat("#.####");
 		for (int i = 0; i < testTime; i++) {
 			N = (int) (Math.random() * maxN);
 			a = (int) (Math.random() * maxM);
 			b = (int) (Math.random() * maxM);
-			DecimalFormat df = new DecimalFormat("#.####");
 			Double.valueOf(df.format(f2(N, a, b)));
 			double ans2 = Double.valueOf(df.format(f2(N, a, b)));
 			double ans3 = Double.valueOf(df.format(f2(N, a, b)));
