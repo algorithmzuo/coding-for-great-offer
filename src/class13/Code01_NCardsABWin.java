@@ -145,7 +145,6 @@ public class Code01_NCardsABWin {
 			N = (int) (Math.random() * maxN);
 			a = (int) (Math.random() * maxM);
 			b = (int) (Math.random() * maxM);
-			Double.valueOf(df.format(f2(N, a, b)));
 			double ans2 = Double.valueOf(df.format(f2(N, a, b)));
 			double ans3 = Double.valueOf(df.format(f2(N, a, b)));
 			double ans4 = Double.valueOf(df.format(f2(N, a, b)));
