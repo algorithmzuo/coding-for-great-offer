@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 
+// 这个包的jar，你需要自己下载一下，导入到项目中
 import javax.xml.bind.DatatypeConverter;
 
 public class Hash {
