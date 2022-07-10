@@ -18,9 +18,6 @@ public class Problem_0630_CourseScheduleIII {
 				heap.add(c[0]);
 				time += c[0];
 			} else { // 当前时间 + 花费 > 截止时间的, 只有淘汰掉某课，当前的课才能进来！
-				// 
-				
-				
 				if (!heap.isEmpty() && heap.peek() > c[0]) {
 //					time -= heap.poll();
 //					heap.add(c[0]);
