@@ -22,8 +22,8 @@ public class Problem_0875_KokoEatingBananas {
 		return ans;
 	}
 
-	public static int hours(int[] piles, int speed) {
-		int ans = 0;
+	public static long hours(int[] piles, int speed) {
+		long ans = 0;
 		int offset = speed - 1;
 		for (int pile : piles) {
 			ans += (pile + offset) / speed;
