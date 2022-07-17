@@ -11,17 +11,17 @@ public class Problem_0437_PathSumIII {
 	}
 
 	public static int pathSum(TreeNode root, int sum) {
-		HashMap<Integer, Integer> preSumMap = new HashMap<>();
-		preSumMap.put(0, 1);
+		HashMap<Long, Integer> preSumMap = new HashMap<>();
+		preSumMap.put(0L, 1);
 		return process(root, sum, 0, preSumMap);
 	}
 
 	// 返回方法数
-	public static int process(TreeNode x, int sum, int preAll, HashMap<Integer, Integer> preSumMap) {
+	public static int process(TreeNode x, int sum, long preAll, HashMap<Long, Integer> preSumMap) {
 		if (x == null) {
 			return 0;
 		}
-		int all = preAll + x.val;
+		long all = preAll + x.val;
 		int ans = 0;
 		if (preSumMap.containsKey(all - sum)) {
 			ans = preSumMap.get(all - sum);
