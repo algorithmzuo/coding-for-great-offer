@@ -76,7 +76,8 @@ public class Code04_WordLadderII {
 	// cur 当前来到的字符串 可变
 	// to 目标，固定参数
 	// nexts 每一个字符串的邻居表
-	// cur 到开头距离5 -> 到开头距离是6的支路 distances距离表
+	// cur 到开头距离5 -> 到开头距离是6的支路 fromDistances距离表
+	// cur 到结尾距离5 -> 到开头距离是4的支路 toDistances距离表
 	// path : 来到cur之前，深度优先遍历之前的历史是什么
 	// res : 当遇到cur，把历史，放入res，作为一个结果
 	public static void getShortestPaths(String cur, String to, HashMap<String, List<String>> nexts,
