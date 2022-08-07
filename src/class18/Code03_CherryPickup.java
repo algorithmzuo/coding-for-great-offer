@@ -2,26 +2,37 @@ package class18;
 
 // 牛客的测试链接：
 // https://www.nowcoder.com/questionTerminal/8ecfe02124674e908b2aae65aad4efdf
+// 请同学们务必参考如下代码中关于输入、输出的处理
+// 这是输入输出处理效率很高的写法
 // 把如下的全部代码拷贝进java编辑器
 // 把文件大类名字改成Main，可以直接通过
-
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.StreamTokenizer;
 
 public class Code03_CherryPickup {
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int N = sc.nextInt();
-		int M = sc.nextInt();
-		int[][] matrix = new int[N][M];
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < M; j++) {
-				matrix[i][j] = sc.nextInt();
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StreamTokenizer in = new StreamTokenizer(br);
+		PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+		while (in.nextToken() != StreamTokenizer.TT_EOF) {
+			int N = (int) in.nval;
+			in.nextToken();
+			int M = (int) in.nval;
+			int[][] matrix = new int[N][M];
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < M; j++) {
+					in.nextToken();
+					matrix[i][j] = (int) in.nval;
+				}
 			}
+			out.println(cherryPickup(matrix));
+			out.flush();
 		}
-		int ans = cherryPickup(matrix);
-		System.out.println(ans);
-		sc.close();
 	}
 
 	public static int cherryPickup(int[][] grid) {

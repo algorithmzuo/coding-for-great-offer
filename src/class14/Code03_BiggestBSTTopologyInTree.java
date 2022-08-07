@@ -1,28 +1,43 @@
 package class14;
 
 // 本题测试链接 : https://www.nowcoder.com/practice/e13bceaca5b14860b83cbcc4912c5d4a
+// 请同学们务必参考如下代码中关于输入、输出的处理
+// 这是输入输出处理效率很高的写法
 // 提交以下的代码，并把主类名改成Main
 // 可以直接通过
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.StreamTokenizer;
 
 public class Code03_BiggestBSTTopologyInTree {
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int n = sc.nextInt();
-		int h = sc.nextInt();
-		int[][] tree = new int[n + 1][3];
-		for (int i = 1; i <= n; i++) {
-			int c = sc.nextInt();
-			int l = sc.nextInt();
-			int r = sc.nextInt();
-			tree[l][0] = c;
-			tree[r][0] = c;
-			tree[c][1] = l;
-			tree[c][2] = r;
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StreamTokenizer in = new StreamTokenizer(br);
+		PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+		while (in.nextToken() != StreamTokenizer.TT_EOF) {
+			int n = (int) in.nval;
+			in.nextToken();
+			int h = (int) in.nval;
+			int[][] tree = new int[n + 1][3];
+			for (int i = 1; i <= n; i++) {
+				in.nextToken();
+				int c = (int) in.nval;
+				in.nextToken();
+				int l = (int) in.nval;
+				in.nextToken();
+				int r = (int) in.nval;
+				tree[l][0] = c;
+				tree[r][0] = c;
+				tree[c][1] = l;
+				tree[c][2] = r;
+			}
+			out.println(maxBSTTopology(h, tree, new int[n + 1]));
+			out.flush();
 		}
-		System.out.println(maxBSTTopology(h, tree, new int[n + 1]));
-		sc.close();
 	}
 
 	// h: 代表当前的头节点

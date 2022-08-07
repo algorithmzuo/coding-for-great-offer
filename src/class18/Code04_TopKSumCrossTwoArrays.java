@@ -4,32 +4,45 @@ package class18;
 // https://www.nowcoder.com/practice/7201cacf73e7495aa5f88b223bbbf6d1
 // 不要提交包信息，把import底下的类名改成Main，提交下面的代码可以直接通过
 // 因为测试平台会卡空间，所以把set换成了动态加和减的结构
-
-import java.util.Scanner;
+// 请同学们务必参考如下代码中关于输入、输出的处理
+// 这是输入输出处理效率很高的写法
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.StreamTokenizer;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 
 public class Code04_TopKSumCrossTwoArrays {
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int N = sc.nextInt();
-		int K = sc.nextInt();
-		int[] arr1 = new int[N];
-		int[] arr2 = new int[N];
-		for (int i = 0; i < N; i++) {
-			arr1[i] = sc.nextInt();
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StreamTokenizer in = new StreamTokenizer(br);
+		PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+		while (in.nextToken() != StreamTokenizer.TT_EOF) {
+			int N = (int) in.nval;
+			in.nextToken();
+			int K = (int) in.nval;
+			int[] arr1 = new int[N];
+			int[] arr2 = new int[N];
+			for (int i = 0; i < N; i++) {
+				in.nextToken();
+				arr1[i] = (int) in.nval;
+			}
+			for (int i = 0; i < N; i++) {
+				in.nextToken();
+				arr2[i] = (int) in.nval;
+			}
+			int[] topK = topKSum(arr1, arr2, K);
+			for (int i = 0; i < K; i++) {
+				out.print(topK[i] + " ");
+			}
+			out.println();
+			out.flush();
 		}
-		for (int i = 0; i < N; i++) {
-			arr2[i] = sc.nextInt();
-		}
-		int[] topK = topKSum(arr1, arr2, K);
-		for (int i = 0; i < K; i++) {
-			System.out.print(topK[i] + " ");
-		}
-		System.out.println();
-		sc.close();
 	}
 
 	// 放入大根堆中的结构
