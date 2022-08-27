@@ -76,31 +76,27 @@ public class Code04_TopKSumCrossTwoArrays {
 		int[] res = new int[topK];
 		int resIndex = 0;
 		PriorityQueue<Node> maxHeap = new PriorityQueue<>(new MaxHeapComp());
-		HashSet<Long> set = new HashSet<>();
+		HashSet<String> set = new HashSet<>();
 		int i1 = N - 1;
 		int i2 = M - 1;
 		maxHeap.add(new Node(i1, i2, arr1[i1] + arr2[i2]));
-		set.add(x(i1, i2, M));
+		set.add(i1 + "_" + i2);
 		while (resIndex != topK) {
 			Node curNode = maxHeap.poll();
 			res[resIndex++] = curNode.sum;
 			i1 = curNode.index1;
 			i2 = curNode.index2;
-			set.remove(x(i1, i2, M));
-			if (i1 - 1 >= 0 && !set.contains(x(i1 - 1, i2, M))) {
-				set.add(x(i1 - 1, i2, M));
+			set.remove(i1 + "_" + i2);
+			if (i1 - 1 >= 0 && !set.contains((i1 - 1) + "_" + i2)) {
+				set.add((i1 - 1) + "_" + i2);
 				maxHeap.add(new Node(i1 - 1, i2, arr1[i1 - 1] + arr2[i2]));
 			}
-			if (i2 - 1 >= 0 && !set.contains(x(i1, i2 - 1, M))) {
-				set.add(x(i1, i2 - 1, M));
+			if (i2 - 1 >= 0 && !set.contains(i1 + "_" + (i2 - 1))) {
+				set.add(i1 + "_" + (i2 - 1));
 				maxHeap.add(new Node(i1, i2 - 1, arr1[i1] + arr2[i2 - 1]));
 			}
 		}
 		return res;
-	}
-
-	public static long x(int i1, int i2, int M) {
-		return (long) i1 * (long) M + (long) i2;
 	}
 
 }
