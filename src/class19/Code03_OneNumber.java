@@ -24,9 +24,10 @@ public class Code03_OneNumber {
 		return res;
 	}
 
-	
-	// 1 ~ num 这个范围上，画了几道1
-	public static int solution2(int num) {
+	// 测试链接 :
+	// https://leetcode.cn/problems/1nzheng-shu-zhong-1chu-xian-de-ci-shu-lcof/
+	// 提交如下方法可以直接通过
+	public static int countDigitOne(int num) {
 		if (num < 1) {
 			return 0;
 		}
@@ -36,10 +37,10 @@ public class Code03_OneNumber {
 		if (len == 1) {
 			return 1;
 		}
-		// num  13625
+		// num 13625
 		// tmp1 10000
-		// 
-		// num  7872328738273
+		//
+		// num 7872328738273
 		// tmp1 1000000000000
 		int tmp1 = powerBaseOf10(len - 1);
 		// num最高位 num / tmp1
@@ -51,7 +52,7 @@ public class Code03_OneNumber {
 		// 最高位1 10(k-2次方) * (k-1) * 1
 		// 最高位first 10(k-2次方) * (k-1) * first
 		int otherOneNum = first * (len - 1) * (tmp1 / 10);
-		return firstOneNum + otherOneNum + solution2(num % tmp1);
+		return firstOneNum + otherOneNum + countDigitOne(num % tmp1);
 	}
 
 	public static int getLenOfNum(int num) {
@@ -75,7 +76,7 @@ public class Code03_OneNumber {
 		System.out.println("cost time: " + (end1 - start1) + " ms");
 
 		long start2 = System.currentTimeMillis();
-		System.out.println(solution2(num));
+		System.out.println(countDigitOne(num));
 		long end2 = System.currentTimeMillis();
 		System.out.println("cost time: " + (end2 - start2) + " ms");
 
