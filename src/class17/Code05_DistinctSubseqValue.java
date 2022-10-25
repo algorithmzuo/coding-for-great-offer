@@ -9,16 +9,17 @@ public class Code05_DistinctSubseqValue {
 		if (s == null || s.length() == 0) {
 			return 0;
 		}
-		int m = 1000000007;
+		long m = 1000000007;
 		char[] str = s.toCharArray();
-		int[] count = new int[26];
-		int all = 1; // 算空集
+		long[] count = new long[26];
+		long all = 1; // 算空集
 		for (char x : str) {
-			int add = (all - count[x - 'a'] + m) % m;
+			long add = (all - count[x - 'a'] + m) % m;
 			all = (all + add) % m;
 			count[x - 'a'] = (count[x - 'a'] + add) % m;
 		}
-		return all - 1;
+		all = (all - 1 + m) % m;
+		return (int) all;
 	}
 
 	public static int zuo(String s) {
