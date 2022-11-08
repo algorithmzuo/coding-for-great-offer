@@ -15,7 +15,7 @@ public class Problem_0411_MinimumUniqueWordAbbreviation {
 			if ((fix & (1 << i)) != 0) {
 				ans++;
 				if (cnt != 0) {
-					ans += (cnt > 9 ? 2 : 1) - cnt;
+					ans += 1;
 				}
 				cnt = 0;
 			} else {
@@ -23,13 +23,13 @@ public class Problem_0411_MinimumUniqueWordAbbreviation {
 			}
 		}
 		if (cnt != 0) {
-			ans += (cnt > 9 ? 2 : 1) - cnt;
+			ans += 1;
 		}
 		return ans;
 	}
 
 	// 原始的字典，被改了
-	// target : abc  字典中的词 : bbb   ->  101 -> int -> 
+	// target : abc 字典中的词 : bbb -> 101 -> int ->
 	// fix -> int -> 根本不用值，用状态 -> 每一位保留还是不保留的决定
 	public static boolean canFix(int[] words, int fix) {
 		for (int word : words) {
