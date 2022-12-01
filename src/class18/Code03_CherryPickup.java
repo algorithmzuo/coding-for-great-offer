@@ -35,6 +35,8 @@ public class Code03_CherryPickup {
 		}
 	}
 
+	// 如下方法，在leetcode上提交也能通过
+	// 测试链接 : https://leetcode.cn/problems/cherry-pickup/
 	public static int cherryPickup(int[][] grid) {
 		int N = grid.length;
 		int M = grid[0].length;
