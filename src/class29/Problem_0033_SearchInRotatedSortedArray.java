@@ -1,5 +1,13 @@
 package class29;
 
+// 本题原本的设定是给定的有序数组中没有重复的数字
+// 但是在课上讲的时候，我们按照可以有重复数字来讲的
+// 而这正是Leetcode 81题的设定
+// 也就是说，这个版本是可以通过Leetcode 33、Leetcode 81两个题目的
+// 而且都是最优解
+// Leetcode 33 : https://leetcode.cn/problems/search-in-rotated-sorted-array
+// Leetcode 81 : https://leetcode.cn/problems/search-in-rotated-sorted-array-ii
+// 注意在提交leetcode 81题时，请把code中返回下标的地方，改成返回boolean类型的返回值
 public class Problem_0033_SearchInRotatedSortedArray {
 
 	// arr，原本是有序数组，旋转过，而且左部分长度不知道
