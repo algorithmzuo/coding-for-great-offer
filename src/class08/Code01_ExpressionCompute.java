@@ -14,7 +14,7 @@ public class Code01_ExpressionCompute {
 	// 0) 负责的这一段的结果是多少
 	// 1) 负责的这一段计算到了哪个位置
 	public static int[] f(char[] str, int i) {
-		LinkedList<String> que = new LinkedList<String>();
+		LinkedList<String> queue = new LinkedList<String>();
 		int cur = 0;
 		int[] bra = null;
 		// 从i出发，开始撸串
@@ -22,8 +22,7 @@ public class Code01_ExpressionCompute {
 			if (str[i] >= '0' && str[i] <= '9') {
 				cur = cur * 10 + str[i++] - '0';
 			} else if (str[i] != '(') { // 遇到的是运算符号
-				addNum(que, cur);
-				que.addLast(String.valueOf(str[i++]));
+				addNum(queue, cur, str[i++]);
 				cur = 0;
 			} else { // 遇到左括号了
 				bra = f(str, i + 1);
@@ -31,41 +30,28 @@ public class Code01_ExpressionCompute {
 				i = bra[1] + 1;
 			}
 		}
-		addNum(que, cur);
-		return new int[] { getNum(que), i };
+		addNum(queue, cur, '+');
+		return new int[] { getAns(queue), i };
 	}
 
-	public static void addNum(LinkedList<String> que, int num) {
-		if (!que.isEmpty()) {
-			int cur = 0;
-			String top = que.pollLast();
-			if (top.equals("+") || top.equals("-")) {
-				que.addLast(top);
-			} else {
-				cur = Integer.valueOf(que.pollLast());
-				num = top.equals("*") ? (cur * num) : (cur / num);
-			}
+	public static void addNum(LinkedList<String> queue, int num, char op) {
+		if (!queue.isEmpty() && (queue.peekLast().equals("*") || queue.peekLast().equals("/"))) {
+			String top = queue.pollLast();
+			int pre = Integer.valueOf(queue.pollLast());
+			num = top.equals("*") ? (pre * num) : (pre / num);
 		}
-		que.addLast(String.valueOf(num));
+		queue.addLast(String.valueOf(num));
+		queue.addLast(String.valueOf(op));
 	}
 
-	public static int getNum(LinkedList<String> que) {
-		int res = 0;
-		boolean add = true;
-		String cur = null;
-		int num = 0;
-		while (!que.isEmpty()) {
-			cur = que.pollFirst();
-			if (cur.equals("+")) {
-				add = true;
-			} else if (cur.equals("-")) {
-				add = false;
-			} else {
-				num = Integer.valueOf(cur);
-				res += add ? num : (-num);
-			}
+	public static int getAns(LinkedList<String> queue) {
+		int ans = Integer.valueOf(queue.pollFirst());
+		while (queue.size() > 1) {
+			String op = queue.pollFirst();
+			int num = Integer.valueOf(queue.pollFirst());
+			ans += op.equals("+") ? num : -num;
 		}
-		return res;
+		return ans;
 	}
 
 }
