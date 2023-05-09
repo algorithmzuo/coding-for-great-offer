@@ -39,8 +39,13 @@ public class Code03_MaxGap {
 		return res;
 	}
 
-	public static int bucket(long num, long len, long min, long max) {
-		return (int) ((num - min) * len / (max - min));
+	public static int bucket(int num, int len, int min, int max) {
+		// 一个桶的范围
+		double range = (double) (max - min) / (double) len;
+		// num和min之间的距离
+		double distance = (double) (num - min);
+		// 返回桶的编号，向下取整
+		return (int) (distance / range);
 	}
 
 }
