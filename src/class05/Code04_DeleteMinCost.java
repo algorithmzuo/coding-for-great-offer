@@ -192,12 +192,12 @@ public class Code04_DeleteMinCost {
 		char[] c1 = s1.toCharArray();
 		char[] c2 = s2.toCharArray();
 		// dp[i][j] 的含义 :
-		// s2中前缀i长度的字符串，至少删除多少个字符可以变成 s1中前缀j长度的 后缀串
+		// s2中前缀i长度的字符串，至少删除多少个字符可以变成 s1中前缀j长度字符串的 后缀串
 		int[][] dp = new int[c2.length + 1][c1.length + 1];
-		// s2前缀0长度，删掉0个字符，可以变成s1前缀任意长度的 后缀串
+		// s2前缀0长度，删掉0个字符，可以变成s1前缀任意长度字符串的 后缀串
 		// 所以dp[0][....] = 0，所以省略了
 		for (int i = 1; i <= c2.length; i++) {
-			// s2前缀i长度，需要都删掉，可以变成s1前缀0长度的 后缀串
+			// s2前缀i长度，需要都删掉，可以变成s1前缀0长度字符串的 后缀串
 			dp[i][0] = i;
 			for (int j = 1; j <= c1.length; j++) {
 				if (c2[i - 1] == c1[j - 1]) {
