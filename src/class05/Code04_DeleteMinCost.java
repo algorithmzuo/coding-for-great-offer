@@ -2,9 +2,14 @@ package class05;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 
+// 直接看minCostX方法是最优解，时间复杂度O(N*M)
+// 这是来自陆振星同学提供的最优解
+// 比课上讲的解还要好！
+// 而且是时间复杂度O(N*M)的方法
+// 强烈推荐同学们看懂，有解释也不难看懂
+// 链接 : https://www.mashibing.com/question/detail/68090
 public class Code04_DeleteMinCost {
 
 	// 题目：
@@ -177,41 +182,54 @@ public class Code04_DeleteMinCost {
 		return ans;
 	}
 
-	// 来自学生的做法，时间复杂度O(N * M平方)
-	// 复杂度和方法三一样，但是思路截然不同
-	public static int minCost4(String s1, String s2) {
-		char[] str1 = s1.toCharArray();
-		char[] str2 = s2.toCharArray();
-		HashMap<Character, ArrayList<Integer>> map1 = new HashMap<>();
-		for (int i = 0; i < str1.length; i++) {
-			ArrayList<Integer> list = map1.getOrDefault(str1[i], new ArrayList<Integer>());
-			list.add(i);
-			map1.put(str1[i], list);
-		}
-		int ans = 0;
-		// 假设删除后的str2必以i位置开头
-		// 那么查找i位置在str1上一共有几个，并对str1上的每个位置开始遍历
-		// 再次遍历str2一次，看存在对应str1中i后续连续子串可容纳的最长长度
-		for (int i = 0; i < str2.length; i++) {
-			if (map1.containsKey(str2[i])) {
-				ArrayList<Integer> keyList = map1.get(str2[i]);
-				for (int j = 0; j < keyList.size(); j++) {
-					int cur1 = keyList.get(j) + 1;
-					int cur2 = i + 1;
-					int count = 1;
-					for (int k = cur2; k < str2.length && cur1 < str1.length; k++) {
-						if (str2[k] == str1[cur1]) {
-							cur1++;
-							count++;
-						}
-					}
-					ans = Math.max(ans, count);
+	// 来自学生的解，最优解
+	// 比课上讲的解还要好！
+	// 这是时间复杂度O(N*M)的方法
+	// 强烈推荐同学们看懂，有解释也不难看懂
+	// 感谢陆振星同学提供的方法
+	// 链接 : https://www.mashibing.com/question/detail/68090
+	public static int minCostX(String s1, String s2) {
+		char[] c1 = s1.toCharArray();
+		char[] c2 = s2.toCharArray();
+		// dp[i][j] 的含义 :
+		// s2中前缀i长度的字符串，至少删除多少个字符可以变成 s1中前缀j长度的 后缀串
+		int[][] dp = new int[c2.length + 1][c1.length + 1];
+		// s2前缀0长度，删掉0个字符，可以变成s1前缀任意长度的 后缀串
+		// 所以dp[0][....] = 0，所以省略了
+		for (int i = 1; i <= c2.length; i++) {
+			// s2前缀i长度，需要都删掉，可以变成s1前缀0长度的 后缀串
+			dp[i][0] = i;
+			for (int j = 1; j <= c1.length; j++) {
+				if (c2[i - 1] == c1[j - 1]) {
+					// 如果 c2[i-1] == c1[j-1]
+					// 可能性1 要么 c2[i-1] 和 c1[j-1] 进行匹配
+					// 问题回到 dp[i-1][j-1]
+					// 可能性2 要么 c2[i-1] 和 c1[j-1] 不进行匹配
+					// s2[0...i] 依然删除 s2[i] 问题回到 dp[i-1][j] + 1
+					// dp[i][j] = Math.min(dp[i-1][j-1], dp[i-1][j] + 1);
+					// 实际上
+					// 只需要考虑可能性1
+					// 例
+					// abc 去匹配 abc.....c
+					// 删掉 .....c 和 删掉 c..... 是一个意思
+					dp[i][j] = dp[i - 1][j - 1];
+				} else {
+					// 如果 c2[i-1] != c1[j-1]
+					// c2[i-1] 和 c1[j-1] 不进行匹配
+					// s2[0...i] 删除 s2[i] 问题回到 dp[i-1][j] + 1
+					dp[i][j] = dp[i - 1][j] + 1;
 				}
 			}
 		}
-		return s2.length() - ans;
+		// 返回最后一行的最小值即可
+		int ans = dp[c2.length][0];
+		for (int j = 1; j <= c1.length; j++) {
+			ans = Math.min(ans, dp[c2.length][j]);
+		}
+		return ans;
 	}
 
+	// 为了测试
 	public static String generateRandomString(int l, int v) {
 		int len = (int) (Math.random() * l);
 		char[] str = new char[len];
@@ -221,38 +239,29 @@ public class Code04_DeleteMinCost {
 		return String.valueOf(str);
 	}
 
+	// 为了测试
 	public static void main(String[] args) {
-
-		char[] x = { 'a', 'b', 'c', 'd' };
-		char[] y = { 'a', 'd' };
-
-		System.out.println(onlyDelete(x, y));
-
-		int str1Len = 20;
-		int str2Len = 10;
+		int str1Len = 200;
+		int str2Len = 100;
 		int v = 5;
 		int testTime = 10000;
-		boolean pass = true;
-		System.out.println("test begin");
+		System.out.println("测试开始");
 		for (int i = 0; i < testTime; i++) {
 			String str1 = generateRandomString(str1Len, v);
 			String str2 = generateRandomString(str2Len, v);
-			int ans1 = minCost1(str1, str2);
-			int ans2 = minCost2(str1, str2);
 			int ans3 = minCost3(str1, str2);
-			int ans4 = minCost4(str1, str2);
-			if (ans1 != ans2 || ans3 != ans4 || ans1 != ans3) {
-				pass = false;
+			// 同学提供的解法，最优解
+			int ansX = minCostX(str1, str2);
+			if (ans3 != ansX) {
+				System.out.println("出错了!");
 				System.out.println(str1);
 				System.out.println(str2);
-				System.out.println(ans1);
-				System.out.println(ans2);
 				System.out.println(ans3);
-				System.out.println(ans4);
+				System.out.println(ansX);
 				break;
 			}
 		}
-		System.out.println("test pass : " + pass);
+		System.out.println("测试结束");
 	}
 
 }
