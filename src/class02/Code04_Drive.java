@@ -81,6 +81,26 @@ public class Code04_Drive {
 		return sum;
 	}
 
+	// 找到了leetcode上的测试
+	// leetcode上让求最小，课上讲的求最大
+	// 其实是一个意思
+	// 测试链接 : https://leetcode.cn/problems/two-city-scheduling/
+	public static int twoCitySchedCost(int[][] costs) {
+		int N = costs.length;
+		int[] arr = new int[N];
+		int sum = 0;
+		for (int i = 0; i < N; i++) {
+			arr[i] = costs[i][1] - costs[i][0];
+			sum += costs[i][0];
+		}
+		Arrays.sort(arr);
+		int M = N >> 1;
+		for (int i = 0; i < M; i++) {
+			sum += arr[i];
+		}
+		return sum;
+	}
+
 	// 返回随机len*2大小的正数矩阵
 	// 值在0~value-1之间
 	public static int[][] randomMatrix(int len, int value) {
