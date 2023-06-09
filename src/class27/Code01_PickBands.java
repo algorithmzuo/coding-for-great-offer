@@ -1,6 +1,7 @@
 package class27;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class Code01_PickBands {
 
@@ -141,6 +142,72 @@ public class Code01_PickBands {
 //		}
 //	}
 
+	// 同学提供的解，很不错
+	// 不做要求
+	public static HashMap<Integer, Integer> cache = new HashMap<>();
+
+	public static int minCost2(int[][] programs, int nums) {
+		// 调整成 programs[i][0] < programs[i][1]
+		for (int i = 0; i < programs.length; i++) {
+			if (programs[i][0] > programs[i][1]) {
+				int t = programs[i][0];
+				programs[i][0] = programs[i][1];
+				programs[i][1] = t;
+			}
+		}
+		// 排序
+		Arrays.sort(programs,
+				((o1, o2) -> o1[0] - o2[0] != 0 ? o1[0] - o2[0] : o1[1] - o2[1] != 0 ? o1[1] - o2[1] : o1[2] - o2[2]));
+		cache.clear();
+		return minCost2(programs, 0, nums, 0);
+	}
+
+	// 返回 [index, 最后], 选择 nums 次, 的最小花费, 已经选择过的队记录在 status 中
+	// 如果无法满足题意, 返回 -1
+	// 看似有三个参数, 其实 nums 是可以根据 status 算出来的, 是冗余的
+	public static int minCost2(int[][] programs, int index, int nums, int status) {
+		if (nums == 0) {
+			return 0;
+		} else if (index == programs.length) {
+			return -1;
+		}
+
+		Integer key = status * programs.length + index;
+		Integer ans = cache.get(key);
+		if (ans != null) {
+			return ans;
+		} else {
+			ans = Integer.MAX_VALUE;
+		}
+
+		// 对于 [index, next-1] 范围的项目, programs[ ][0] 是一样的, 假设都为 乐队x
+		int next = index + 1;
+		while (next < programs.length && programs[index][0] == programs[next][0]) {
+			next++;
+		}
+		if ((status & (1 << programs[index][0])) != 0) {
+			return minCost2(programs, next, nums, status);
+		}
+		status |= 1 << programs[index][0];
+		for (int i = index; i < next; i++) {
+			// 一个项目的两个乐队相同, 只取最优的
+			if (i - 1 >= index && programs[i][1] == programs[i - 1][1]) {
+				continue;
+			}
+			if ((status & (1 << programs[i][1])) == 0) {
+				// 选择当前项目, 并跳到 next
+				int t = minCost2(programs, next, nums - 1, status | 1 << programs[i][1]);
+				if (t != -1) {
+					ans = Math.min(ans, t + programs[i][2]);
+				}
+			}
+		}
+		// 算到这里, 如果 ans == Integer.MAX_VALUE, 由于后续过程 乐队x 不会再出现, 返回-1
+		ans = ans == Integer.MAX_VALUE ? -1 : ans;
+		cache.put(key, ans);
+		return ans;
+	}
+
 	// 为了测试
 	public static int right(int[][] programs, int nums) {
 		min = Integer.MAX_VALUE;
@@ -183,6 +250,18 @@ public class Code01_PickBands {
 	}
 
 	// 为了测试
+	public static int[][] copyPrograms(int[][] programs) {
+		int n = programs.length;
+		int[][] ans = new int[n][3];
+		for (int i = 0; i < n; i++) {
+			ans[i][0] = programs[i][0];
+			ans[i][1] = programs[i][1];
+			ans[i][2] = programs[i][2];
+		}
+		return ans;
+	}
+
+	// 为了测试
 	public static void main(String[] args) {
 		int N = 4;
 		int V = 100;
@@ -190,10 +269,13 @@ public class Code01_PickBands {
 		System.out.println("测试开始");
 		for (int i = 0; i < T; i++) {
 			int nums = (int) (Math.random() * N) + 1;
-			int[][] programs = randomPrograms(nums, V);
-			int ans1 = right(programs, nums);
-			int ans2 = minCost(programs, nums);
-			if (ans1 != ans2) {
+			int[][] programs1 = randomPrograms(nums, V);
+			int[][] programs2 = copyPrograms(programs1);
+			int[][] programs3 = copyPrograms(programs1);
+			int ans1 = right(programs1, nums);
+			int ans2 = minCost(programs2, nums);
+			int ans3 = minCost2(programs3, nums);
+			if (ans1 != ans2 || ans1 != ans3) {
 				System.out.println("Oops!");
 				break;
 			}
@@ -216,6 +298,11 @@ public class Code01_PickBands {
 		end = System.currentTimeMillis();
 		System.out.println("minCost方法，在nums=10时候的运行时间(毫秒) : " + (end - start));
 
+		programs = randomPrograms(10, V);
+		start = System.currentTimeMillis();
+		minCost2(programs, 10);
+		end = System.currentTimeMillis();
+		System.out.println("minCost2方法，在nums=10时候的运行时间(毫秒) : " + (end - start));
 	}
 
 }
