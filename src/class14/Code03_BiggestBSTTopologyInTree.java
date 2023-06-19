@@ -67,11 +67,19 @@ public class Code03_BiggestBSTTopologyInTree {
 		while (tmp < h && record[tmp] != 0) {
 			tmp = tree[tmp][2];
 		}
+		// 不用沿途修改所有节点的记录了
+		// 因为再往上遍历的节点，边界最多包括当前的头节点 + 左孩子 + 一直往左
+		// 所以只需要修改左孩子的边界即可
+		// 也就是说，从当前节点的左孩子的右孩子开始，一直往右的所有点都不会再遇到了
 		record[l] -= record[tmp];
 		tmp = r;
 		while (tmp > h && record[tmp] != 0) {
 			tmp = tree[tmp][1];
 		}
+		// 不用沿途修改所有节点的记录了
+		// 因为再往上遍历的节点，边界最多包括当前的头节点 + 右孩子 + 一直往左
+		// 所以只需要修改右孩子的边界即可
+		// 也就是说，从当前节点的右孩子的左孩子开始，一直往左的所有点都不会再遇到了
 		record[r] -= record[tmp];
 		record[h] = record[l] + record[r] + 1;
 		return Math.max(Math.max(p1, p2), record[h]);
