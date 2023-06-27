@@ -1,6 +1,7 @@
 package class17;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -77,8 +78,8 @@ public class Code03_PalindromePairs2 {
 		// 0代表""字符串
 		Integer rest = hash.get(0L);
 		if (rest != null && rest != index && word.equals(reverse)) {
-			addRecord(res, rest, index);
-			addRecord(res, index, rest);
+			res.add(Arrays.asList(rest, index));
+			res.add(Arrays.asList(index, rest));
 		}
 		if (!word.equals("")) {
 			buildHash(reverse);
@@ -88,7 +89,7 @@ public class Code03_PalindromePairs2 {
 				if (i - rs[i] == -1) {
 					rest = hash.get(hashValue(0, mid - i - 1));
 					if (rest != null && rest != index) {
-						addRecord(res, rest, index);
+						res.add(Arrays.asList(rest, index));
 					}
 				}
 			}
@@ -96,19 +97,12 @@ public class Code03_PalindromePairs2 {
 				if (i + rs[i] == rs.length) {
 					rest = hash.get(hashValue((mid << 1) - i, reverse.length() - 1));
 					if (rest != null && rest != index) {
-						addRecord(res, index, rest);
+						res.add(Arrays.asList(index, rest));
 					}
 				}
 			}
 		}
 		return res;
-	}
-
-	public static void addRecord(List<List<Integer>> res, int left, int right) {
-		List<Integer> newr = new ArrayList<>();
-		newr.add(left);
-		newr.add(right);
-		res.add(newr);
 	}
 
 	public static int[] manacherss(String word) {
