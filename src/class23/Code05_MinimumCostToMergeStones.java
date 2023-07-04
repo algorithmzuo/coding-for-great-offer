@@ -74,7 +74,7 @@ public class Code05_MinimumCostToMergeStones {
 
 	public static int mergeStones2(int[] stones, int K) {
 		int n = stones.length;
-		if ((n - 1) % (K - 1) > 0) { // n个数，到底能不能K个相邻的数合并，最终变成1个数！
+		if ((n - 1) % (K - 1) > 0) {
 			return -1;
 		}
 		int[] presum = new int[n + 1];
@@ -85,38 +85,31 @@ public class Code05_MinimumCostToMergeStones {
 		return process2(0, n - 1, 1, stones, K, presum, dp);
 	}
 
+	// 因为上游调用的时候，一定确保都是有效的调用
+	// 核心是这一句 : for (int mid = L; mid < R; mid += K - 1) { ... }
+	// 这一句保证了一定都是有效调用
+	// 所以不需要写很多边界条件的判断，因为任何调用，都一定会返回正常答案
+	// mid每次跳K-1个位置，这保证了左侧递归、右侧递归都是有效的
+	// 根本不会返回无效解的
 	public static int process2(int L, int R, int P, int[] arr, int K, int[] presum, int[][][] dp) {
 		if (dp[L][R][P] != 0) {
 			return dp[L][R][P];
 		}
 		if (L == R) {
-			return P == 1 ? 0 : -1;
+			return 0;
 		}
+		int ans = Integer.MAX_VALUE;
 		if (P == 1) {
-			int next = process2(L, R, K, arr, K, presum, dp);
-			if (next == -1) {
-				dp[L][R][P] = -1;
-				return -1;
-			} else {
-				dp[L][R][P] = next + presum[R + 1] - presum[L];
-				return next + presum[R + 1] - presum[L];
-			}
+			ans = process2(L, R, K, arr, K, presum, dp) + presum[R + 1] - presum[L];
 		} else {
-			int ans = Integer.MAX_VALUE;
-			// i...mid是第1块，剩下的是part-1块
 			for (int mid = L; mid < R; mid += K - 1) {
 				int next1 = process2(L, mid, 1, arr, K, presum, dp);
 				int next2 = process2(mid + 1, R, P - 1, arr, K, presum, dp);
-				if (next1 == -1 || next2 == -1) {
-					dp[L][R][P] = -1;
-					return -1;
-				} else {
-					ans = Math.min(ans, next1 + next2);
-				}
+				ans = Math.min(ans, next1 + next2);
 			}
-			dp[L][R][P] = ans;
-			return ans;
 		}
+		dp[L][R][P] = ans;
+		return ans;
 	}
 
 	// for test
