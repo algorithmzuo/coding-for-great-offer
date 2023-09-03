@@ -26,7 +26,7 @@ public class Code03_MaxMeetingScore {
 			int time = 0;
 			int ans = 0;
 			for (int i = 0; i < size; i++) {
-				if (time + 10 <= path[i][0]) {
+				if (time <= path[i][0]) {
 					ans += path[i][1];
 					time += 10;
 				} else {
@@ -49,7 +49,7 @@ public class Code03_MaxMeetingScore {
 		// 已经把所有会议，按照截止时间，从小到大，排序了！
 		// 截止时间一样的，谁排前谁排后，无所谓
 		for (int i = 0; i < meetings.length; i++) {
-			if (time + 10 <= meetings[i][0]) {
+			if (time <= meetings[i][0]) {
 				heap.add(meetings[i][1]);
 				time += 10;
 			} else {
